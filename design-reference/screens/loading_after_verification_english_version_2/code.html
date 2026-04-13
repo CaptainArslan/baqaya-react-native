@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya - Setting Up Your Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#410003",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "surface-container-high": "#e8e8e5",
+                    "primary": "#004f45",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#003670",
+                    "on-primary-container": "#94e5d5",
+                    "surface-container": "#eeeeeb",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f4f4f1",
+                    "secondary-fixed": "#d6e3ff",
+                    "outline": "#6e7976",
+                    "on-secondary-fixed": "#001b3d",
+                    "surface-variant": "#e2e3e0",
+                    "on-surface": "#1a1c1b",
+                    "surface-dim": "#dadad7",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#3e4946",
+                    "on-primary-fixed-variant": "#005046",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "surface-bright": "#f9f9f6",
+                    "primary-fixed": "#a0f2e1",
+                    "inverse-primary": "#84d5c5",
+                    "primary-container": "#00695c",
+                    "on-primary-fixed": "#00201b",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "secondary": "#005db7",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "background": "#f9f9f6",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-container": "#b61b1f",
+                    "on-background": "#1a1c1b",
+                    "secondary-container": "#64a1ff",
+                    "surface": "#f9f9f6",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f1ee",
+                    "primary-fixed-dim": "#84d5c5",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-highest": "#e2e3e0",
+                    "on-tertiary-container": "#ffc9c3",
+                    "surface-tint": "#046b5e",
+                    "outline-variant": "#bec9c5",
+                    "on-error": "#ffffff",
+                    "tertiary": "#90000e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-custom {
+            animation: spin-slow 2s linear infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- Top Navigation Suppression: Not rendered per the UX Goal for focused/transactional screens -->
+<main class="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
+<!-- Subtle Background Texture -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none" data-alt="soft ethereal gradient background with subtle teal and blue glows on a cream paper texture" style="background-image: radial-gradient(circle at 20% 30%, #a0f2e1 0%, transparent 40%), radial-gradient(circle at 80% 70%, #d6e3ff 0%, transparent 40%);">
+</div>
+<!-- Branding Section -->
+<div class="z-10 mb-16 flex flex-col items-center">
+<div class="w-16 h-16 bg-primary-container rounded-xl flex items-center justify-center mb-6 shadow-[0_8px_24px_rgba(0,79,69,0.15)]">
+<span class="material-symbols-outlined text-primary-fixed text-4xl" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<h1 class="font-headline font-extrabold text-3xl tracking-tight text-primary">Baqaya</h1>
+<p class="font-label text-on-surface-variant tracking-widest text-[10px] uppercase mt-1">The Resilient Ledger</p>
+</div>
+<!-- Central Loading State -->
+<div class="z-10 flex flex-col items-center justify-center w-full max-w-xs">
+<!-- Spinner Container -->
+<div class="relative w-24 h-24 mb-10 flex items-center justify-center">
+<!-- Inner Decorative Pulse -->
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-ping"></div>
+<!-- Outer Ring -->
+<svg class="w-full h-full animate-spin-custom text-primary" viewbox="0 0 100 100">
+<circle class="opacity-10" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="6"></circle>
+<path class="opacity-100" d="M 50,5 A 45,45 0 0 1 95,50" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-width="8"></path>
+</svg>
+<!-- Center Icon -->
+<div class="absolute flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="sync">sync</span>
+</div>
+</div>
+<!-- Loading Messaging -->
+<div class="text-center space-y-3">
+<p class="font-headline font-bold text-xl text-on-surface leading-tight">Preparing your Ledger...</p>
+<p class="font-body text-on-surface-variant text-sm px-4">We are securing your digital ledger. Just a moment...</p>
+</div>
+</div>
+<!-- Visual Bedrock Element -->
+<div class="absolute bottom-12 w-full max-w-md px-10 z-10">
+<div class="grid grid-cols-3 gap-2 opacity-40">
+<div class="h-1 bg-surface-variant rounded-full"></div>
+<div class="h-1 bg-primary rounded-full"></div>
+<div class="h-1 bg-surface-variant rounded-full"></div>
+</div>
+<div class="mt-6 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-[11px] font-label font-medium text-on-surface-variant uppercase tracking-wider">End-to-End Encrypted Data</span>
+</div>
+</div>
+<!-- Background Image Accent (Subtle) -->
+<div class="absolute -bottom-20 -right-20 w-64 h-64 bg-secondary-fixed/30 rounded-full blur-[80px] pointer-events-none"></div>
+</main>
+<!-- BottomNavBar Suppression: Suppressed on transactional/loading screens to maintain focus -->
+</body></html>

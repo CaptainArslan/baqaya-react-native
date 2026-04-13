@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Receive Payment - The Resilient Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#a0f2e1",
+                        "secondary": "#005db7",
+                        "primary": "#004f45",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#005046",
+                        "primary-fixed-dim": "#84d5c5",
+                        "surface-bright": "#f9f9f6",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1a1c1b",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "inverse-primary": "#84d5c5",
+                        "on-tertiary-fixed": "#410003",
+                        "inverse-surface": "#2f312f",
+                        "primary-container": "#00695c",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e2e3e0",
+                        "error": "#ba1a1a",
+                        "background": "#f9f9f6",
+                        "surface-dim": "#dadad7",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-container": "#eeeeeb",
+                        "on-secondary-container": "#003670",
+                        "secondary-container": "#64a1ff",
+                        "outline-variant": "#bec9c5",
+                        "on-surface-variant": "#3e4946",
+                        "error-container": "#ffdad6",
+                        "outline": "#6e7976",
+                        "surface": "#f9f9f6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00201b",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-variant": "#e2e3e0",
+                        "on-tertiary-container": "#ffc9c3",
+                        "on-primary-container": "#94e5d5",
+                        "tertiary-container": "#b61b1f",
+                        "inverse-on-surface": "#f1f1ee",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "tertiary": "#90000e",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary-fixed": "#001b3d",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "surface-tint": "#046b5e",
+                        "surface-container-high": "#e8e8e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f6;
+            color: #1a1c1b;
+        }
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9f6]/85 backdrop-blur-md shadow-none transition-all duration-200 active:opacity-70">
+<div class="flex justify-between items-center px-4 h-16 w-full max-w-md mx-auto">
+<div class="flex items-center gap-3">
+<button class="text-[#004f45] p-2 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45]">Receive Payment / Wasool Karein</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img alt="Merchant Profile" class="w-full h-full object-cover" data-alt="professional headshot of a friendly south asian shop owner in a clean shirt with warm soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZuhQzgklelW9Oud2Qy_osNYk8kGsay86fXYAYVpWXMdbOy7abf59Xh3DhjQYYP0NwLgcPnE_bvQDNEVbQRMW2MhYzK2ToHeNqCzHi83qE9pvrnfrYscS1AS1OuK1TyTNObSwdheyYu3vhnwLEAI2DYZweyYuOsh-QWSXIHEvtiWHegeUACI4C_tWYX-CH2ifws2CO0WPsiM7IiWUenw802ZtXwHxZkHbrGWxZAwDWc2nopylInP-Dyud44KOrp2ZbnH5W3yBFxtGp"/>
+</div>
+</div>
+</header>
+<main class="pt-20 px-4 max-w-md mx-auto space-y-4">
+<!-- Transaction Type Toggle (Updated to Tabbed Navigation) -->
+<div class="flex bg-surface-container-low rounded-xl p-1">
+<button class="flex-1 py-3 px-4 rounded-lg text-on-surface-variant font-medium flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_downward">arrow_downward</span>
+                Gave / Diye
+            </button>
+<button class="flex-1 py-3 px-4 rounded-lg bg-surface-container-lowest text-primary font-bold shadow-sm flex items-center justify-center gap-2"><span class="material-symbols-outlined" data-icon="arrow_upward" style="font-variation-settings: 'wght' 700;">arrow_upward</span>
+                Received</button>
+</div>
+<!-- Customer Info Card -->
+<section class="bg-surface-container-lowest rounded-xl p-5 shadow-[0_-4px_16px_rgba(0,0,0,0.03)] border-l-4 border-secondary">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-on-surface-variant text-xs font-medium mb-1">CUSTOMER NAME / NAM</p>
+<h2 class="text-on-surface font-headline font-extrabold text-2xl tracking-tight">Ali House</h2>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-[10px] font-bold uppercase mb-1 tracking-wider">Balance</p>
+<span class="text-secondary font-headline font-extrabold text-xl">Rs. 24,500</span>
+</div>
+</div>
+</section>
+<!-- Amount Input Section -->
+<section class="space-y-3">
+<label class="block text-on-surface-variant text-sm font-semibold px-1 mb-2">
+                AMOUNT RECEIVED / WASOOL RAKAM
+            </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="text-on-surface-variant font-semibold text-lg">Rs.</span>
+</div>
+<input autofocus="" class="w-full bg-surface-container-low border-2 border-outline-variant focus:border-primary focus:ring-0 rounded-xl py-4 pl-14 pr-4 text-xl font-headline font-bold text-on-surface transition-all duration-200 outline-none" placeholder="0.00" type="number"/>
+</div>
+</section>
+<!-- Payment Method Selection -->
+<section class="space-y-3">
+<label class="block text-on-surface-variant text-sm font-semibold px-1">
+                PAYMENT METHOD / ZARIYA-E-ADAYEGI
+            </label>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-xl bg-primary text-on-primary shadow-lg scale-100 active:scale-95 transition-all">
+<span class="material-symbols-outlined mb-2 text-2xl" data-icon="payments">payments</span>
+<span class="text-xs font-bold font-label uppercase">Cash</span>
+<span class="text-[10px] opacity-80">Naqad</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-lowest text-on-surface-variant border-2 border-surface-container-high hover:border-primary/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined mb-2 text-2xl" data-icon="account_balance">account_balance</span>
+<span class="text-xs font-bold font-label uppercase">Bank</span>
+<span class="text-[10px] opacity-80">Bank Se</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-lowest text-on-surface-variant border-2 border-surface-container-high hover:border-primary/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined mb-2 text-2xl" data-icon="devices">devices</span>
+<span class="text-xs font-bold font-label uppercase">Online</span>
+<span class="text-[10px] opacity-80">Digital</span>
+</button>
+</div>
+</section>
+<!-- Notes Section -->
+<section class="space-y-3">
+<label class="block text-on-surface-variant text-sm font-semibold px-1">
+                ADD NOTE / TAFSEEL (OPTIONAL)
+            </label>
+<textarea class="w-full bg-surface-container-high border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl p-4 text-on-surface font-body resize-none transition-all" placeholder="Write any details here..." rows="2"></textarea>
+</section>
+<!-- Summary Live Preview -->
+<section class="bg-surface-container-low rounded-xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="calculate">calculate</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">New Balance / Naya Baqi</p>
+<p class="text-sm font-body text-on-surface">Updated ledger amount</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xl font-headline font-extrabold text-on-surface">Rs. 24,500</span>
+</div>
+</section>
+</main>
+<!-- Fixed Action Bottom Area -->
+<!-- Success Toast -->
+<div class="fixed bottom-24 left-4 right-4 z-[60] max-w-md mx-auto">
+<div class="bg-zinc-900 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center justify-between animate-bounce-short">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-400 font-bold" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-medium">Payment recorded successfully</span>
+</div>
+<button class="text-primary-fixed-dim text-xs font-bold tracking-widest uppercase px-2 py-1 hover:bg-white/10 rounded transition-colors">
+      UNDO
+    </button>
+</div>
+</div><div class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-950 p-4 border-t border-slate-100 shadow-[0_-8px_24px_rgba(0,0,0,0.08)] z-50">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-headline font-bold text-lg rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-md py-4"><span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                SAVE PAYMENT</button>
+<p class="text-center text-[10px] text-on-surface-variant mt-3 font-medium uppercase tracking-widest">Transaction is secured &amp; encrypted</p>
+</div>
+</div>
+</body></html>

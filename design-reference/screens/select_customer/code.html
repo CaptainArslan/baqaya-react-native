@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Select Customer - Baqaya</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#64a1ff",
+                        "primary-fixed": "#a0f2e1",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#046b5e",
+                        "on-secondary-container": "#003670",
+                        "background": "#f9f9f6",
+                        "on-surface": "#1a1c1b",
+                        "inverse-on-surface": "#f1f1ee",
+                        "tertiary-container": "#b61b1f",
+                        "primary-container": "#00695c",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "surface-container-high": "#e8e8e5",
+                        "on-secondary-fixed": "#001b3d",
+                        "surface-variant": "#e2e3e0",
+                        "on-surface-variant": "#3e4946",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#90000e",
+                        "on-tertiary-container": "#ffc9c3",
+                        "inverse-surface": "#2f312f",
+                        "on-error": "#ffffff",
+                        "surface": "#f9f9f6",
+                        "on-background": "#1a1c1b",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "on-primary-container": "#94e5d5",
+                        "inverse-primary": "#84d5c5",
+                        "secondary": "#005db7",
+                        "surface-container": "#eeeeeb",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-dim": "#dadad7",
+                        "outline-variant": "#bec9c5",
+                        "primary-fixed-dim": "#84d5c5",
+                        "outline": "#6e7976",
+                        "on-tertiary-fixed": "#410003",
+                        "surface-container-highest": "#e2e3e0",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "on-primary-fixed": "#00201b",
+                        "surface-container-low": "#f4f4f1",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#005046",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f9f9f6",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "primary": "#004f45"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift-surface-container-low {
+            background-color: #f4f4f1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased min-h-screen pb-24">
+<!-- TopAppBar Shell (Fixed) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-[#f9f9f6]/85 dark:bg-[#1a1c1b]/85 backdrop-blur-md transition-all duration-200">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#f4f4f1] dark:hover:bg-[#2a2c2b] active:scale-95 transition-all text-[#004f45] dark:text-[#00695c]">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45] dark:text-[#00695c]">Select Customer</h1>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#f4f4f1] dark:hover:bg-[#2a2c2b] active:scale-95 transition-all text-[#004f45] dark:text-[#00695c]">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="mt-16 px-4">
+<!-- Search Section -->
+<section class="py-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-high border-none rounded-xl text-on-surface placeholder:text-on-surface-variant/60 focus:ring-2 focus:ring-primary transition-all duration-200" placeholder="Search name or phone number..." type="text"/>
+</div>
+</section>
+<!-- Quick Filters / Chips -->
+<section class="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-medium text-sm whitespace-nowrap shadow-sm">All Customers</button>
+<button class="px-5 py-2 rounded-full bg-surface-variant text-on-surface-variant font-medium text-sm whitespace-nowrap">Recent</button>
+<button class="px-5 py-2 rounded-full bg-surface-variant text-on-surface-variant font-medium text-sm whitespace-nowrap">Owed to me</button>
+<button class="px-5 py-2 rounded-full bg-surface-variant text-on-surface-variant font-medium text-sm whitespace-nowrap">Owed by me</button>
+</section>
+<!-- List Header -->
+<div class="flex items-center justify-between py-4">
+<h2 class="text-sm font-semibold text-on-surface-variant/80 uppercase tracking-wider">Contact List</h2>
+<button class="text-primary font-bold text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="person_add">person_add</span>
+                Add New
+            </button>
+</div>
+<!-- Customer List (No-Divider Layout) -->
+<div class="space-y-3">
+<!-- Customer Card 1 -->
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border-l-4 border-secondary hover:bg-surface-container transition-all active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4">
+<span class="text-secondary font-bold text-lg">AK</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Asif Khan</h3>
+<p class="text-on-surface-variant text-xs">+92 300 1234567</p>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-secondary font-bold text-sm">Rs. 1,200</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Balance</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-4" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Customer Card 2 (In Debt) -->
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border-l-4 border-tertiary hover:bg-surface-container transition-all active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center mr-4">
+<span class="text-tertiary font-bold text-lg">ZA</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Zeeshan Ahmed</h3>
+<p class="text-on-surface-variant text-xs">+92 312 9876543</p>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-tertiary font-bold text-sm">Rs. 4,500</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Pending</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-4" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Customer Card 3 -->
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border-l-4 border-secondary hover:bg-surface-container transition-all active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center mr-4">
+<span class="text-primary font-bold text-lg">MS</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Muhammad Salman</h3>
+<p class="text-on-surface-variant text-xs">+92 345 5551212</p>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-secondary font-bold text-sm">Rs. 850</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Balance</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-4" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Customer Card 4 -->
+<div class="flex items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border-l-4 border-secondary-container hover:bg-surface-container transition-all active:scale-[0.98] cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed/30 flex items-center justify-center mr-4">
+<span class="text-on-secondary-fixed-variant font-bold text-lg">BI</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-on-surface font-bold truncate">Bilal Iqbal</h3>
+<p class="text-on-surface-variant text-xs">+92 333 4443322</p>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-secondary font-bold text-sm">Rs. 0</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Settled</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-4" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Empty Search State Mockup (Hidden by default, shown when filtering) -->
+<div class="hidden flex flex-col items-center justify-center py-20 text-center">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant/30" data-icon="search_off">search_off</span>
+</div>
+<h3 class="font-bold text-on-surface">No Customers Found</h3>
+<p class="text-sm text-on-surface-variant max-w-[200px] mt-1">Try searching with a different name or number</p>
+</div>
+</div>
+<!-- Featured Section: Recently Used -->
+<div class="mt-10 mb-6">
+<h2 class="text-sm font-semibold text-on-surface-variant/80 uppercase tracking-wider mb-4">Quick Select</h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-4 bg-primary-container/10 rounded-2xl flex flex-col items-center text-center">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<span class="text-xs font-bold text-primary">Last Transaction</span>
+<span class="text-[10px] text-on-surface-variant">Asif Khan</span>
+</div>
+<div class="p-4 bg-tertiary-container/10 rounded-2xl flex flex-col items-center text-center">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined" data-icon="priority_high">priority_high</span>
+</div>
+<span class="text-xs font-bold text-tertiary">Highest Debt</span>
+<span class="text-[10px] text-on-surface-variant">Zeeshan Ahmed</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 bg-white dark:bg-[#1a1c1b] flex justify-around items-center px-4 pb-safe pt-2 h-20 rounded-t-xl shadow-[0_-4px_16px_rgba(26,28,27,0.06)] border-t-[0.5px] border-[#004f45]/10">
+<a class="flex flex-col items-center justify-center bg-[#004f45]/10 text-[#004f45] dark:bg-[#00695c]/20 dark:text-[#00695c] rounded-2xl px-5 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] text-xs font-medium">Customers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1a1c1b]/60 dark:text-[#f9f9f6]/60 hover:bg-[#f4f4f1] dark:hover:bg-[#2a2c2b] transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-['Inter'] text-xs font-medium">Transactions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1a1c1b]/60 dark:text-[#f9f9f6]/60 hover:bg-[#f4f4f1] dark:hover:bg-[#2a2c2b] transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-xs font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

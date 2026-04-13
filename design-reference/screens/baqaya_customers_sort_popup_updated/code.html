@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#64a1ff",
+                        "on-primary-fixed": "#00201b",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "on-tertiary-container": "#ffc9c3",
+                        "secondary-fixed": "#d6e3ff",
+                        "outline": "#6e7976",
+                        "on-surface-variant": "#3e4946",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeeb",
+                        "primary-fixed": "#a0f2e1",
+                        "surface-dim": "#dadad7",
+                        "surface-tint": "#046b5e",
+                        "on-tertiary-fixed": "#410003",
+                        "primary-container": "#00695c",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "surface-container-highest": "#e2e3e0",
+                        "outline-variant": "#bec9c5",
+                        "on-primary-fixed-variant": "#005046",
+                        "inverse-primary": "#84d5c5",
+                        "surface-variant": "#e2e3e0",
+                        "on-secondary-container": "#003670",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#b61b1f",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "tertiary-fixed": "#ffdad6",
+                        "background": "#f9f9f6",
+                        "tertiary": "#90000e",
+                        "on-surface": "#1a1c1b",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-container-high": "#e8e8e5",
+                        "on-secondary-fixed": "#001b3d",
+                        "secondary": "#005db7",
+                        "primary-fixed-dim": "#84d5c5",
+                        "inverse-on-surface": "#f1f1ee",
+                        "surface-bright": "#f9f9f6",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "inverse-surface": "#2f312f",
+                        "on-primary-container": "#94e5d5",
+                        "surface": "#f9f9f6",
+                        "error": "#ba1a1a",
+                        "primary": "#004f45",
+                        "on-secondary-fixed-variant": "#00468c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-[#00695C]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white" data-icon="menu">menu</span>
+<span class="text-xl font-bold text-white">Baqaya</span>
+</div>
+</header>
+<main class="pt-16 px-4">
+<!-- Filter Tabs -->
+<div class="flex gap-2 overflow-x-auto py-4 no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-sm font-semibold whitespace-nowrap">All Customers</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">Owes Money</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium whitespace-nowrap">Fully Paid</button>
+</div>
+<!-- Search and Sort Area -->
+<div class="mb-4 flex gap-2">
+<div class="relative flex-1 items-center">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70" data-icon="search">search</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface-container-lowest border-none rounded-xl shadow-sm focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-on-surface-variant/50 font-medium text-sm" placeholder="Search customer name or number..." type="text"/>
+</div>
+<button class="w-12 h-12 flex items-center justify-center bg-surface-container-lowest rounded-xl shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<!-- Customer List -->
+<div class="space-y-3">
+<!-- Customer Item 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between transition-transform active:scale-95 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-lg">
+                    AK
+                </div>
+<div>
+<h3 class="font-bold text-on-surface">Ahmed Khan</h3>
+<p class="text-on-surface-variant text-xs">2 din pehle</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-extrabold text-lg">Rs 14,500</p>
+<span class="material-symbols-outlined text-tertiary">chevron_right</span>
+</div>
+</div>
+<!-- Customer Item 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between transition-transform active:scale-95 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-lg">
+                    BS
+                </div>
+<div>
+<h3 class="font-bold text-on-surface">Bilal Siddiqui</h3>
+<span class="material-symbols-outlined text-tertiary">chevron_right</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-primary font-extrabold text-lg">Rs 0</p>
+<span class="material-symbols-outlined text-tertiary">chevron_right</span>
+</div>
+</div>
+<!-- Customer Item 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between transition-transform active:scale-95 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold text-lg">
+                    ZA
+                </div>
+<div>
+<h3 class="font-bold text-on-surface">Zeeshan Ahmed</h3>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-extrabold text-lg">Rs 8,200</p>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+<!-- Customer Item 4 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between transition-transform active:scale-95 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-bold text-lg">
+                    MI
+                </div>
+<div>
+<h3 class="font-bold text-on-surface">Muhammad Idrees</h3>
+<span class="material-symbols-outlined text-tertiary">chevron_right</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-primary font-extrabold text-lg">Rs 0</p>
+<span class="material-symbols-outlined text-tertiary">chevron_right</span>
+</div>
+</div>
+<!-- Customer Item 5 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between transition-transform active:scale-95 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-lg">
+                    HF
+                </div>
+<div>
+<h3 class="font-bold text-on-surface">Hamza Farooq</h3>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-extrabold text-lg">Rs 22,500</p>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 bg-primary text-on-primary flex items-center gap-2 px-6 py-4 rounded-full shadow-lg active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-bold text-sm tracking-wide">+ Naya Customer</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-safe px-2 bg-white border-t border-[#f4f4f1] shadow-[0_-4px_16px_rgba(26,28,27,0.06)] z-50">
+<div class="flex flex-col items-center justify-center text-[#404944] px-5 py-1.5">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#00695c]/10 text-[#004f45] rounded-2xl px-5 py-1.5">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-[10px] font-medium mt-1">Customers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#404944] px-5 py-1.5">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-[10px] font-medium mt-1">Cashbook</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#404944] px-5 py-1.5">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-[10px] font-medium mt-1">Reports</span>
+</div>
+</nav>
+<div class="fixed inset-0 bg-black/50 z-[60] transition-opacity" id="bottom-sheet-overlay"></div><div class="fixed bottom-0 left-0 right-0 bg-white rounded-t-[2rem] z-[70] p-6 shadow-2xl transition-transform transform translate-y-0" id="filter-bottom-sheet">
+<!-- Drag Handle -->
+<div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6"></div>
+<!-- Header -->
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold text-on-surface">Sort &amp; Filter</h2>
+<button class="p-2 hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- Sort Options -->
+<div class="space-y-1">
+<div class="flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl cursor-pointer">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+<span class="flex-1 font-medium text-on-surface">Highest Balance</span>
+<div class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">trending_down</span>
+<span class="flex-1 font-medium text-on-surface">Lowest Balance</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline"></div>
+</div>
+<div class="flex items-center gap-4 p-4 hover:bg-surface-container-low rounded-xl cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">sort_by_alpha</span>
+<span class="flex-1 font-medium text-on-surface">Alphabetical (A-Z)</span>
+<div class="w-5 h-5 rounded-full border-2 border-outline"></div>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-8 flex gap-4">
+<button class="flex-1 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg active:scale-95 transition-transform">Apply Filters</button>
+</div>
+</div></body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya - Phone Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#b61b1f",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#ffc9c3",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "on-secondary-fixed": "#001b3d",
+                        "on-primary-fixed": "#00201b",
+                        "inverse-on-surface": "#f1f1ee",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e3e0",
+                        "surface-container-low": "#f4f4f1",
+                        "outline": "#6e7976",
+                        "secondary": "#005db7",
+                        "on-background": "#1a1c1b",
+                        "surface-tint": "#046b5e",
+                        "secondary-fixed": "#d6e3ff",
+                        "surface-container-high": "#e8e8e5",
+                        "primary-fixed-dim": "#84d5c5",
+                        "on-secondary-container": "#003670",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#90000e",
+                        "primary": "#004f45",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9f6",
+                        "outline-variant": "#bec9c5",
+                        "surface-bright": "#f9f9f6",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dadad7",
+                        "surface-container": "#eeeeeb",
+                        "primary-fixed": "#a0f2e1",
+                        "on-surface": "#1a1c1b",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#84d5c5",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#3e4946",
+                        "inverse-surface": "#2f312f",
+                        "on-tertiary-fixed": "#410003",
+                        "surface": "#f9f9f6",
+                        "primary-container": "#00695c",
+                        "secondary-container": "#64a1ff",
+                        "surface-variant": "#e2e3e0",
+                        "on-primary-fixed-variant": "#005046",
+                        "on-primary-container": "#94e5d5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md">
+<div class="flex items-center justify-between px-4 h-16 w-full max-w-md mx-auto">
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary hover:bg-surface-container-low transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-primary">Baqaya</h1>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-md mx-auto px-6 pt-24 pb-12 flex flex-col">
+<!-- Hero Illustration / Brand Identity Area -->
+<div class="mb-10 text-center">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-xl bg-surface-container-high mb-6">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<h2 class="text-[32px] font-extrabold text-on-surface tracking-tight leading-tight mb-2">Enter your phone number</h2>
+<p class="text-on-surface-variant font-body text-base">An OTP will be sent to keep your account secure</p>
+</div>
+<!-- Entry Section -->
+<div class="space-y-6 flex-1">
+<div class="relative group">
+<label class="block text-xs font-semibold mb-2 uppercase tracking-widest px-1 text-on-surface-variant" for="phone-number">PHONE NUMBER</label>
+<div class="flex items-center bg-surface-container-high rounded-xl p-1 border-2 border-transparent">
+<!-- Country Code Section -->
+<div class="flex items-center gap-2 px-4 py-3 border-r border-outline-variant/30">
+<span class="font-bold text-on-surface font-headline text-lg">+92</span>
+</div>
+<!-- Input Section -->
+<input class="w-full bg-transparent border-none focus:ring-0 text-xl font-bold font-headline py-3 px-4 text-on-surface placeholder:text-outline-variant/60 cursor-not-allowed" disabled="" id="phone-number" placeholder="300 1234567" type="tel"/>
+</div>
+<!-- Info Section -->
+<div class="mt-4 flex items-start gap-2 px-4 py-4 bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="info">info</span>
+<p class="text-sm text-on-surface-variant leading-tight">Your data is safe with us. We will never spam you.</p>
+</div>
+</div>
+</div>
+<!-- Floating Action Area (Lower Screen) -->
+<div class="mt-auto pt-8">
+<button class="w-full h-[56px] bg-surface-dim text-on-surface-variant/50 rounded-xl font-headline font-bold text-lg flex items-center justify-center cursor-not-allowed" disabled="">
+                Send OTP
+            </button>
+<p class="mt-6 text-center text-xs text-on-surface-variant font-medium">
+                By continuing you agree to our <a class="text-secondary underline underline-offset-2" href="#">Terms of Service</a>
+</p>
+</div>
+<!-- Footer with Help Options -->
+<footer class="w-full mt-10 py-4 flex justify-center items-center gap-10 text-on-surface-variant">
+<a class="flex items-center gap-1.5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+<span class="text-sm font-semibold font-label">Need help?</span>
+</a>
+<a class="flex items-center gap-1.5 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="support_agent">support_agent</span>
+<span class="text-sm font-semibold font-label">Contact Support</span>
+</a>
+</footer>
+</main>
+<!-- Background Decoration matching Screen 25 -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-0 left-0 w-[250px] h-[250px] bg-secondary/5 rounded-full blur-[80px]"></div>
+</div>
+<!-- Offline Toaster (Facebook Style) -->
+<div class="fixed bottom-6 left-0 w-full px-4 z-[60]">
+<div class="bg-[#1a1c1b] text-white py-3 px-5 rounded-lg flex items-center justify-between shadow-xl border border-white/10 max-w-md mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">cloud_off</span>
+<span class="text-sm font-medium tracking-wide">No internet connection</span>
+</div>
+<button class="text-xs font-bold uppercase tracking-widest text-secondary-container">Retry</button>
+</div>
+</div></body></html>

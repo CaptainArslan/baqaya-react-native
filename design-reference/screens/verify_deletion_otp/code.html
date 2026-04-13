@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#ffc9c3",
+                    "surface": "#f9f9f6",
+                    "surface-container": "#eeeeeb",
+                    "tertiary-container": "#b61b1f",
+                    "primary-fixed-dim": "#84d5c5",
+                    "outline-variant": "#bec9c5",
+                    "inverse-on-surface": "#f1f1ee",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#046b5e",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "surface-container-low": "#f4f4f1",
+                    "on-tertiary-fixed": "#410003",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "secondary-container": "#64a1ff",
+                    "on-background": "#1a1c1b",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1c1b",
+                    "tertiary": "#90000e",
+                    "inverse-primary": "#84d5c5",
+                    "surface-container-highest": "#e2e3e0",
+                    "primary-fixed": "#a0f2e1",
+                    "on-surface-variant": "#3e4946",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f9f9f6",
+                    "surface-container-high": "#e8e8e5",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dadad7",
+                    "surface-variant": "#e2e3e0",
+                    "primary-container": "#00695c",
+                    "on-primary-fixed": "#00201b",
+                    "secondary": "#005db7",
+                    "primary": "#004f45",
+                    "surface-bright": "#f9f9f6",
+                    "on-secondary-fixed": "#001b3d",
+                    "on-primary-container": "#94e5d5",
+                    "on-secondary-container": "#003670",
+                    "outline": "#6e7976",
+                    "on-primary-fixed-variant": "#005046",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen flex flex-col">
+<!-- TopAppBar Shell (Semantic Mapping: Sub-page, suppressed main nav logic) -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md bg-[#f9f9f6]/85">
+<div class="flex items-center justify-between px-4 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#004f45] active:scale-95 duration-200 p-2 rounded-full hover:bg-[#f4f4f1] transition-colors" data-icon="arrow_back">arrow_back</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#004f45]">Support &amp; Account</h1>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-6 pt-24 pb-12">
+<div class="w-full max-w-md">
+<!-- Asymmetric Bento-style Layout for focused task -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-none space-y-8 relative overflow-hidden">
+<!-- Branding/Visual Anchor -->
+<div class="space-y-2">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary mb-4">
+<span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Verify Deletion</h2>
+<p class="text-on-surface-variant font-body leading-relaxed">
+                        We have sent a 4-digit code to your registered mobile number to confirm account deletion.
+                    </p>
+</div>
+<!-- OTP Input Area -->
+<div class="space-y-6">
+<div class="flex justify-between gap-4">
+<input autocomplete="one-time-code" class="w-full h-16 text-center text-2xl font-bold font-headline bg-surface-container-high border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl transition-all outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="w-full h-16 text-center text-2xl font-bold font-headline bg-surface-container-high border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl transition-all outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="w-full h-16 text-center text-2xl font-bold font-headline bg-surface-container-high border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl transition-all outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="w-full h-16 text-center text-2xl font-bold font-headline bg-surface-container-high border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl transition-all outline-none" maxlength="1" placeholder="•" type="text"/>
+</div>
+<div class="flex flex-col items-center gap-4 pt-4">
+<button class="w-full h-[56px] bg-tertiary text-white font-headline font-bold text-lg rounded-xl shadow-lg shadow-tertiary/20 active:scale-95 transition-transform duration-200 flex items-center justify-center gap-2">
+<span>Delete My Account Permanently</span>
+</button>
+<a class="text-secondary font-label font-semibold text-sm hover:underline py-2" href="#">
+                            Resend OTP
+                        </a>
+</div>
+</div>
+<!-- Protective Layering Detail -->
+<div class="bg-surface-container-low rounded-xl p-4 mt-8 flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-0.5" data-icon="info">info</span>
+<p class="text-xs text-on-surface-variant leading-tight">
+                        This action is irreversible. All your ledger data, customer history, and pending balances will be permanently erased.
+                    </p>
+</div>
+</div>
+<!-- Background Decorative Texture -->
+<div class="fixed top-0 right-0 -z-10 w-1/2 h-1/2 opacity-20 pointer-events-none">
+<div class="absolute inset-0 bg-gradient-to-bl from-tertiary-fixed-dim/40 to-transparent blur-3xl"></div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed due to Task-Focused/Linear Nature of Deletion Journey) -->
+<!-- Navigation is hidden to prioritize focus on the destructive action confirmation -->
+</body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eeeeeb",
+                        "inverse-primary": "#84d5c5",
+                        "error": "#ba1a1a",
+                        "background": "#f9f9f6",
+                        "surface-container-highest": "#e2e3e0",
+                        "primary-container": "#00695c",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary-container": "#003670",
+                        "on-surface": "#1a1c1b",
+                        "primary-fixed": "#a0f2e1",
+                        "on-secondary": "#ffffff",
+                        "outline": "#6e7976",
+                        "on-tertiary-fixed": "#410003",
+                        "surface-dim": "#dadad7",
+                        "on-primary-fixed": "#00201b",
+                        "surface-container-high": "#e8e8e5",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "tertiary-fixed": "#ffdad6",
+                        "tertiary-container": "#b61b1f",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f312f",
+                        "inverse-on-surface": "#f1f1ee",
+                        "secondary-container": "#64a1ff",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "surface-tint": "#046b5e",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-tertiary-container": "#ffc9c3",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#90000e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#005046",
+                        "surface": "#f9f9f6",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f9f9f6",
+                        "outline-variant": "#bec9c5",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#3e4946",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "secondary": "#005db7",
+                        "primary": "#004f45",
+                        "on-background": "#1a1c1b",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-variant": "#e2e3e0",
+                        "on-primary-container": "#94e5d5",
+                        "on-secondary-fixed": "#001b3d",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#84d5c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f6;
+            color: #1a1c1b;
+        }
+        .headline-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9f6]/85 backdrop-blur-md flex items-center justify-between px-4 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-stone-100 transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[#004f45]" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45]">Business Profile</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex items-center justify-center">
+<img alt="Business Profile Avatar" class="w-full h-full object-cover" data-alt="Close up professional headshot of a smiling small business owner in a clean workshop environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp-x3gVP3V2SoYFu9MfE3KeuRXznZIuAV-o7NPx6nRFE-f6nJMRXCxZfm0QXmR5vrn70SN4wrBExGYYXCTZrryfM9qtpug68cEiU4tgF0NidQAXHE6uA7gDv7KUWaJ_FPMDI2PCP3vGvNeZHGsJp9uO0A_rvlWClHhtLnlXt65XJ_fW75ZQBipNeUa7u7LI0MJZYcviGdnveTspeRVwQUbos3t2dQwKzseE--e3DGLDVOV5JBVzwyi4IcjWYVNN55zxHSIzuwvp6va"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-16 mb-40 px-4 pt-6 max-w-2xl mx-auto w-full space-y-6">
+<!-- Section: Basic Information -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="storefront">storefront</span>
+<h2 class="headline-font font-bold text-on-surface">Basic Information</h2>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-5">
+<!-- Shop Name -->
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Shop Name</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="Enter shop name" type="text" value="Baqaya General Store"/>
+</div>
+<!-- Owner Name -->
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Owner Name</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="Enter owner name" type="text" value="Ahmed Khan"/>
+</div>
+<!-- Business Category -->
+<div class="space-y-2 relative">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Business Category</label>
+<div class="relative">
+<select class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium appearance-none">
+<option>Grocery &amp; Supermarket</option>
+<option>Wholesale</option>
+<option>Electronics</option>
+<option>Pharmacy</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Contact Details -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="contact_page">contact_page</span>
+<h2 class="headline-font font-bold text-on-surface">Contact Details</h2>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-5">
+<!-- Phone (Read-Only) -->
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Phone Number (Primary)</label>
+<div class="flex items-center h-14 px-4 bg-surface-container rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-outline-variant mr-3" data-icon="lock">lock</span>
+<span class="text-on-surface-variant font-medium">+92 300 1234567</span>
+</div>
+</div>
+<!-- WhatsApp Toggle -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#25D366]" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-medium text-on-surface">Enable WhatsApp</span>
+</div>
+<button class="w-12 h-6 bg-primary rounded-full relative p-1 transition-colors">
+<div class="bg-white w-4 h-4 rounded-full ml-auto"></div>
+</button>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">WhatsApp Number</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="Enter WhatsApp number" type="tel" value="+92 300 1234567"/>
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Business Email</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="Enter business email" type="email" value="contact@baqaya.store"/>
+</div>
+</div>
+</section>
+<!-- Section: Business Location -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="location_on">location_on</span>
+<h2 class="headline-font font-bold text-on-surface">Business Location</h2>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-5">
+<!-- Map Preview -->
+<div class="relative w-full h-48 rounded-xl overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Stylized minimalist map view of a city grid with a single large teal location pin in the center" data-location="Karachi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD58a0uA-n9RAg0p8DPMyPMVhQQuFTsp7gmJp9CD4SpaElcnNahpk9NacJna2A8IkRqyBdAlGfmlkf6ZSc7SqXKTY9erTLSkCP4bdC4ka4voX8vFwNrMNTpr29-FSCwEAVwEOynYhWf_J9qkae1WwVMbxUIrd5u08UZQSefjR6OhuFhZkKa9ZxZQ1MT0COfeobT_veyhvUWBPrwceVUQlK8ale4LCMGWhgfVphpXFpcuoM2rN2uVzLSc1-3rs4QTGOFy5Lm7BXrWG0H"/>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+<div class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white">
+<span class="material-symbols-outlined text-primary" data-icon="my_location">my_location</span>
+<span class="text-primary font-bold text-sm">Set Location on Map</span>
+</div>
+</div>
+</div>
+<!-- Address Inputs -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Full Address</label>
+<textarea class="w-full p-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium resize-none" placeholder="Enter street address" rows="2">Shop No. 4, Market Square, Phase 5</textarea>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">City</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="City" type="text" value="Karachi"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Postal Code</label>
+<input class="w-full h-14 px-4 bg-surface-container-high rounded-xl border-0 focus:ring-2 focus:ring-primary text-on-surface font-medium" placeholder="Postal Code" type="text" value="75500"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom Actions -->
+<div class="fixed bottom-20 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-surface-container px-4 py-4 z-40 grid grid-cols-2 gap-3">
+<button class="h-14 rounded-xl font-bold headline-font text-on-surface-variant border-2 border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+            Discard
+        </button>
+<button class="h-14 rounded-xl font-bold headline-font text-white bg-primary shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            Save Changes
+        </button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-safe px-2 bg-white dark:bg-stone-950 border-t border-stone-200/20 dark:border-stone-800/20 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] z-50">
+<!-- Home (Active as per instruction for baseline) -->
+<a class="flex flex-col items-center justify-center text-[#004f45] dark:text-[#00695c] font-bold bg-[#f4f4f1] dark:bg-stone-800 rounded-xl px-3 py-1 scale-95 duration-200 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-['Inter'] text-[12px] font-medium">Home</span>
+</a>
+<!-- Customers -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-[#004f45] dark:hover:text-[#00695c] scale-95 duration-200 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] text-[12px] font-medium">Customers</span>
+</a>
+<!-- Cashbook -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-[#004f45] dark:hover:text-[#00695c] scale-95 duration-200 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-['Inter'] text-[12px] font-medium">Cashbook</span>
+</a>
+<!-- Reports -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-3 py-1 hover:text-[#004f45] dark:hover:text-[#00695c] scale-95 duration-200 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Inter'] text-[12px] font-medium">Reports</span>
+</a>
+</nav>
+</body></html>

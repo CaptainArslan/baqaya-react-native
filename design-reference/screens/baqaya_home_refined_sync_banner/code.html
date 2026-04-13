@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya - Resilient Ledger</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#00695c",
+                    "on-tertiary-container": "#ffc9c3",
+                    "on-surface": "#1a1c1b",
+                    "surface-dim": "#dadad7",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "on-tertiary-fixed": "#410003",
+                    "on-primary-container": "#94e5d5",
+                    "tertiary-container": "#b61b1f",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "on-secondary-container": "#003670",
+                    "outline": "#6e7976",
+                    "surface-container-highest": "#e2e3e0",
+                    "primary-fixed-dim": "#84d5c5",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e8e8e5",
+                    "outline-variant": "#bec9c5",
+                    "surface-tint": "#046b5e",
+                    "primary": "#004f45",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "secondary-container": "#64a1ff",
+                    "on-primary-fixed": "#00201b",
+                    "tertiary": "#90000e",
+                    "inverse-surface": "#2f312f",
+                    "inverse-on-surface": "#f1f1ee",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#3e4946",
+                    "on-primary-fixed-variant": "#005046",
+                    "surface-variant": "#e2e3e0",
+                    "surface-bright": "#f9f9f6",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#001b3d",
+                    "inverse-primary": "#84d5c5",
+                    "on-background": "#1a1c1b",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eeeeeb",
+                    "secondary": "#005db7",
+                    "tertiary-fixed": "#ffdad6",
+                    "surface": "#f9f9f6",
+                    "primary-fixed": "#a0f2e1",
+                    "surface-container-low": "#f4f4f1",
+                    "background": "#f9f9f6",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-primary h-16 shadow-md">
+<div class="h-full max-w-lg mx-auto flex items-center justify-between px-4 relative">
+<div class="flex items-center gap-3 z-10">
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-white/10 transition-colors duration-200 text-on-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline font-bold text-lg tracking-tight text-on-primary">Baqaya</h1>
+</div>
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-white/10 transition-colors duration-200 text-on-primary z-10">
+<span class="material-symbols-outlined">sync</span>
+</button></div>
+</header>
+<main class="pb-24 max-w-lg mx-auto pt-16">
+<!-- Status Banners Section -->
+<div class="flex flex-col">
+<!-- Sync Status Banner -->
+<div class="bg-[#F3F4F6] text-on-surface-variant px-4 py-1.5 flex items-center justify-between border-b border-surface-container-high">
+<div class="flex items-center gap-2"><span class="material-symbols-outlined text-lg">sync_problem</span><span class="text-[11px] font-semibold">3 changes pending sync.</span></div>
+<a class="text-primary text-[11px] font-bold hover:underline transition-colors" href="#">Sync Now</a>
+</div>
+<!-- Offline Indicator -->
+<div class="bg-surface-container-low text-on-surface-variant px-4 py-1.5 flex items-center justify-center text-[11px] border-b border-outline-variant/20">
+<span class="material-symbols-outlined text-sm mr-2" style="font-size: 14px;">cloud_off</span>
+<span>You are offline. Changes will sync later.</span>
+</div>
+</div>
+<div class="px-4 mt-6">
+<!-- Hero Section: Total Balance -->
+<section class="mb-6">
+<div class="bg-[#b61b1f] text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+<!-- Abstract Texture Overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBruq2y5GmAcWWqdUoAnEBVHXZybF9zFeTKgvdkojrQXMIlZz5_IF7isP7t3lrlKkzJzH0SYfW6IgX4VAbZR1mYHX4vqkiB2s-ULHiCp7naDYfoXs3YmL2ckzfDYjHyHgagRJ4_twKS1JSpA74UbUhwAaLMkcC6L2p4uHnveeu7K0d0LbFcWD1sJOYDnL1LnuJxoGT4prEGBnDuZXJUb52lX_sVrOB8k5ik94LKZk2yD3ILIkl7-SxHfoAAxev3fn8G1c3JerlsGF1_');"></div>
+<div class="relative z-10">
+<p class="font-label text-white/80 text-sm font-medium tracking-wide mb-1 uppercase">Total Balance</p>
+<div class="flex items-baseline gap-2">
+<span class="text-xl font-bold text-white/90">Rs.</span>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-white">0.00</h2>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 bg-white text-[#b61b1f] font-bold py-3 rounded-xl active:scale-95 transition-transform duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add Entry
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Stats Grid (Today's Payment & Today's Ledger) -->
+<section class="grid grid-cols-2 gap-4 mb-8">
+<div class="bg-white border border-surface-container-high p-4 rounded-xl flex flex-col shadow-sm">
+<p class="text-[10px] font-bold uppercase tracking-wider text-outline mb-1">Today's Payment</p>
+<div class="flex items-baseline gap-1 text-[#059669]">
+<span class="text-xs font-semibold text-on-surface-variant">Rs.</span>
+<span class="text-lg font-bold">0</span>
+</div>
+<div class="mt-3 flex items-center text-[10px] text-outline/50 gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>No data yet</span>
+</div>
+</div>
+<div class="bg-white border border-surface-container-high p-4 rounded-xl flex flex-col shadow-sm">
+<p class="text-[10px] font-bold uppercase tracking-wider text-outline mb-1">Today's Ledger</p>
+<div class="flex items-baseline gap-1 text-[#DC2626]">
+<span class="text-xs font-semibold text-on-surface-variant">Rs.</span>
+<span class="text-lg font-bold">0</span>
+</div>
+<div class="mt-3 flex items-center text-[10px] text-outline/50 gap-1">
+<span class="material-symbols-outlined text-sm">history</span>
+<span>0 entries today</span>
+</div>
+</div>
+</section>
+<!-- Tabs Interface -->
+<section class="mb-6">
+<div class="flex border-surface-container-high gap-3 mb-2">
+<button class="flex-1 py-3 text-sm font-medium hover:text-primary transition-colors bg-surface-container-high rounded-full text-on-surface">
+                    Recent Transactions
+                </button>
+<button class="flex-1 py-3 text-sm font-bold transition-colors bg-primary text-white rounded-full">
+                    Top Debtors
+                </button>
+</div>
+<p class="text-[10px] text-outline text-center italic">Based on offline data</p>
+</section>
+<!-- Tab Content: Empty State (Top Debtors) -->
+<section class="space-y-4">
+<div class="flex flex-col items-center justify-center py-16 px-8 text-center space-y-4 bg-surface-container-lowest rounded-2xl border-2 border-dashed border-surface-container-high">
+<div class="w-20 h-20 rounded-full bg-surface-container/50 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-5xl text-outline/40">groups</span>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-on-surface text-lg">No debtors found</p>
+<p class="text-sm text-on-surface-variant">All your accounts are settled.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Prominent FAB -->
+<button class="fixed right-6 bottom-24 bg-primary text-on-primary h-14 pr-6 pl-4 rounded-2xl flex items-center justify-center shadow-lg active:scale-95 transition-all duration-150 z-40">
+<span class="material-symbols-outlined text-3xl mr-2">person_add</span>
+<span class="font-bold text-sm">Add Customer</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white border-t border-surface-container-high shadow-[0_-4px_16px_rgba(0,0,0,0.06)] flex justify-around items-center px-2 py-3">
+<a class="flex flex-col items-center justify-center bg-surface-container text-primary rounded-xl px-3 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline px-3 py-1.5 hover:text-primary active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Customers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline px-3 py-1.5 hover:text-primary active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Cashbook</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline px-3 py-1.5 hover:text-primary active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body text-[10px] font-medium tracking-wide">Reports</span>
+</a>
+</nav>
+</body></html>

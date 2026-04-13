@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#a0f2e1",
+                        "secondary": "#005db7",
+                        "primary": "#004f45",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#005046",
+                        "primary-fixed-dim": "#84d5c5",
+                        "surface-bright": "#f9f9f6",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1a1c1b",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "inverse-primary": "#84d5c5",
+                        "on-tertiary-fixed": "#410003",
+                        "inverse-surface": "#2f312f",
+                        "primary-container": "#00695c",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e2e3e0",
+                        "error": "#ba1a1a",
+                        "background": "#f9f9f6",
+                        "surface-dim": "#dadad7",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-container": "#eeeeeb",
+                        "on-secondary-container": "#003670",
+                        "secondary-container": "#64a1ff",
+                        "outline-variant": "#bec9c5",
+                        "on-surface-variant": "#3e4946",
+                        "error-container": "#ffdad6",
+                        "outline": "#6e7976",
+                        "surface": "#f9f9f6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00201b",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-variant": "#e2e3e0",
+                        "on-tertiary-container": "#ffc9c3",
+                        "on-primary-container": "#94e5d5",
+                        "tertiary-container": "#b61b1f",
+                        "inverse-on-surface": "#f1f1ee",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "tertiary": "#90000e",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary-fixed": "#001b3d",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "surface-tint": "#046b5e",
+                        "surface-container-high": "#e8e8e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-functional-glow {
+            background: linear-gradient(135deg, #004f45 0%, #00695c 100%);
+        }
+        input:focus {
+            outline: none;
+            border-color: #004f45 !important;
+            box-shadow: 0 0 0 1px #004f45;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#f9f9f6]/85 dark:bg-stone-950/85 backdrop-blur-md fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-4 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined text-[#004f45] dark:text-teal-400">close</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#004f45] dark:text-teal-400">Add Customer</h1>
+</div>
+<div class="flex items-center">
+<button class="hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined text-[#004f45] dark:text-teal-400">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 mt-16 px-6 py-8 max-w-md mx-auto w-full">
+<!-- Identity Section -->
+<div class="mb-10 text-center">
+<div class="relative inline-block mb-4">
+<div class="w-24 h-24 rounded-full bg-surface-container-high flex items-center justify-center border-4 border-white dark:border-stone-900 shadow-sm">
+<span class="material-symbols-outlined text-outline text-5xl">person</span>
+</div>
+<button class="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-stone-900 active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined text-white text-lg">photo_camera</span>
+</button>
+</div>
+<h2 class="font-headline font-bold text-2xl text-on-surface">New Connection</h2>
+<p class="text-on-surface-variant text-sm mt-1">Add a customer to start recording transactions.</p>
+</div>
+<!-- Form Section -->
+<form class="space-y-8">
+<!-- Name Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="font-headline font-semibold text-sm text-primary uppercase tracking-wider" for="customer_name">Customer Name *</label>
+</div>
+<div class="relative">
+<input class="w-full h-14 px-4 rounded-xl bg-surface-container-high border-2 border-transparent transition-all duration-200 text-lg font-medium text-on-surface placeholder:text-outline" id="customer_name" placeholder="Enter name (e.g. Aslam Bhai)" required="" type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-outline">badge</span>
+</div>
+</div>
+</div>
+<!-- Phone Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="font-headline font-semibold text-sm text-on-surface-variant uppercase tracking-wider" for="customer_phone">Phone Number (Optional)</label>
+</div>
+<div class="relative">
+<input class="w-full h-14 px-4 rounded-xl bg-surface-container-high border-2 border-transparent transition-all duration-200 text-lg font-medium text-on-surface placeholder:text-outline" id="customer_phone" placeholder="03XX-XXXXXXX" type="tel"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-outline">call</span>
+</div>
+</div>
+</div>
+<!-- Suggestion / Contact Access -->
+<div class="bg-secondary-fixed/30 p-4 rounded-xl flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">contacts</span>
+<div>
+<p class="text-sm font-semibold text-on-secondary-container">Import from Contacts</p>
+<p class="text-xs text-on-secondary-container/80 mt-0.5">Speed up by selecting from your phonebook.</p>
+</div>
+</div>
+</form>
+</main>
+<!-- Fixed Footer Action -->
+<div class="fixed bottom-0 left-0 w-full p-4 bg-background/80 backdrop-blur-sm z-40">
+<div class="max-w-md mx-auto">
+<button class="bg-functional-glow w-full h-16 rounded-xl flex items-center justify-center gap-3 shadow-[0_8px_24px_rgba(0,79,69,0.25)] active:scale-95 transition-all duration-150">
+<span class="font-headline font-bold text-white text-xl">Save / Save Karein</span>
+<span class="material-symbols-outlined text-white">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Padding for footer -->
+<div class="h-24"></div>
+</body></html>

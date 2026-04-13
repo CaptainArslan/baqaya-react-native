@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya Ledger - Permission Denied</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#84d5c5",
+                    "on-surface-variant": "#3e4946",
+                    "surface-tint": "#046b5e",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#90000e",
+                    "surface-container-high": "#e8e8e5",
+                    "on-primary-fixed-variant": "#005046",
+                    "primary": "#004f45",
+                    "on-primary-container": "#94e5d5",
+                    "on-tertiary-container": "#ffc9c3",
+                    "on-surface": "#1a1c1b",
+                    "surface-dim": "#dadad7",
+                    "surface-container-low": "#f4f4f1",
+                    "surface-variant": "#e2e3e0",
+                    "on-primary-fixed": "#00201b",
+                    "on-tertiary-fixed": "#410003",
+                    "primary-fixed": "#a0f2e1",
+                    "on-secondary-container": "#003670",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#84d5c5",
+                    "surface-container-highest": "#e2e3e0",
+                    "on-secondary-fixed": "#001b3d",
+                    "secondary-container": "#64a1ff",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeeeeb",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "on-primary": "#ffffff",
+                    "background": "#f9f9f6",
+                    "error": "#ba1a1a",
+                    "outline": "#6e7976",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "primary-container": "#00695c",
+                    "secondary": "#005db7",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-container": "#b61b1f",
+                    "inverse-on-surface": "#f1f1ee",
+                    "secondary-fixed": "#d6e3ff",
+                    "inverse-surface": "#2f312f",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "surface": "#f9f9f6",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#bec9c5",
+                    "surface-bright": "#f9f9f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-none {
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9f6]/85 backdrop-blur-md flex justify-between items-center px-4 h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#004f45] hover:bg-stone-100 transition-colors p-2 rounded-full active:scale-95 duration-150" data-icon="arrow_back">arrow_back</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45]">Baqaya Ledger</h1>
+</div>
+<button class="material-symbols-outlined text-[#004f45] hover:bg-stone-100 transition-colors p-2 rounded-full active:scale-95 duration-150" data-icon="account_circle">account_circle</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-20 pb-24 px-6 flex flex-col items-center justify-center">
+<!-- Error State Layout (Asymmetric Tonal Layering) -->
+<div class="w-full max-w-sm space-y-8 flex flex-col items-center text-center">
+<!-- Visual Anchor -->
+<div class="relative w-48 h-48 mb-4">
+<div class="absolute inset-0 bg-tertiary/10 rounded-full blur-2xl animate-pulse"></div>
+<div class="relative flex items-center justify-center w-full h-full bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-tertiary-container !text-7xl" data-icon="contact_page">contact_page</span>
+<div class="absolute bottom-4 right-4 bg-tertiary text-white w-10 h-10 rounded-full flex items-center justify-center border-4 border-background">
+<span class="material-symbols-outlined !text-xl" data-icon="block">block</span>
+</div>
+</div>
+</div>
+<!-- Content Hierarchy -->
+<div class="space-y-4">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface leading-tight">
+                    Contact Access Required
+                </h2>
+<p class="text-on-surface-variant font-body leading-relaxed px-2">
+                    To import your customers and manage their credit entries seamlessly, we need permission to access your contact list.
+                </p>
+</div>
+<!-- Bento-style Info Card -->
+<div class="bg-surface-container-lowest p-5 rounded-full w-full flex items-start gap-4 text-left shadow-sm border-l-4 border-secondary">
+<span class="material-symbols-outlined text-secondary pt-1" data-icon="security">security</span>
+<div class="flex-1">
+<p class="text-sm font-semibold text-on-surface">Your data is safe</p>
+<p class="text-xs text-on-surface-variant">We only use names and phone numbers to create ledger entries. No data is shared with third parties.</p>
+</div>
+</div>
+<!-- Action Cluster -->
+<div class="w-full flex flex-col gap-3 pt-4">
+<button class="w-full h-14 bg-primary text-white font-headline font-bold rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-[0_4px_16px_rgba(0,79,69,0.2)]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Open Settings
+                </button>
+<button class="w-full h-14 bg-surface-container-high text-on-surface font-headline font-bold rounded-xl flex items-center justify-center gap-2 transition-colors hover:bg-surface-variant active:scale-95">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                    Retry
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed if Task-Focused/Back Action implies temporary departure) -->
+<!-- Note: Following the 'Automatic Suppression' rule, the BottomNavBar is hidden here because the user is in a focused journey to fix a permission error. -->
+<!-- Decorative Texture (Subtle Background Gradient) -->
+<div class="fixed inset-0 pointer-events-none -z-10">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 rounded-full blur-[80px]"></div>
+</div>
+</body></html>

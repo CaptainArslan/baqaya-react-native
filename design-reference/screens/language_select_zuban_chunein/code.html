@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Resilient Ledger - Language Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#005046",
+                        "on-secondary-fixed": "#001b3d",
+                        "background": "#f9f9f6",
+                        "primary": "#004f45",
+                        "outline": "#6e7976",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9f6",
+                        "on-tertiary-container": "#ffc9c3",
+                        "on-surface": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#84d5c5",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdad6",
+                        "tertiary-container": "#b61b1f",
+                        "surface-container-highest": "#e2e3e0",
+                        "surface-container-high": "#e8e8e5",
+                        "secondary-fixed": "#d6e3ff",
+                        "inverse-surface": "#2f312f",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "surface-tint": "#046b5e",
+                        "inverse-primary": "#84d5c5",
+                        "on-tertiary-fixed": "#410003",
+                        "primary-fixed": "#a0f2e1",
+                        "on-surface-variant": "#3e4946",
+                        "primary-container": "#00695c",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "outline-variant": "#bec9c5",
+                        "surface-bright": "#f9f9f6",
+                        "surface-variant": "#e2e3e0",
+                        "surface-container": "#eeeeeb",
+                        "secondary": "#005db7",
+                        "on-secondary-container": "#003670",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#00201b",
+                        "tertiary": "#90000e",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "secondary-container": "#64a1ff",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-dim": "#dadad7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "inverse-on-surface": "#f1f1ee",
+                        "on-primary-container": "#94e5d5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f6;
+        }
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface flex flex-col min-h-screen">
+<!-- Top Navigation Suppression (As per mandate for Transactional/Onboarding flows) -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 max-w-md mx-auto w-full">
+<!-- Header Section -->
+<div class="w-full text-center mb-10">
+<h1 class="text-4xl font-extrabold tracking-tighter text-primary mb-2">Select Language</h1>
+<p class="text-on-surface-variant font-body text-sm">Select your preferred language to continue</p>
+</div>
+<!-- Language Selection Grid -->
+<div class="w-full space-y-4">
+<!-- Option: Roman Urdu (Default Selected) -->
+<label class="block cursor-pointer">
+<input checked="" class="hidden peer" name="language" type="radio" value="roman_urdu"/>
+<div class="flex items-center justify-between p-5 bg-surface-container-lowest border-2 border-primary rounded-xl shadow-sm peer-checked:bg-primary-fixed peer-checked:border-primary transition-all duration-200">
+<div class="flex flex-col">
+<span class="text-lg font-bold font-headline text-on-surface">Roman Urdu</span>
+<span class="text-xs text-on-surface-variant">Roman Urdu mein istimal karein</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-primary bg-primary">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+</label>
+<!-- Option: Urdu -->
+<label class="block cursor-pointer">
+<input class="hidden peer" name="language" type="radio" value="urdu"/>
+<div class="flex items-center justify-between p-5 bg-surface-container-lowest border-2 border-transparent rounded-xl shadow-sm hover:bg-surface-container-low peer-checked:bg-primary-fixed peer-checked:border-primary transition-all duration-200">
+<div class="flex flex-col">
+<span class="text-lg font-bold font-headline text-on-surface">اردو</span>
+<span class="text-xs text-on-surface-variant">اردو زبان میں استعمال کریں</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:border-primary">
+<!-- Hidden until checked by peer selector logic in a real app; showing empty ring for UI state -->
+</div>
+</div>
+</label>
+<!-- Option: English -->
+<label class="block cursor-pointer">
+<input class="hidden peer" name="language" type="radio" value="english"/>
+<div class="flex items-center justify-between p-5 bg-surface-container-lowest border-2 border-transparent rounded-xl shadow-sm hover:bg-surface-container-low peer-checked:bg-primary-fixed peer-checked:border-primary transition-all duration-200">
+<div class="flex flex-col">
+<span class="text-lg font-bold font-headline text-on-surface">English</span>
+<span class="text-xs text-on-surface-variant">Use the app in English</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded-full border-2 border-outline-variant">
+</div>
+</div>
+</label>
+</div>
+<!-- Decorative Illustration -->
+<div class="mt-12 opacity-10">
+<div class="w-24 h-24 bg-primary rounded-full blur-3xl"></div>
+</div>
+</main>
+<!-- Footer Action Bar -->
+<div class="sticky bottom-0 w-full bg-background/80 backdrop-blur-md px-6 py-8 flex flex-col items-center">
+<button class="w-full max-w-md h-[56px] bg-primary text-on-primary font-headline font-bold text-lg rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
+            Continue / Aagay
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<p class="mt-4 text-xs text-on-surface-variant/60 font-label tracking-wide">Securely managed by The Resilient Ledger</p>
+</div>
+</body></html>

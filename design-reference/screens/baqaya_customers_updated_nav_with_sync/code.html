@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya - Customers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#005046",
+                    "surface-bright": "#f9f9f6",
+                    "outline-variant": "#bec9c5",
+                    "on-primary": "#ffffff",
+                    "surface": "#f9f9f6",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "secondary": "#005db7",
+                    "primary": "#004f45",
+                    "on-background": "#1a1c1b",
+                    "on-surface-variant": "#3e4946",
+                    "surface-variant": "#e2e3e0",
+                    "surface-container-low": "#f4f4f1",
+                    "on-primary-container": "#94e5d5",
+                    "on-secondary-fixed": "#001b3d",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#84d5c5",
+                    "secondary-container": "#64a1ff",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "surface-tint": "#046b5e",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-tertiary-container": "#ffc9c3",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#90000e",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6e7976",
+                    "on-tertiary-fixed": "#410003",
+                    "surface-dim": "#dadad7",
+                    "on-primary-fixed": "#00201b",
+                    "surface-container-high": "#e8e8e5",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-container": "#b61b1f",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2f312f",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "inverse-on-surface": "#f1f1ee",
+                    "surface-container": "#eeeeeb",
+                    "inverse-primary": "#84d5c5",
+                    "surface-container-highest": "#e2e3e0",
+                    "primary-container": "#00695c",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9f6",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "on-secondary-container": "#003670",
+                    "primary-fixed": "#a0f2e1",
+                    "on-surface": "#1a1c1b",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-[#004f45] shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white cursor-pointer active:scale-95 transition-transform">menu</span>
+<h1 class="font-headline font-bold text-xl text-white tracking-tight">Baqaya</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white hover:bg-white/10 p-2 rounded-full cursor-pointer transition-all">sync</span>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="mt-16">
+<!-- Sync Banner -->
+<div class="bg-surface-container-low px-4 py-3 flex justify-between items-center border-b border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-sm">sync_problem</span>
+<p class="text-sm font-medium text-on-surface-variant">3 changes pending sync</p>
+</div>
+<button class="text-primary font-bold text-sm hover:underline">Sync Now</button>
+</div>
+<div class="px-4 pt-6">
+<!-- Search & Advanced Filter -->
+<div class="flex gap-2 items-center mb-6">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline-variant" placeholder="Search customer name..." type="text"/>
+</div>
+<button class="bg-surface-container-high p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="bg-surface-container-high p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+</div>
+<!-- Filter Chips -->
+<!-- Ledger Cards List -->
+<div class="flex items-center justify-between mb-4 px-1">
+<h2 class="font-headline font-bold text-lg text-on-surface tracking-tight">All Customers</h2>
+<button class="p-2 -mr-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">sort</span>
+</button>
+</div><div class="space-y-4">
+<!-- Customer Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl flex items-center justify-between p-4 shadow-sm relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="text-on-secondary-fixed font-bold text-lg">AZ</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Abbas Zaidi</h3>
+<p class="text-xs text-on-surface-variant">2h ago</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="text-right mr-2">
+<p class="text-xs text-outline uppercase font-bold tracking-tighter">Owes</p>
+<p class="text-tertiary font-bold text-lg">Rs. 12,450</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+<!-- Customer Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl flex items-center justify-between p-4 shadow-sm relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="text-on-primary-fixed font-bold text-lg">MK</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Marium Khan</h3>
+<p class="text-xs text-on-surface-variant">Yesterday</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="text-right mr-2">
+<p class="text-xs text-primary font-bold tracking-tighter uppercase">Settled</p>
+<p class="text-primary font-bold text-lg">Rs. 0</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+<!-- Customer Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl flex items-center justify-between p-4 shadow-sm relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="text-on-tertiary-fixed font-bold text-lg">RI</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Rizwan Ishaq</h3>
+<p class="text-xs text-on-surface-variant">3 days ago</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="text-right mr-2">
+<p class="text-xs text-outline uppercase font-bold tracking-tighter">Owes</p>
+<p class="text-tertiary font-bold text-lg">Rs. 45,000</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+<!-- Customer Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl flex items-center justify-between p-4 shadow-sm relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="text-on-surface-variant font-bold text-lg">BT</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Bilal Traders</h3>
+<p class="text-xs text-on-surface-variant">Nov 12</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="text-right mr-2">
+<p class="text-xs text-primary font-bold tracking-tighter uppercase">Settled</p>
+<p class="text-primary font-bold text-lg">Rs. 0</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+<!-- Customer Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl flex items-center justify-between p-4 shadow-sm relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed-dim flex items-center justify-center">
+<span class="text-on-secondary-fixed font-bold text-lg">SH</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Sana Hamid</h3>
+<p class="text-xs text-on-surface-variant">Last week</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="text-right mr-2">
+<p class="text-xs text-outline uppercase font-bold tracking-tighter">Owes</p>
+<p class="text-tertiary font-bold text-lg">Rs. 2,100</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-3xl">person_add</span>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 bg-white dark:bg-[#1a1c1b] shadow-[0_-4px_16px_rgba(0,0,0,0.06)] rounded-t-xl">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-inter font-medium text-[12px]">Home</span>
+</a>
+<!-- Customers (Active) -->
+<a class="flex flex-col items-center justify-center bg-[#f4f4f1] dark:bg-slate-800 text-[#004f45] dark:text-[#00695c] rounded-xl px-3 py-1.5 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-inter font-medium text-[12px]">Customers</span>
+</a>
+<!-- Transactions -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-inter font-medium text-[12px]">Transactions</span>
+</a>
+<!-- Reports -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-inter font-medium text-[12px]">Reports</span>
+</a>
+</nav>
+</body></html>

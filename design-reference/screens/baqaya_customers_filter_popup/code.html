@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya - Filter Customers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1a1c1b",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ffc9c3",
+                    "surface": "#f9f9f6",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#84d5c5",
+                    "on-secondary-fixed": "#001b3d",
+                    "background": "#f9f9f6",
+                    "on-primary-fixed-variant": "#005046",
+                    "outline": "#6e7976",
+                    "on-error-container": "#93000a",
+                    "primary": "#004f45",
+                    "on-surface-variant": "#3e4946",
+                    "primary-fixed": "#a0f2e1",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#00695c",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-highest": "#e2e3e0",
+                    "surface-container-high": "#e8e8e5",
+                    "secondary-fixed": "#d6e3ff",
+                    "tertiary-container": "#b61b1f",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-tertiary-fixed": "#410003",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "surface-tint": "#046b5e",
+                    "inverse-primary": "#84d5c5",
+                    "secondary": "#005db7",
+                    "on-primary-fixed": "#00201b",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "on-secondary-container": "#003670",
+                    "surface-variant": "#e2e3e0",
+                    "surface-bright": "#f9f9f6",
+                    "outline-variant": "#bec9c5",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "surface-container": "#eeeeeb",
+                    "on-background": "#1a1c1b",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#dadad7",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f4f4f1",
+                    "on-primary-container": "#94e5d5",
+                    "inverse-on-surface": "#f1f1ee",
+                    "tertiary": "#90000e",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "secondary-container": "#64a1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .font-plus-jakarta-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- Top Navigation Anchor (Shared Component) -->
+<header class="bg-emerald-900/85 dark:bg-emerald-950/85 backdrop-blur-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-emerald-50 dark:text-emerald-100 transition-colors duration-200 active:scale-95 hover:bg-white/10 p-2 rounded-lg">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-plus-jakarta-sans font-bold text-2xl tracking-tight text-white">Baqaya</h1>
+</div>
+<button class="text-emerald-50 dark:text-emerald-100 transition-colors duration-200 active:scale-95 hover:bg-white/10 p-2 rounded-lg">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas (Dimmed Background Simulation) -->
+<main class="pt-16 pb-24 px-4 max-w-screen-xl mx-auto opacity-40 select-none pointer-events-none">
+<!-- Dashboard Summary -->
+<div class="mt-6 p-6 rounded-full bg-surface-container-low flex justify-between items-center">
+<div>
+<p class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Total Receivables</p>
+<h2 class="text-4xl font-headline font-extrabold text-primary mt-1 tracking-tight">$42,850.00</h2>
+</div>
+<div class="h-12 w-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+</div>
+<!-- Customer List Section -->
+<div class="mt-8 space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline font-bold text-xl">Recent Customers</h3>
+<span class="material-symbols-outlined text-primary">filter_list</span>
+</div>
+<!-- Ledger Cards (No-Divider List) -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-center justify-between border-l-4 border-tertiary">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="portrait of middle-aged man with beard wearing glasses in soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBoBoRAHRis8SknhYOmKsKwUnb166rWKxOEspq-_jxHbJA-p4FrCLBhGylHoMDdkcF13Hc5vDePu3jKjAL9JJIWacA6i7YJEMrjuE3XFdCa8bUIOcI6ArX7ir1LYled_sKSqoqvnsBMsbw85OIFmfCg_rmayAWRWSOAJdOVzeCK5Z7iz14sDg0yPUz51UwGwmnZ4KFaSYPHPxooMZd-dkSp5aFubSJcKSmiD0WPv4TUqWQRngLxEHFtIaZ7nM0cPwd0xtkLji3I_ta"/>
+<div>
+<p class="font-headline font-bold">Haris Ahmed</p>
+<p class="text-on-surface-variant text-sm">Last update: 2 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-tertiary font-bold">$12,400</p>
+<p class="text-on-surface-variant text-xs uppercase font-medium">Owes</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-center justify-between border-l-4 border-secondary">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="professional woman smiling warmly in natural daylight against a blurred greenery background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqN2cyoQeWKmc3dHlyigSfb92veaE_FiwM6_-KiFQxadLRbzgE0MSNsIQmjOj1cYAjGHObwVuAL2HvxhCTYRnXddxxYJyHcT47KjjeqOZKf7jr2rz4Fw_mYKwwbaU8Nv6F--Gy0wWzdkB_mLHZjXSjgt4UvDe7HWsTFn-veAKXM3KLZ-CQoHhAJuZdx-Ax1X3B1QPAwIjsgmJ9CDnHGaf6LoZUPJm83qRxWAYSDgCral-5EKtoB4cB9Ml43FOoklCswcWfCfxjE_ql"/>
+<div>
+<p class="font-headline font-bold">Sara Khan</p>
+<p class="text-on-surface-variant text-sm">Last update: Yesterday</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-secondary font-bold">$0.00</p>
+<p class="text-on-surface-variant text-xs uppercase font-medium">Paid</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-[60] flex flex-col justify-end">
+<!-- Bottom Sheet Popup (The Filter UI) -->
+<div class="bg-surface rounded-t-[2rem] shadow-2xl w-full max-w-md mx-auto relative transform transition-transform duration-300">
+<!-- Handle -->
+<div class="flex justify-center pt-4 pb-2">
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full"></div>
+</div>
+<div class="px-8 pt-4 pb-12">
+<!-- Title -->
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline font-extrabold text-2xl tracking-tight text-on-surface">Filter Customers</h2>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- Filter Options Group -->
+<div class="space-y-3">
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-4">Payment Status</p>
+<!-- Radio Item: All -->
+<label class="flex items-center justify-between p-5 rounded-xl bg-surface-container-low cursor-pointer transition-all active:scale-[0.98] group">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-has-[:checked]:bg-primary group-has-[:checked]:text-on-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface">All Customers</span>
+</div>
+<input checked="" class="w-6 h-6 text-primary border-outline focus:ring-primary rounded-full transition-all" name="status-filter" type="radio" value="all"/>
+</label>
+<!-- Radio Item: Owes Money -->
+<label class="flex items-center justify-between p-5 rounded-xl bg-surface-container-low cursor-pointer transition-all active:scale-[0.98] group">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-has-[:checked]:bg-tertiary group-has-[:checked]:text-on-tertiary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface">Owes Money</span>
+</div>
+<input class="w-6 h-6 text-tertiary border-outline focus:ring-tertiary rounded-full transition-all" name="status-filter" type="radio" value="owes"/>
+</label>
+<!-- Radio Item: Fully Paid -->
+<label class="flex items-center justify-between p-5 rounded-xl bg-surface-container-low cursor-pointer transition-all active:scale-[0.98] group">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-has-[:checked]:bg-secondary group-has-[:checked]:text-on-secondary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<span class="font-headline font-semibold text-lg text-on-surface">Fully Paid</span>
+</div>
+<input class="w-6 h-6 text-secondary border-outline focus:ring-secondary rounded-full transition-all" name="status-filter" type="radio" value="paid"/>
+</label>
+</div>
+<!-- Action Button -->
+<div class="mt-10">
+<button class="w-full h-14 bg-primary hover:bg-primary-container text-on-primary font-headline font-bold text-lg rounded-xl shadow-lg shadow-primary/10 flex items-center justify-center gap-2 transition-all active:scale-95">
+<span>Apply Filters</span>
+<span class="material-symbols-outlined text-[20px]">done_all</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Shell (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 bg-white dark:bg-zinc-900 pb-safe z-50 shadow-[0_-4px_20px_0_rgba(0,0,0,0.06)] dark:shadow-none rounded-t-xl opacity-40 pointer-events-none">
+<div class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 px-4 py-1.5 font-inter text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-100 rounded-xl px-4 py-1.5 transition-all font-inter text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined">group</span>
+<span>Customers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 px-4 py-1.5 font-inter text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span>Cashbook</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 px-4 py-1.5 font-inter text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reports</span>
+</div>
+</nav>
+</body></html>

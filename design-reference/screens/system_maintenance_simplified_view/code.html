@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface": "#f9f9f6",
+                  "inverse-surface": "#2f312f",
+                  "tertiary-fixed": "#ffdad6",
+                  "on-primary": "#ffffff",
+                  "on-error": "#ffffff",
+                  "on-secondary-fixed": "#001b3d",
+                  "inverse-primary": "#84d5c5",
+                  "surface-variant": "#e2e3e0",
+                  "tertiary": "#90000e",
+                  "surface-container": "#eeeeeb",
+                  "surface-bright": "#f9f9f6",
+                  "on-tertiary-container": "#ffc9c3",
+                  "secondary": "#005db7",
+                  "secondary-fixed-dim": "#a9c7ff",
+                  "outline-variant": "#bec9c5",
+                  "tertiary-container": "#b61b1f",
+                  "error-container": "#ffdad6",
+                  "inverse-on-surface": "#f1f1ee",
+                  "primary-fixed": "#a0f2e1",
+                  "primary": "#004f45",
+                  "secondary-fixed": "#d6e3ff",
+                  "background": "#f9f9f6",
+                  "on-tertiary": "#ffffff",
+                  "surface-container-high": "#e8e8e5",
+                  "on-secondary-fixed-variant": "#00468c",
+                  "on-secondary": "#ffffff",
+                  "on-primary-fixed": "#00201b",
+                  "surface-container-highest": "#e2e3e0",
+                  "on-tertiary-fixed-variant": "#93000e",
+                  "on-tertiary-fixed": "#410003",
+                  "surface-container-low": "#f4f4f1",
+                  "on-error-container": "#93000a",
+                  "on-primary-container": "#94e5d5",
+                  "primary-container": "#00695c",
+                  "on-surface": "#1a1c1b",
+                  "surface-dim": "#dadad7",
+                  "on-background": "#1a1c1b",
+                  "surface-tint": "#046b5e",
+                  "primary-fixed-dim": "#84d5c5",
+                  "on-primary-fixed-variant": "#005046",
+                  "outline": "#6e7976",
+                  "on-secondary-container": "#003670",
+                  "tertiary-fixed-dim": "#ffb4ac",
+                  "error": "#ba1a1a",
+                  "surface-container-lowest": "#ffffff",
+                  "secondary-container": "#64a1ff",
+                  "on-surface-variant": "#3e4946"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.125rem",
+                  "lg": "0.5rem",
+                  "xl": "1rem",
+                  "2xl": "1.5rem",
+                  "3xl": "2rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Plus Jakarta Sans"],
+                  "body": ["Inter"],
+                  "label": ["Inter"]
+          }
+        },
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .safe-area-inset-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .tap-highlight-transparent {
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen flex flex-col select-none touch-none overflow-hidden">
+<!-- Top Bar -->
+<header class="flex justify-between items-center px-6 pt-12 pb-4">
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+<span class="text-xl font-headline font-extrabold text-primary tracking-tight">Baqaya</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant active:scale-90 transition-transform tap-highlight-transparent">
+<span class="material-symbols-outlined text-xl">help</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant active:scale-90 transition-transform tap-highlight-transparent">
+<span class="material-symbols-outlined text-xl">refresh</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area (Optimized for thumb reach) -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 pb-12">
+<div class="w-full flex flex-col items-center text-center space-y-10">
+<!-- Dynamic Icon Visual -->
+<div class="relative w-44 h-44 flex items-center justify-center">
+<!-- Animated glow -->
+<div class="absolute inset-0 bg-primary-fixed/30 blur-3xl rounded-full animate-pulse"></div>
+<!-- Physical Icon Container -->
+<div class="relative bg-white w-32 h-32 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,79,69,0.12)] flex items-center justify-center border border-white">
+<div class="relative">
+<span class="material-symbols-outlined text-[72px] text-primary" style="font-variation-settings: 'wght' 200;">dns</span>
+<div class="absolute -bottom-1 -right-1 bg-primary p-2 rounded-xl shadow-lg border-[3px] border-white">
+<span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">build</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Headlines -->
+<div class="space-y-4 max-w-sm">
+<h1 class="font-headline font-extrabold text-3xl md:text-4xl text-on-surface tracking-tight leading-tight">
+          Updating Our <br/>Infrastructure
+        </h1>
+<p class="font-body text-on-surface-variant text-base leading-relaxed px-4">We’re making improvements to serve you better.</p>
+</div>
+<!-- Progress & Timing Card -->
+</div>
+</main>
+<!-- One-Handed Action Area -->
+<nav class="safe-area-inset-bottom p-6 space-y-6">
+<!-- Trust Badge -->
+<div class="flex items-center justify-center gap-2 py-2">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">info</span>
+<span class="text-xs font-medium text-on-surface-variant">Please try again in a few minutes.</span>
+</div>
+<!-- Primary Button (Bottom-weighted for thumb reach) -->
+<!-- Footer System Stats -->
+<div class="flex justify-center items-center gap-3 opacity-40 py-2">
+<span class="text-[10px] font-label font-bold uppercase tracking-widest">Protocol 4.2</span>
+<div class="w-1 h-1 bg-on-surface-variant rounded-full"></div>
+<span class="text-[10px] font-label font-bold uppercase tracking-widest">Node: ASIA-S</span>
+</div>
+</nav>
+<!-- Aesthetic Background Orbs -->
+<div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+<div class="absolute -top-[10%] -right-[20%] w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]"></div>
+<div class="absolute top-[40%] -left-[30%] w-[350px] h-[350px] bg-secondary/5 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-[5%] right-[10%] w-[200px] h-[200px] bg-primary/10 rounded-full blur-[60px]"></div>
+</div>
+</body></html>

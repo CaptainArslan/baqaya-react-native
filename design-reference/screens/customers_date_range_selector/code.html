@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya Customers - Select Date Range</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#6e7976",
+                    "on-tertiary-fixed": "#410003",
+                    "surface-dim": "#dadad7",
+                    "on-primary-fixed": "#00201b",
+                    "surface-container-high": "#e8e8e5",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-container": "#b61b1f",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2f312f",
+                    "inverse-on-surface": "#f1f1ee",
+                    "surface-container": "#eeeeeb",
+                    "inverse-primary": "#84d5c5",
+                    "error": "#ba1a1a",
+                    "background": "#f9f9f6",
+                    "surface-container-highest": "#e2e3e0",
+                    "primary-container": "#00695c",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "on-secondary-container": "#003670",
+                    "on-surface": "#1a1c1b",
+                    "primary-fixed": "#a0f2e1",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#005046",
+                    "surface": "#f9f9f6",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f9f9f6",
+                    "outline-variant": "#bec9c5",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#3e4946",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "secondary": "#005db7",
+                    "primary": "#004f45",
+                    "on-background": "#1a1c1b",
+                    "surface-container-low": "#f4f4f1",
+                    "surface-variant": "#e2e3e0",
+                    "on-primary-container": "#94e5d5",
+                    "on-secondary-fixed": "#001b3d",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#84d5c5",
+                    "secondary-container": "#64a1ff",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "surface-tint": "#046b5e",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-tertiary-container": "#ffc9c3",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#90000e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Background Content: Customers List (Dimmed) -->
+<div class="fixed inset-0 z-0 brightness-[0.4] grayscale-[0.2]">
+<!-- TopAppBar Shared Component -->
+<header class="flex items-center justify-between px-4 h-16 w-full bg-[#f9f9f6]/85 dark:bg-[#1a1c1b]/85 backdrop-blur-md docked full-width top-0 sticky z-50 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#004f45] dark:text-[#00695c]">menu</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-xl text-[#004f45] dark:text-[#00695c]">Baqaya Customers</h1>
+</div>
+<span class="material-symbols-outlined text-[#004f45] dark:text-[#00695c]">search</span>
+</header>
+<main class="p-4 space-y-4">
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border-l-4 border-secondary">
+<p class="text-on-surface-variant text-xs font-medium">To Receive</p>
+<p class="text-2xl font-headline font-extrabold text-secondary">₨ 45,200</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border-l-4 border-tertiary">
+<p class="text-on-surface-variant text-xs font-medium">To Pay</p>
+<p class="text-2xl font-headline font-extrabold text-tertiary">₨ 12,850</p>
+</div>
+</div>
+<!-- Customer List Items -->
+<div class="space-y-3">
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">AK</div>
+<div>
+<p class="font-bold">Ahmed Khan</p>
+<p class="text-xs text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-secondary">₨ 2,400</p>
+<p class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Owes You</p>
+</div>
+</div>
+<!-- Repeat list items for background depth -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary font-bold">MS</div>
+<div>
+<p class="font-bold">Maryam Siddiqui</p>
+<p class="text-xs text-on-surface-variant">Yesterday</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-tertiary">₨ 850</p>
+<p class="text-[10px] uppercase tracking-tighter text-on-surface-variant">You Owe</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold">RZ</div>
+<div>
+<p class="font-bold">Rehan Zafar</p>
+<p class="text-xs text-on-surface-variant">3 days ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-secondary">₨ 15,000</p>
+<p class="text-[10px] uppercase tracking-tighter text-on-surface-variant">Owes You</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shared Component -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-white dark:bg-[#1a1c1b] border-t border-[#f4f4f1] dark:border-gray-800 shadow-[0_-4px_16px_rgba(26,28,27,0.06)] z-50">
+<div class="flex flex-col items-center justify-center text-[#1a1c1b]/60 dark:text-[#f9f9f6]/60 p-2 hover:opacity-80 transition-transform active:scale-90">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-xs font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#004f45]/10 dark:bg-[#00695c]/20 text-[#004f45] dark:text-[#00695c] rounded-2xl p-2 hover:opacity-80 transition-transform active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-['Inter'] text-xs font-medium">Customers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1a1c1b]/60 dark:text-[#f9f9f6]/60 p-2 hover:opacity-80 transition-transform active:scale-90">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Inter'] text-xs font-medium">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1a1c1b]/60 dark:text-[#f9f9f6]/60 p-2 hover:opacity-80 transition-transform active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] text-xs font-medium">Settings</span>
+</div>
+</nav>
+</div>
+<!-- Bottom Sheet Overlay -->
+<div class="fixed inset-0 z-[60] flex items-end justify-center pointer-events-none">
+<div class="w-full max-w-md bg-white rounded-t-[2rem] shadow-2xl pointer-events-auto transition-transform duration-300 transform translate-y-0">
+<!-- Drag Handle -->
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mt-3 mb-2"></div>
+<!-- Header -->
+<div class="flex items-center justify-between px-6 py-4">
+<h2 class="text-xl font-headline font-bold text-on-surface">Select Date Range</h2>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- Content Area -->
+<div class="px-6 pb-8 space-y-6 overflow-y-auto max-h-[707px]">
+<!-- Quick Selection Chips -->
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm font-medium hover:bg-primary-fixed-dim hover:border-primary transition-all">Today</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm font-medium hover:bg-primary-fixed-dim hover:border-primary transition-all">Yesterday</button>
+<button class="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium shadow-md">This Week</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm font-medium hover:bg-primary-fixed-dim hover:border-primary transition-all">This Month</button>
+</div>
+<!-- Custom Calendar View -->
+<div class="bg-surface-container-low rounded-2xl p-4">
+<div class="flex items-center justify-between mb-4">
+<span class="font-headline font-bold text-primary">October 2023</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">chevron_left</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<div class="grid grid-cols-7 text-center text-xs font-bold text-on-surface-variant mb-2">
+<span>SU</span><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span>
+</div>
+<div class="grid grid-cols-7 gap-y-1 text-center font-medium">
+<!-- Placeholder dates for visualization -->
+<span class="py-2 text-surface-dim">28</span>
+<span class="py-2 text-surface-dim">29</span>
+<span class="py-2 text-surface-dim">30</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">1</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">2</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">3</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">4</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">5</span>
+<!-- Range Start -->
+<span class="py-2 bg-primary text-white rounded-l-xl cursor-pointer font-bold relative">6</span>
+<span class="py-2 bg-primary-fixed text-primary cursor-pointer">7</span>
+<span class="py-2 bg-primary-fixed text-primary cursor-pointer">8</span>
+<span class="py-2 bg-primary-fixed text-primary cursor-pointer">9</span>
+<span class="py-2 bg-primary-fixed text-primary cursor-pointer">10</span>
+<span class="py-2 bg-primary-fixed text-primary cursor-pointer">11</span>
+<!-- Range End -->
+<span class="py-2 bg-primary text-white rounded-r-xl cursor-pointer font-bold">12</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">13</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">14</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">15</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">16</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">17</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">18</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">19</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">20</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">21</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">22</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">23</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">24</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">25</span>
+<span class="py-2 hover:bg-primary-fixed rounded-xl cursor-pointer">26</span>
+</div>
+</div>
+<!-- From/To Indicators -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">From</p>
+<div class="bg-surface-container p-3 rounded-xl border border-outline-variant/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">calendar_today</span>
+<span class="font-medium">06 Oct 2023</span>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">To</p>
+<div class="bg-surface-container p-3 rounded-xl border border-outline-variant/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">calendar_month</span>
+<span class="font-medium">12 Oct 2023</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-4 pt-4">
+<button class="w-full h-14 bg-primary text-white font-headline font-bold text-lg rounded-xl shadow-lg shadow-primary-container/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98]">
+                        Apply Selection
+                    </button>
+<button class="text-primary font-headline font-semibold text-center py-2 hover:underline">
+                        Reset
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

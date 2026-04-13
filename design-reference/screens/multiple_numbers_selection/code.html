@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya Ledger - Phone Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#84d5c5",
+                    "on-surface-variant": "#3e4946",
+                    "surface-tint": "#046b5e",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#90000e",
+                    "surface-container-high": "#e8e8e5",
+                    "on-primary-fixed-variant": "#005046",
+                    "primary": "#004f45",
+                    "on-primary-container": "#94e5d5",
+                    "on-tertiary-container": "#ffc9c3",
+                    "on-surface": "#1a1c1b",
+                    "surface-dim": "#dadad7",
+                    "surface-container-low": "#f4f4f1",
+                    "surface-variant": "#e2e3e0",
+                    "on-primary-fixed": "#00201b",
+                    "on-tertiary-fixed": "#410003",
+                    "primary-fixed": "#a0f2e1",
+                    "on-secondary-container": "#003670",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#84d5c5",
+                    "surface-container-highest": "#e2e3e0",
+                    "on-secondary-fixed": "#001b3d",
+                    "secondary-container": "#64a1ff",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeeeeb",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "on-primary": "#ffffff",
+                    "background": "#f9f9f6",
+                    "error": "#ba1a1a",
+                    "outline": "#6e7976",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "primary-container": "#00695c",
+                    "secondary": "#005db7",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-container": "#b61b1f",
+                    "inverse-on-surface": "#f1f1ee",
+                    "secondary-fixed": "#d6e3ff",
+                    "inverse-surface": "#2f312f",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "surface": "#f9f9f6",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#bec9c5",
+                    "surface-bright": "#f9f9f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased overflow-hidden">
+<!-- Main Content Background (Simulated Customer Details Screen) -->
+<div class="min-h-screen flex flex-col pt-16 pb-20">
+<!-- TopAppBar Placeholder -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9f6]/85 backdrop-blur-md flex justify-between items-center px-4 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#004f45]">arrow_back</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45]">Customer Details</h1>
+</div>
+<span class="material-symbols-outlined text-[#004f45]">account_circle</span>
+</header>
+<!-- Background Content -->
+<main class="flex-1 px-4 py-6">
+<div class="bg-surface-container-low rounded-xl p-6 mb-4">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim flex items-center justify-center">
+<span class="text-on-primary-fixed text-2xl font-bold">MK</span>
+</div>
+<div>
+<h2 class="font-headline font-bold text-xl">Mohammad Khan</h2>
+<p class="text-on-surface-variant text-sm">Last active: 2 hours ago</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<p class="text-xs text-on-surface-variant mb-1">Total Udhaar</p>
+<p class="text-tertiary font-bold text-xl">₨ 4,500</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<p class="text-xs text-on-surface-variant mb-1">Total Paid</p>
+<p class="text-primary font-bold text-xl">₨ 12,000</p>
+</div>
+</div>
+</div>
+<!-- Empty State Illustration -->
+<div class="flex flex-col items-center justify-center py-12 opacity-40">
+<div class="w-32 h-32 mb-4 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl">receipt_long</span>
+</div>
+<p class="text-on-surface-variant">No recent transactions</p>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed for focused Modal but present in DOM shell for structure) -->
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 bg-on-surface/40 z-[60] backdrop-blur-[2px]"></div>
+<!-- Bottom Sheet Modal: Choose a phone number -->
+<div class="fixed bottom-0 left-0 right-0 z-[70] transition-transform duration-300 transform translate-y-0 max-w-md mx-auto">
+<div class="bg-surface rounded-t-[2rem] shadow-2xl overflow-hidden pb-safe">
+<!-- Handle -->
+<div class="flex justify-center pt-3 pb-2">
+<div class="w-10 h-1 rounded-full bg-outline-variant/50"></div>
+</div>
+<!-- Modal Header -->
+<div class="px-6 py-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-xl text-on-surface">Choose a phone number</h3>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- List of phone numbers -->
+<div class="px-6 pb-4 space-y-3">
+<p class="text-sm text-on-surface-variant font-medium mb-4">Contact: Mohammad Khan</p>
+<!-- Number Item: Selected -->
+<button class="w-full text-left bg-surface-container-lowest border-2 border-primary rounded-xl p-4 flex items-center justify-between group transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill">call</span>
+</div>
+<div>
+<p class="text-on-surface font-bold font-headline">+92 300 1234567</p>
+<p class="text-on-surface-variant text-xs">Primary • Mobile</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-weight="fill">check</span>
+</div>
+</button>
+<!-- Number Item: Unselected 1 -->
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high rounded-xl p-4 flex items-center justify-between transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">call</span>
+</div>
+<div>
+<p class="text-on-surface font-bold font-headline">+92 321 9876543</p>
+<p class="text-on-surface-variant text-xs">Work</p>
+</div>
+</div>
+</button>
+<!-- Number Item: Unselected 2 -->
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high rounded-xl p-4 flex items-center justify-between transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">call</span>
+</div>
+<div>
+<p class="text-on-surface font-bold font-headline">+92 21 34567890</p>
+<p class="text-on-surface-variant text-xs">Home</p>
+</div>
+</div>
+</button>
+</div>
+<!-- Actions Footer -->
+<div class="px-6 py-6 bg-surface-container-low/50 flex flex-col gap-3">
+<button class="w-full h-12 bg-primary text-on-primary font-bold rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+                    Confirm Selection
+                </button>
+<button class="w-full h-12 text-on-surface font-semibold rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                    Cancel
+                </button>
+</div>
+</div>
+</div>
+<!-- Hidden Navigation Shell (BottomNavBar Structure) -->
+<nav class="hidden md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 pb-safe bg-white shadow-[0_-4px_16px_rgba(0,0,0,0.06)] border-t border-stone-100">
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-xs font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#f4f4f1] text-[#004f45] rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" data-weight="fill">group</span>
+<span class="font-['Inter'] text-xs font-medium">Customers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-['Inter'] text-xs font-medium">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] text-xs font-medium">Settings</span>
+</div>
+</nav>
+</body></html>

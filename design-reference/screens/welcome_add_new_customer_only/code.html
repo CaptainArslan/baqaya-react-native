@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Baqaya</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#90000e",
+                    "secondary-container": "#64a1ff",
+                    "surface-container-highest": "#e2e3e0",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#b61b1f",
+                    "surface-variant": "#e2e3e0",
+                    "surface-container-high": "#e8e8e5",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "surface-dim": "#dadad7",
+                    "surface-container": "#eeeeeb",
+                    "surface-container-low": "#f4f4f1",
+                    "on-tertiary-fixed": "#410003",
+                    "on-primary-container": "#94e5d5",
+                    "on-surface": "#1a1c1b",
+                    "on-primary-fixed": "#00201b",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "on-background": "#1a1c1b",
+                    "secondary": "#005db7",
+                    "on-secondary-fixed": "#001b3d",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-tertiary-container": "#ffc9c3",
+                    "background": "#f9f9f6",
+                    "inverse-on-surface": "#f1f1ee",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#2f312f",
+                    "primary-fixed": "#a0f2e1",
+                    "secondary-fixed": "#d6e3ff",
+                    "primary-fixed-dim": "#84d5c5",
+                    "error": "#ba1a1a",
+                    "primary-container": "#00695c",
+                    "on-secondary-container": "#003670",
+                    "outline": "#6e7976",
+                    "on-surface-variant": "#3e4946",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "primary": "#004f45",
+                    "surface-tint": "#046b5e",
+                    "inverse-primary": "#84d5c5",
+                    "surface": "#f9f9f6",
+                    "surface-bright": "#f9f9f6",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#bec9c5",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#005046",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f6;
+        }
+        .headline-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<!-- The TopAppBar headline/brand text is styled as a heavy, premium anchor per design system -->
+<header class="fixed top-0 w-full backdrop-blur-md bg-[#f9f9f6]/85 z-50 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#004f45] text-2xl" data-icon="account_balance">account_balance</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45] tracking-tight">Baqaya</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-[#f4f4f1] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 pt-20 pb-32 max-w-lg mx-auto text-center">
+<!-- Center Illustration with Tonal Layering -->
+<div class="relative w-full aspect-square mb-12 flex items-center justify-center">
+<!-- Decorative soft glow behind illustration -->
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl scale-75"></div>
+<div class="relative z-10 w-full h-full rounded-full overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img alt="Digital financial growth illustration" class="w-4/5 h-4/5 object-contain" data-alt="Minimalist 3D isometric illustration of a golden coin growing out of a green ledger book with soft professional lighting and clean teal accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnfFy7GWKnN2Wu-Yd5kP1h5llFBBaRvSzn7l7Xhs6X5lV7bXGD_H-yvuicI3hl7gIzm5Z1f1ft64QDAhPz-Uf8SrPhrFVxPSwHBjFD8OFtVtPvKo0g-v2YNBL2EwH8bEpSSAd8SKBrz74d60qn1fvNzrRty6feCR3igf33IcwOPHtw9Q72tY2ZZj4vjM3O8XqG-mX-vtOEf8HGqyE-zsm5crPbIiayz5jcjmvPDSXd369II9ea_0VTZVSc_Fu15mQFan0MdDf6_d9Q"/>
+</div>
+</div>
+<!-- Typography Stack -->
+<div class="space-y-4">
+<h2 class="headline-font text-3xl font-extrabold text-on-surface tracking-tight leading-tight">
+                Welcome to Baqaya
+            </h2>
+<p class="text-on-surface-variant text-base leading-relaxed max-w-xs mx-auto">
+                Your digital ledger is ready. Start by adding your first customer to track udhaar and payments.
+            </p>
+</div>
+<!-- Visual "Bedrock" Element (Asymmetric Detail) -->
+<div class="mt-12 flex gap-2 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary/20"></div>
+<div class="w-8 h-1.5 rounded-full bg-primary/40"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary/20"></div>
+</div>
+</main>
+<!-- Bottom Action Area -->
+<!-- Suppression Logic: Navigation is suppressed as this is a focused onboarding/empty state journey -->
+<footer class="fixed bottom-0 left-0 w-full p-6 bg-gradient-to-t from-background via-background to-transparent">
+<div class="max-w-md mx-auto">
+<button class="w-full h-[56px] bg-primary-container text-on-primary rounded-xl font-bold text-base shadow-sm active:scale-[0.98] transition-transform flex items-center justify-center gap-3">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                Add First Customer
+            </button>
+<!-- Safety padding for gesture-based mobile navigation -->
+<div class="h-4"></div>
+</div>
+</footer>
+</body></html>

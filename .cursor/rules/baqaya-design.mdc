@@ -1,0 +1,97 @@
+---
+description: Baqaya React Native development rules using structured design-reference
+globs:
+  - "app/**/*.tsx"
+  - "src/**/*.tsx"
+  - "src/**/*.ts"
+alwaysApply: true
+---
+
+# Baqaya Rules
+
+## Design Source
+
+All designs are stored in:
+
+design-reference/screens/<screen-name>/
+
+Each contains:
+- design.png
+- layout.html
+
+Use them as reference only.
+
+---
+
+## Critical Rule
+
+Never convert HTML directly into React Native.
+
+---
+
+## Screen Implementation Workflow
+
+1. Identify screen folder
+2. Review design.png
+3. Understand layout via HTML
+4. Map to route
+5. Build UI in React Native
+6. Extract reusable components
+
+---
+
+## Folder Responsibilities
+
+- app/ → routes/screens
+- src/components/ → shared UI
+- src/features/ → feature modules
+- src/theme/ → design system
+- src/utils/ → helpers
+- src/services/ → API
+
+---
+
+## UI Rules
+
+- Follow spacing and hierarchy from design
+- Use consistent colors and typography
+- Build mobile-first layouts
+- Keep touch targets large
+
+---
+
+## Reusability
+
+Always extract:
+- Cards
+- Buttons
+- Inputs
+- Tabs
+- Banners
+- Empty states
+
+---
+
+## Navigation
+
+- Use Expo Router
+- Separate auth and main app
+- Keep routes simple
+
+---
+
+## Do NOT
+
+- Do not copy HTML
+- Do not mix design files into code
+- Do not create large components
+- Do not ignore design structure
+
+---
+
+## Output Expectation
+
+- Clean code
+- Modular components
+- Design-aligned UI
+- Proper folder usage

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Shop - Baqaya</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#003670",
+                        "secondary-container": "#64a1ff",
+                        "outline": "#6e7976",
+                        "surface": "#f9f9f6",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bec9c5",
+                        "on-surface-variant": "#3e4946",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9f6",
+                        "surface-container-highest": "#e2e3e0",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeeeb",
+                        "surface-dim": "#dadad7",
+                        "surface-container-low": "#f4f4f1",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary-fixed": "#001b3d",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "tertiary": "#90000e",
+                        "surface-tint": "#046b5e",
+                        "surface-container-high": "#e8e8e5",
+                        "on-background": "#1a1c1b",
+                        "on-primary-fixed": "#00201b",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "on-primary-container": "#94e5d5",
+                        "tertiary-container": "#b61b1f",
+                        "inverse-on-surface": "#f1f1ee",
+                        "surface-variant": "#e2e3e0",
+                        "on-tertiary-container": "#ffc9c3",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#005046",
+                        "primary-fixed-dim": "#84d5c5",
+                        "secondary": "#005db7",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#a0f2e1",
+                        "primary": "#004f45",
+                        "primary-container": "#00695c",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1a1c1b",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-bright": "#f9f9f6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#410003",
+                        "inverse-surface": "#2f312f",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "inverse-primary": "#84d5c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-40 bg-[#f9f9f6]/85 backdrop-blur-md">
+<div class="flex items-center px-4 h-16 w-full max-w-md mx-auto">
+<button class="material-symbols-outlined text-[#004f45] p-2 hover:bg-slate-100 transition-colors rounded-full active:scale-95 duration-150" data-icon="arrow_back">
+                arrow_back
+            </button>
+<h1 class="ml-4 font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#004f45]">
+                Create Shop
+            </h1>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-md px-6 pt-24 pb-32">
+<!-- Instructional Header Section -->
+<div class="mb-10">
+<div class="w-16 h-1 w-primary bg-primary rounded-full mb-6"></div>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight leading-tight mb-3">
+                Enter your shop name to get started.
+            </h2>
+<p class="text-on-surface-variant font-body text-base">
+                This name will appear on all your digital receipts and customer ledgers.
+            </p>
+</div>
+<!-- Hero Decorative Element -->
+<div class="relative w-full aspect-[16/9] mb-10 rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
+<div class="relative flex flex-col items-center">
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-xl shadow-on-surface/5 mb-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="storefront">storefront</span>
+</div>
+<div class="flex gap-2">
+<div class="h-2 w-8 bg-primary rounded-full"></div>
+<div class="h-2 w-2 bg-outline-variant rounded-full"></div>
+<div class="h-2 w-2 bg-outline-variant rounded-full"></div>
+</div>
+</div>
+<!-- Background Texture Simulation -->
+<div class="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBclBCRnZNnqbTSdyBzz0_XAwlix8_NQ0ICdwGLDsEA9jAh4g_FkJBOIdGvs86lwVeLBynNehr_XNf53XAeia5rj3Wk5CMrL4swIwnsyEWgGzQTLpc_-Jsvl6FIqlOYV6tbZiqQWn93EksCleA3Tn6EQKvsZypZ4icEZkDu1wwG40ErxburTMtnAJHcApiWrR_eRZ5Jm2zsd8cMWK6pU1WGYdfj-EO1isjChesDYK1mgMWSd4ElUZWN6UglgSe94IJ_TgyrsMGtn2rc');"></div>
+</div>
+<!-- Single Input Field -->
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-on-surface-variant ml-1" for="shop_name">
+                Shop Name
+            </label>
+<div class="relative group">
+<input class="w-full h-16 px-5 pt-1 bg-surface-container-high border-2 border-transparent rounded-xl text-on-surface text-lg font-medium placeholder:text-on-surface-variant/40 focus:ring-0 focus:border-primary focus:bg-surface-container-lowest transition-all duration-200 outline-none" id="shop_name" placeholder="e.g., Rehman Kiryana Store" type="text"/>
+<div class="absolute right-5 top-1/2 -translate-y-1/2 opacity-0 group-focus-within:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<p class="text-[12px] font-label text-on-surface-variant/60 ml-1 px-1">
+                You can change this later in settings.
+            </p>
+</div>
+<!-- Trust Indicator -->
+<div class="mt-12 p-4 rounded-xl bg-surface-container-low flex items-start gap-4">
+<div class="p-2 rounded-lg bg-surface-container-lowest">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="security">security</span>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-primary">Your data is safe</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Baqaya uses end-to-end encryption for all your financial ledger records.</p>
+</div>
+</div>
+</main>
+<!-- Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full p-6 bg-[#f9f9f6]/95 backdrop-blur-sm">
+<div class="max-w-md mx-auto">
+<button class="w-full h-14 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl shadow-lg shadow-primary/10 active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+                Continue
+                <span class="material-symbols-outlined text-xl" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

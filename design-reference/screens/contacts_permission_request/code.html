@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baqaya Ledger - Permissions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#84d5c5",
+                        "on-surface-variant": "#3e4946",
+                        "surface-tint": "#046b5e",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#90000e",
+                        "surface-container-high": "#e8e8e5",
+                        "on-primary-fixed-variant": "#005046",
+                        "primary": "#004f45",
+                        "on-primary-container": "#94e5d5",
+                        "on-tertiary-container": "#ffc9c3",
+                        "on-surface": "#1a1c1b",
+                        "surface-dim": "#dadad7",
+                        "surface-container-low": "#f4f4f1",
+                        "surface-variant": "#e2e3e0",
+                        "on-primary-fixed": "#00201b",
+                        "on-tertiary-fixed": "#410003",
+                        "primary-fixed": "#a0f2e1",
+                        "on-secondary-container": "#003670",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#84d5c5",
+                        "surface-container-highest": "#e2e3e0",
+                        "on-secondary-fixed": "#001b3d",
+                        "secondary-container": "#64a1ff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeeeb",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "on-primary": "#ffffff",
+                        "background": "#f9f9f6",
+                        "error": "#ba1a1a",
+                        "outline": "#6e7976",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "primary-container": "#00695c",
+                        "secondary": "#005db7",
+                        "on-tertiary-fixed-variant": "#93000e",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "tertiary-fixed": "#ffdad6",
+                        "tertiary-container": "#b61b1f",
+                        "inverse-on-surface": "#f1f1ee",
+                        "secondary-fixed": "#d6e3ff",
+                        "inverse-surface": "#2f312f",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1c1b",
+                        "surface": "#f9f9f6",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bec9c5",
+                        "surface-bright": "#f9f9f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed-dim">
+<!-- Background Content (Simulated Dashboard) -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f9f6]/85 backdrop-blur-md flex justify-between items-center px-4 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#004f45]" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#004f45]">Baqaya Ledger</h1>
+</div>
+<span class="material-symbols-outlined text-[#004f45]" data-icon="account_circle">account_circle</span>
+</header>
+<main class="pt-20 pb-24 px-4 space-y-6">
+<!-- Dashboard Summary Stats -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-full shadow-sm border-l-4 border-secondary">
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Total Received</p>
+<p class="text-2xl font-bold text-secondary font-headline">₨ 45,200</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-full shadow-sm border-l-4 border-tertiary">
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Total Gave</p>
+<p class="text-2xl font-bold text-tertiary font-headline">₨ 12,850</p>
+</div>
+</section>
+<!-- Bento Style Customer Quick Access -->
+<section class="space-y-4">
+<h2 class="font-headline font-bold text-xl px-2">Recent Customers</h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-3">
+<div class="h-10 w-10 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-primary">AK</div>
+<div>
+<p class="font-bold text-sm">Arshad Khan</p>
+<p class="text-xs text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-3">
+<div class="h-10 w-10 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-secondary">MS</div>
+<div>
+<p class="font-bold text-sm">M. Saleem</p>
+<p class="text-xs text-on-surface-variant">Yesterday</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Permission Overlay (THE TASK) -->
+<div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-on-surface/40 backdrop-blur-sm p-4">
+<!-- Modal Card -->
+<div class="bg-surface w-full max-w-md rounded-[2rem] shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-300">
+<!-- Decorative Visual Anchor -->
+<div class="relative h-48 w-full bg-primary-container flex items-center justify-center overflow-hidden">
+<!-- Abstract Texture Background -->
+<div class="absolute inset-0 opacity-20" data-alt="Abstract flowing topographic lines in deep forest green and teal with soft lighting and grain texture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDm3-KPYBAm5tVjHuqllasX5Wp7a9xSVF-7fnmGubnn2EAlWjwC0oieLXIObRZtKqJyZ501quJINhQ-QPafP_FRr6Arm-wudRg4TQ2KcYkpI2XgpC8eqCxlYzP8DKXT6UBSXoMrvjHv6FwJxMtztxooT1d9vkmubJh4RGD-oidZ74SbOSrJnWIwphXgXGruJ7wT2E46Nt0PwzkYNIuMbFzaRRzoGOs1XXa6F6Qjm-l8PsGITS0YEtEBo4dtC1ITEUr-XOVOj6lq9TfV'); background-size: cover;">
+</div>
+<!-- Icon Composition -->
+<div class="relative bg-surface rounded-full p-6 shadow-xl">
+<span class="material-symbols-outlined text-primary text-5xl" data-icon="contacts" style="font-variation-settings: 'FILL' 1;">contacts</span>
+<div class="absolute -bottom-1 -right-1 bg-secondary rounded-full p-1 border-4 border-surface">
+<span class="material-symbols-outlined text-white text-sm" data-icon="add">add</span>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="px-8 pt-8 pb-10 text-center">
+<h3 class="font-headline font-extrabold text-2xl text-on-surface mb-3 tracking-tight">
+                    Contacts permission required
+                </h3>
+<p class="text-on-surface-variant font-body leading-relaxed mb-8">
+                    Allow access to import customer details faster and manage your business ledgers with ease.
+                </p>
+<!-- Actions -->
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full shadow-lg hover:opacity-90 active:scale-[0.98] transition-all tap-highlight-none">
+                        Allow Access
+                    </button>
+<button class="w-full bg-surface-container-low text-on-surface-variant font-headline font-semibold py-4 rounded-full hover:bg-surface-container-high transition-colors tap-highlight-none">
+                        Not Now
+                    </button>
+</div>
+<!-- Trust Meta -->
+<div class="mt-6 flex items-center justify-center gap-2 text-xs text-outline opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Your data is encrypted and secure</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 pb-safe bg-white shadow-[0_-4px_16px_rgba(0,0,0,0.06)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center bg-[#f4f4f1] text-[#004f45] rounded-xl px-4 py-1 tap-highlight-none transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-xs font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1 hover:opacity-80 tap-highlight-none transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] text-xs font-medium">Customers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1 hover:opacity-80 tap-highlight-none transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-['Inter'] text-xs font-medium">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 px-4 py-1 hover:opacity-80 tap-highlight-none transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-xs font-medium">Settings</span>
+</div>
+</nav>
+</body></html>

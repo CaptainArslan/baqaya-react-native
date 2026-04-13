@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delete Account Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#ffc9c3",
+                    "surface": "#f9f9f6",
+                    "surface-container": "#eeeeeb",
+                    "tertiary-container": "#b61b1f",
+                    "primary-fixed-dim": "#84d5c5",
+                    "outline-variant": "#bec9c5",
+                    "inverse-on-surface": "#f1f1ee",
+                    "on-tertiary-fixed-variant": "#93000e",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#046b5e",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "surface-container-low": "#f4f4f1",
+                    "on-tertiary-fixed": "#410003",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "secondary-container": "#64a1ff",
+                    "on-background": "#1a1c1b",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1a1c1b",
+                    "tertiary": "#90000e",
+                    "inverse-primary": "#84d5c5",
+                    "surface-container-highest": "#e2e3e0",
+                    "primary-fixed": "#a0f2e1",
+                    "on-surface-variant": "#3e4946",
+                    "inverse-surface": "#2f312f",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f9f9f6",
+                    "surface-container-high": "#e8e8e5",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dadad7",
+                    "surface-variant": "#e2e3e0",
+                    "primary-container": "#00695c",
+                    "on-primary-fixed": "#00201b",
+                    "secondary": "#005db7",
+                    "primary": "#004f45",
+                    "surface-bright": "#f9f9f6",
+                    "on-secondary-fixed": "#001b3d",
+                    "on-primary-container": "#94e5d5",
+                    "on-secondary-container": "#003670",
+                    "outline": "#6e7976",
+                    "on-primary-fixed-variant": "#005046",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface-shift {
+            background: linear-gradient(180deg, rgba(249, 249, 246, 0.85) 0%, rgba(244, 244, 241, 0.95) 100%);
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md bg-[#f9f9f6]/85 dark:bg-slate-950/85">
+<div class="flex items-center justify-between px-4 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 duration-200 text-[#004f45] dark:text-[#00695c] flex items-center justify-center p-2 rounded-full hover:bg-[#f4f4f1] dark:hover:bg-slate-900 transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-[#004f45] dark:text-[#00695c]">Support &amp; Account</h1>
+</div>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-12 px-6 flex flex-col items-center justify-center max-w-2xl mx-auto">
+<!-- Serious Context Illustration/Icon -->
+<div class="mb-10 p-8 rounded-full bg-surface-container-low flex items-center justify-center">
+<div class="w-24 h-24 rounded-full bg-tertiary-container flex items-center justify-center text-white shadow-xl">
+<span class="material-symbols-outlined !text-5xl" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+<!-- Typography Hierarchy for Serious Tone -->
+<div class="text-center space-y-6 mb-12">
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight">Delete Account?</h2>
+<p class="font-body text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-md mx-auto">
+                Deleting your account will permanently remove all your shop data, customers, and ledger history. This action cannot be undone.
+            </p>
+</div>
+<!-- Bento Grid Styled Information (Implicit Warning Context) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-12">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="history">history</span>
+<span class="font-headline font-bold text-on-surface">Data Loss</span>
+</div>
+<p class="text-sm text-on-surface-variant">All financial records and transaction logs will be wiped from our secure bedrock.</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="group_off">group_off</span>
+<span class="font-headline font-bold text-on-surface">Customer Access</span>
+</div>
+<p class="text-sm text-on-surface-variant">Linked customer profiles and pending balances will no longer be accessible.</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col w-full gap-4">
+<button class="w-full py-4 px-8 bg-primary text-on-primary font-headline font-bold text-lg rounded-xl shadow-md hover:bg-primary-container active:scale-95 transition-all flex items-center justify-center gap-2">
+                Keep Account
+            </button>
+<button class="w-full py-4 px-8 border-2 border-transparent text-tertiary font-headline font-bold text-lg rounded-xl hover:bg-error-container/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+                Continue to Delete
+            </button>
+</div>
+<!-- Decorative background elements -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
+</div>
+</main>
+<!-- Navigation Shell Suppressed as per UX Goal: Focused/Transactional Task -->
+<!-- Optional: Visual reinforcement image -->
+<div class="hidden lg:block fixed right-12 bottom-12 w-64 h-64 opacity-20 pointer-events-none">
+<img alt="abstract secure server rack with glowing red status indicators representing data safety" class="w-full h-full object-cover rounded-3xl grayscale" data-alt="dramatic close-up of high-end server hardware with soft red lighting and deep shadows representing serious data management" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVDKdjAaHpVEa-79dZ6MRmpGeGef_QXJ_276qAJ9nwFrw92RH0cMwppXF6o9QuOKwDQ8KiXvpmtq-nCmFAiDfjELM9X-hp2oA6uccHDSeWCJDt9rgFzFiBoOKwT4sg8_FwRCdc8DbpVohtSej3Tr-FjKUqV7IbZXxHoeDyxj-X7wr7R1U-pfXbkYwviIuhT0XgvWdfCXdSjT7KWviuFDrSZ2jLZ4ACVSo-xB2HsEJvI1mwuLn5F8nRkuC54WfQj4xFYJc_4I1OKX7g"/>
+</div>
+</body></html>
