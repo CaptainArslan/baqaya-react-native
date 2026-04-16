@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { Redirect } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors, Spacing, Typography } from '@/src/theme';
 import { APP_NAME, APP_TAGLINE } from '@/src/constants';
@@ -20,8 +20,8 @@ import { APP_NAME, APP_TAGLINE } from '@/src/constants';
 const BAR_DURATION = 1800;
 
 export default function SplashScreen() {
-  const router = useRouter();
   const progress = useRef(new Animated.Value(0)).current;
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
 
   useEffect(() => {
     Animated.timing(progress, {
@@ -30,9 +30,13 @@ export default function SplashScreen() {
       easing: Easing.out(Easing.quad),
       useNativeDriver: false,
     }).start(() => {
-      router.replace('/(auth)/language');
+      setShouldRedirect(true);
     });
-  }, []);
+  }, [progress]);
+
+  if (shouldRedirect) {
+    return <Redirect href="/(auth)/language" />;
+  }
 
   const barWidth = progress.interpolate({
     inputRange: [0, 1],
