@@ -10,6 +10,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "./MaterialIcon";
 import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
 import { formatBalance } from "../../utils";
 
@@ -40,6 +41,7 @@ export function BalanceCard({
         : Colors.primary;
   const btnBg = variant === "debit" ? Colors.surface : Colors.debit;
   const btnColor = variant === "debit" ? Colors.debit : Colors.textInverse;
+  const ctaText = addEntryLabel.replace(/^\+\s*/, "");
 
   return (
     <View style={[styles.card, { backgroundColor: cardBg }, Shadows.md, style]}>
@@ -52,9 +54,10 @@ export function BalanceCard({
           activeOpacity={0.85}
           style={[styles.addBtn, { backgroundColor: btnBg }]}
         >
-          <Text style={[styles.addBtnText, { color: btnColor }]}>
-            {addEntryLabel}
-          </Text>
+          <View style={styles.addBtnInner}>
+            <MaterialIcon name="add-circle" size={24} color={btnColor} />
+            <Text style={[styles.addBtnText, { color: btnColor }]}>{ctaText}</Text>
+          </View>
         </TouchableOpacity>
       )}
     </View>
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   amount: {
-    fontSize: Typography.size.hero,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textInverse,
     letterSpacing: Typography.letterSpacing.tight,
@@ -89,6 +92,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm + 2,
     alignSelf: "stretch",
     alignItems: "center",
+  },
+  addBtnInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
   },
   addBtnText: {
     fontSize: Typography.size.base,

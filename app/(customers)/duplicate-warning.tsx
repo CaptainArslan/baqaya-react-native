@@ -3,7 +3,7 @@
  * Design ref: duplicate_customer_warning/screen.png
  * Modal sheet: person+exclamation icon, customer preview card, View/Cancel actions.
  */
-import { Avatar } from "@/src/components";
+import { Avatar, MaterialIcon } from "@/src/components";
 import { getMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
@@ -39,7 +39,7 @@ export default function DuplicateWarningScreen() {
       <View style={styles.content}>
         {/* Icon */}
         <View style={styles.iconWrap}>
-          <Text style={styles.iconEmoji}>👤</Text>
+          <MaterialIcon name="person" size={Typography.size.hero} color={Colors.error} />
           <View style={styles.exclBadge}>
             <Text style={styles.exclText}>!</Text>
           </View>
@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     position: "relative",
     marginBottom: Spacing.sm,
   },
-  iconEmoji: { fontSize: 40 },
   exclBadge: {
     position: "absolute",
     bottom: 0,

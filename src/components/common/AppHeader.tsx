@@ -101,9 +101,9 @@ const styles = StyleSheet.create({
     padding: Spacing.xs,
   },
   backIcon: {
-    fontSize: 28,
+    fontSize: Typography.size.xxl,
     color: Colors.textPrimary,
-    lineHeight: 28,
+    lineHeight: Typography.size.xxl,
     marginTop: -2,
   },
 });

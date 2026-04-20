@@ -295,6 +295,8 @@ export interface TranslationMap {
   // ─── Drawer ───────────────────────────────────────────────
   drawer: {
     language: string;
+    businessProfile: string;
+    deleteAccount: string;
     helpSupport: string;
     privacy: string;
     terms: string;

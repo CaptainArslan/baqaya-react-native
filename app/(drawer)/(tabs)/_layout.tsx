@@ -1,4 +1,4 @@
-import { MaterialIcon, type MaterialIconName } from "@/src/components";
+import { GlobalAddCustomerFab, MaterialIcon, type MaterialIconName } from "@/src/components";
 import { useTranslation } from "@/src/i18n";
 import { Colors, Typography } from "@/src/theme";
 import { Tabs } from "expo-router";
@@ -76,74 +76,78 @@ export default function TabLayout() {
   );
 
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarItemStyle: styles.tabBarItem,
-        tabBarIconStyle: styles.tabBarIconSlot,
-        tabBarStyle: [
-          styles.tabBar,
-          {
-            height: TAB_BAR_CONTENT_HEIGHT + bottomInset,
-            paddingBottom: bottomInset,
-          },
-        ],
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label={t.tabs.home}
-              icon={TAB_ICONS.index}
-            />
-          ),
+    <View style={styles.container}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarItemStyle: styles.tabBarItem,
+          tabBarIconStyle: styles.tabBarIconSlot,
+          tabBarStyle: [
+            styles.tabBar,
+            {
+              height: TAB_BAR_CONTENT_HEIGHT + bottomInset,
+              paddingBottom: bottomInset,
+            },
+          ],
         }}
-      />
-      <Tabs.Screen
-        name="customers"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label={t.tabs.customers}
-              icon={TAB_ICONS.customers}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="cashbook"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label={t.tabs.cashbook}
-              icon={TAB_ICONS.cashbook}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="reports"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              label={t.tabs.reports}
-              icon={TAB_ICONS.reports}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <TabIcon
+                focused={focused}
+                label={t.tabs.home}
+                icon={TAB_ICONS.index}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="customers"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <TabIcon
+                focused={focused}
+                label={t.tabs.customers}
+                icon={TAB_ICONS.customers}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="cashbook"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <TabIcon
+                focused={focused}
+                label={t.tabs.cashbook}
+                icon={TAB_ICONS.cashbook}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="reports"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <TabIcon
+                focused={focused}
+                label={t.tabs.reports}
+                icon={TAB_ICONS.reports}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+      <GlobalAddCustomerFab />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1 },
   tabBar: {
     backgroundColor: Colors.surface,
     borderTopWidth: StyleSheet.hairlineWidth,

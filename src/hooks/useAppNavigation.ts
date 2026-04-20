@@ -49,6 +49,11 @@ export function useAppNavigation() {
 
     // ─── Customer flow (customers-flow + add-customer-flow) ─
     goToAddCustomer: () => router.push("/(customers)/add"),
+    goToEditCustomer: (id: string) =>
+      router.push({
+        pathname: "/(customers)/edit",
+        params: { id },
+      }),
     goToCustomerDetail: (id: string) => router.push(`/(customers)/${id}`),
     goToAddEntry: (customerId: string, type: "udhaar" | "payment") =>
       router.push({
@@ -59,6 +64,16 @@ export function useAppNavigation() {
       router.push({
         pathname: "/(customers)/transaction-detail",
         params: { id },
+      }),
+    goToEditTransaction: (id: string) =>
+      router.push({
+        pathname: "/(customers)/edit-transaction",
+        params: { id },
+      }),
+    goToWhatsAppReminder: (customerId: string) =>
+      router.push({
+        pathname: "/(customers)/whatsapp-reminder",
+        params: { customerId },
       }),
     goToDuplicateWarning: (existingId: string, phone: string) =>
       router.push({

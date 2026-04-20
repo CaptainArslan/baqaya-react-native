@@ -31,7 +31,14 @@ export function formatRelativeDate(isoDate: string): string {
   if (diffDays === 0) return "Today";
   if (diffDays === 1) return "Yesterday";
   if (diffDays < 7) return `${diffDays} days ago`;
-  return date.toLocaleDateString("en-PK", { day: "numeric", month: "short" });
+  return date.toLocaleString("en-PK", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
 }
 
 export function maskPhone(phone: string): string {

@@ -2,7 +2,7 @@
  * Add Customer screen
  * Design ref: add_customer_with_avatar
  */
-import { Avatar, TextInputField } from "@/src/components";
+import { Avatar, MaterialIcon, TextInputField } from "@/src/components";
 import { addMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
@@ -52,7 +52,7 @@ export default function AddCustomerScreen() {
           hitSlop={10}
           style={styles.dismissBtn}
         >
-          <Text style={styles.dismissIcon}>✕</Text>
+          <MaterialIcon name="close" size={Typography.size.xl} color={Colors.textSecondary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t.addCustomer.screenTitle}</Text>
         <View style={styles.headerSpacer} />
@@ -71,7 +71,7 @@ export default function AddCustomerScreen() {
           <View style={styles.avatarWrap}>
             <Avatar name={name || "?"} size="xl" />
             <View style={styles.cameraBadge}>
-              <Text style={styles.cameraIcon}>📷</Text>
+              <MaterialIcon name="photo-camera" size={Typography.size.sm} color={Colors.textInverse} />
             </View>
           </View>
 
@@ -105,7 +105,7 @@ export default function AddCustomerScreen() {
               style={styles.importRow}
               activeOpacity={0.7}
             >
-              <Text style={styles.importIcon}>📇</Text>
+              <MaterialIcon name="contact-page" size={Typography.size.xxl} color={Colors.primary} />
               <View style={styles.importText}>
                 <Text style={styles.importLabel}>
                   {t.addCustomer.importLabel}
@@ -146,11 +146,6 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   dismissBtn: { padding: Spacing.xs },
-  dismissIcon: {
-    fontSize: 18,
-    color: Colors.textSecondary,
-    fontWeight: Typography.weight.bold,
-  },
   headerTitle: {
     flex: 1,
     textAlign: "center",
@@ -185,7 +180,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.background,
   },
-  cameraIcon: { fontSize: 12 },
 
   heading: {
     fontSize: Typography.size.xxl,
@@ -209,7 +203,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     padding: Spacing.md,
   },
-  importIcon: { fontSize: 22 },
   importText: { flex: 1 },
   importLabel: {
     fontSize: Typography.size.base,

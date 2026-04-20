@@ -5,37 +5,34 @@
  *             baqaya_home_manual_sync_banner_added_1 (sync states)
  */
 import {
-  BalanceCard,
-  CustomerRow,
-  MaterialIcon,
-  SegmentedTabs,
-  StatRow,
-  SyncBannerStack,
-  TabHeader,
+    Avatar,
+    BalanceCard,
+    CustomerRow,
+    MaterialIcon,
+    SegmentedTabs,
+    StatRow,
+    SyncBannerStack,
+    TabHeader,
 } from "@/src/components";
-import {
-  getAllMockCustomers,
-} from "@/src/constants/mockData";
-import { SCREEN_MOCKS } from "@/data";
+import { getAllMockCustomers, getHomeMockData } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation, type TranslationMap } from "@/src/i18n";
 import { useAuthStatus } from "@/src/store/authStore";
+import { useSyncState } from "@/src/store/syncStore";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import type { Customer, Transaction } from "@/src/types";
-import { formatCurrency } from "@/src/utils";
+import { formatCurrency, formatRelativeDate } from "@/src/utils";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
 import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const HOME_MOCK = SCREEN_MOCKS.home;
 
 // ─── New-user empty state ────────────────────────────────────────────────────
 
@@ -96,12 +93,14 @@ function NewUserState({
 function ActiveState({
   nav,
   t,
+  isOnline,
   activeTabId,
   onTabChange,
   customers,
 }: {
   nav: ReturnType<typeof useAppNavigation>;
   t: TranslationMap;
+  isOnline: boolean;
   activeTabId: string;
   onTabChange: (id: string) => void;
   customers: Customer[];
@@ -111,8 +110,9 @@ function ActiveState({
     { id: "debtors", label: t.home.topDebtors },
   ];
 
-  const recentTransactions = HOME_MOCK.recentTransactions as Transaction[];
-  const topDebtors = HOME_MOCK.topDebtors as Customer[];
+  const homeMock = getHomeMockData();
+  const recentTransactions = homeMock.recentTransactions as Transaction[];
+  const topDebtors = homeMock.topDebtors as Customer[];
   const listData = activeTabId === "recent" ? recentTransactions : topDebtors;
   const isDebtorsTab = activeTabId === "debtors";
 
@@ -123,57 +123,82 @@ function ActiveState({
         contentContainerStyle={styles.activeContent}
         showsVerticalScrollIndicator={false}
       >
-      {/* Balance card */}
-      <BalanceCard
-        balance={HOME_MOCK.stats.totalBalance}
-        label={t.home.totalBalance.toUpperCase()}
-        addEntryLabel={`+ ${t.customerDetail.udhaarAdd}`}
-        onAddEntry={() => nav.goToAddEntry("", "udhaar")}
-        variant="debit"
-      />
+        {/* Balance card */}
+        <BalanceCard
+          balance={homeMock.stats.totalBalance}
+          label={t.home.totalBalance.toUpperCase()}
+          addEntryLabel={`+ ${t.customerDetail.udhaarAdd}`}
+          onAddEntry={() => nav.goToAddEntry("", "udhaar")}
+          variant="debit"
+        />
 
-      {/* Stat row */}
-      <StatRow
-        left={{
-          label: t.home.todayPayment.toUpperCase(),
-          amount: HOME_MOCK.stats.todayPayment,
-          note: "—",
-        }}
-        right={{
-          label: t.home.todayLedger.toUpperCase(),
-          amount: HOME_MOCK.stats.todayLedger,
-          note: t.home.noEntriesToday,
-        }}
-      />
+        {/* Stat row */}
+        <StatRow
+          left={{
+            label: t.home.todayPayment.toUpperCase(),
+            amount: homeMock.stats.todayPayment,
+            note: "—",
+            amountColor: Colors.credit,
+          }}
+          right={{
+            label: t.home.todayLedger.toUpperCase(),
+            amount: homeMock.stats.todayLedger,
+            note: t.home.noEntriesToday,
+            amountColor: Colors.debit,
+          }}
+        />
 
-      {/* Segmented tabs */}
-      <SegmentedTabs
-        tabs={tabs}
-        activeId={activeTabId}
-        onChange={onTabChange}
-      />
-      <Text style={styles.offlineHint}>{t.home.offlineHint}</Text>
+        {/* Segmented tabs */}
+        <SegmentedTabs
+          tabs={tabs}
+          activeId={activeTabId}
+          onChange={onTabChange}
+        />
+      {!isOnline ? <Text style={styles.offlineHint}>{t.home.offlineHint}</Text> : null}
 
-      {/* List */}
-      {listData.length === 0 ? (
-        <View style={styles.listEmpty}>
-          <MaterialIcon
-            name={isDebtorsTab ? "groups" : "history"}
-            size={36}
-            color={Colors.textMuted}
-            style={styles.listEmptyIcon}
-          />
-          <Text style={styles.listEmptyTitle}>
-            {isDebtorsTab ? "No debtors found" : t.home.emptyTitle}
-          </Text>
-          <Text style={styles.listEmptyBody}>
-            {isDebtorsTab ? "All your accounts are settled." : t.home.noEntriesToday}
-          </Text>
-        </View>
-      ) : activeTabId === "recent" ? (
-        recentTransactions.map((tx) => (
-          <View key={tx.id} style={styles.txRow}>
-            <Text style={styles.txName}>{tx.customerName}</Text>
+        {/* List */}
+        {listData.length === 0 ? (
+          <View style={styles.listEmpty}>
+            <MaterialIcon
+              name={isDebtorsTab ? "groups" : "history"}
+              size={36}
+              color={Colors.textMuted}
+              style={styles.listEmptyIcon}
+            />
+            <Text style={styles.listEmptyTitle}>
+              {isDebtorsTab ? "No debtors found" : t.home.emptyTitle}
+            </Text>
+            <Text style={styles.listEmptyBody}>
+              {isDebtorsTab
+                ? "All your accounts are settled."
+                : t.home.noEntriesToday}
+            </Text>
+          </View>
+        ) : activeTabId === "recent" ? (
+          recentTransactions.map((tx) => (
+          <TouchableOpacity
+            key={tx.id}
+            style={styles.txTile}
+            activeOpacity={0.75}
+            onPress={() => nav.goToCustomerDetail(tx.customerId)}
+          >
+            <View
+              style={[
+                styles.txAccent,
+                { backgroundColor: tx.type === "debit" ? Colors.debit : Colors.credit },
+              ]}
+            />
+            <Avatar
+              name={tx.customerName}
+              size="md"
+              style={styles.txAvatar}
+            />
+            <View style={styles.txLeft}>
+              <Text style={styles.txName}>{tx.customerName}</Text>
+              <Text style={styles.txMeta}>
+                {formatRelativeDate(tx.createdAt)}
+              </Text>
+            </View>
             <Text
               style={[
                 styles.txAmount,
@@ -183,37 +208,34 @@ function ActiveState({
               {tx.type === "debit" ? "-" : "+"}
               {formatCurrency(tx.amount)}
             </Text>
-          </View>
-        ))
-      ) : (
-        topDebtors.map((c) => (
-          <CustomerRow
-            key={c.id}
-            name={c.name}
-            phone={c.phone}
-            balance={c.balance}
-            status={
-              c.balance > 0 ? "owes" : c.balance < 0 ? "toGive" : "settled"
-            }
-            lastActive={c.lastActivity}
-            onPress={() => nav.goToCustomerDetail(c.id)}
-          />
-        ))
-      )}
+            <MaterialIcon
+              name="chevron-right"
+              size={20}
+              color={Colors.textMuted}
+              style={styles.txChevron}
+            />
+            </TouchableOpacity>
+          ))
+        ) : (
+          topDebtors.map((c) => (
+            <CustomerRow
+              key={c.id}
+              name={c.name}
+              phone={c.phone}
+              balance={c.balance}
+              status={
+                c.balance > 0 ? "owes" : c.balance < 0 ? "toGive" : "settled"
+              }
+              lastActive={c.lastActivity}
+              onPress={() => nav.goToCustomerDetail(c.id)}
+            style={styles.debtorTile}
+            />
+          ))
+        )}
 
         <View style={styles.listPadBottom} />
       </ScrollView>
 
-      {isDebtorsTab && listData.length === 0 ? (
-        <TouchableOpacity
-          style={styles.floatingAddCustomerBtn}
-          onPress={nav.goToAddCustomer}
-          activeOpacity={0.85}
-        >
-          <MaterialIcon name="person-add" size={20} color={Colors.textInverse} />
-          <Text style={styles.floatingAddCustomerText}>{t.customers.addCustomer}</Text>
-        </TouchableOpacity>
-      ) : null}
     </View>
   );
 }
@@ -223,6 +245,8 @@ function ActiveState({
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const nav = useAppNavigation();
+  const { state: syncState } = useSyncState();
+  const isOnline = syncState !== "offline";
   const { t } = useTranslation();
   const { isNewUser } = useAuthStatus();
   const [activeTab, setActiveTab] = useState("recent");
@@ -233,6 +257,11 @@ export default function HomeScreen() {
       setCustomers(getAllMockCustomers());
     }, []),
   );
+
+  const homeMock = getHomeMockData();
+  const hasHomeMockData =
+    homeMock.recentTransactions.length > 0 || homeMock.topDebtors.length > 0;
+  const showNewUserState = isNewUser && !hasHomeMockData;
 
   return (
     <View style={styles.screen}>
@@ -256,12 +285,13 @@ export default function HomeScreen() {
 
       <SyncBannerStack onSyncPress={() => {}} />
 
-      {isNewUser ? (
+      {showNewUserState ? (
         <NewUserState onAddCustomer={nav.goToAddCustomer} t={t} />
       ) : (
         <ActiveState
           nav={nav}
           t={t}
+          isOnline={isOnline}
           activeTabId={activeTab}
           onTabChange={setActiveTab}
           customers={customers}
@@ -356,7 +386,7 @@ const styles = StyleSheet.create({
   activeContent: {
     padding: Spacing.base,
     gap: Spacing.md,
-    paddingBottom: 90,
+    paddingBottom: 128,
   },
   offlineHint: {
     fontSize: Typography.size.xs,
@@ -385,39 +415,53 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: Spacing.sm,
   },
-  floatingAddCustomerBtn: {
-    position: "absolute",
-    right: Spacing.lg,
-    bottom: 14,
-    backgroundColor: Colors.primary,
+  txTile: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.surface,
     borderRadius: Radius.lg,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.sm + 2,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.xs,
-  },
-  floatingAddCustomerText: {
-    color: Colors.textInverse,
-    fontSize: Typography.size.base,
-    fontWeight: Typography.weight.semibold,
-  },
-  txRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     paddingVertical: Spacing.md,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: Colors.border,
+    paddingHorizontal: Spacing.md,
+    gap: Spacing.sm,
+    overflow: "hidden",
+    marginTop: Spacing.xs,
+  },
+  txAccent: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+  },
+  txLeft: {
+    flex: 1,
+  },
+  txAvatar: {
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   txName: {
     fontSize: Typography.size.base,
     color: Colors.textPrimary,
     fontWeight: Typography.weight.medium,
   },
+  txMeta: {
+    marginTop: 2,
+    fontSize: Typography.size.sm,
+    color: Colors.textMuted,
+  },
   txAmount: {
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.semibold,
   },
-  listPadBottom: { height: Spacing.xl },
+  txChevron: {
+    marginLeft: -Spacing.xs,
+  },
+  debtorTile: {
+    borderRadius: Radius.lg,
+    borderBottomWidth: 0,
+    marginTop: Spacing.xs,
+  },
+  listPadBottom: { height: Spacing.xxl },
 });

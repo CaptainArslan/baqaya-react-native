@@ -4,6 +4,7 @@
  */
 import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { MaterialIcon } from "@/src/components";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,10 +19,10 @@ export default function MaintenanceScreen() {
         <Text style={styles.brandDot}>• {t.common.appName}</Text>
         <View style={styles.headerRight}>
           <TouchableOpacity hitSlop={8} style={styles.iconBtn}>
-            <Text style={styles.headerIcon}>❓</Text>
+            <MaterialIcon name="help-outline" size={Typography.size.xl} color={Colors.textSecondary} />
           </TouchableOpacity>
           <TouchableOpacity hitSlop={8} style={styles.iconBtn}>
-            <Text style={styles.headerIcon}>↻</Text>
+            <MaterialIcon name="refresh" size={Typography.size.xl} color={Colors.textSecondary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -29,7 +30,7 @@ export default function MaintenanceScreen() {
       {/* Body */}
       <View style={styles.body}>
         <View style={styles.illustrationBox}>
-          <Text style={styles.illustrationEmoji}>🔧</Text>
+          <MaterialIcon name="build" size={44} color={Colors.primary} />
         </View>
 
         <Text style={styles.title}>{t.auth.maintenance.title}</Text>
@@ -50,7 +51,7 @@ export default function MaintenanceScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#F0F5F3" },
+  screen: { flex: 1, backgroundColor: Colors.background },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
   },
   headerRight: { flexDirection: "row", gap: Spacing.sm },
   iconBtn: { padding: Spacing.xs },
-  headerIcon: { fontSize: 18, color: Colors.textSecondary },
   body: {
     flex: 1,
     alignItems: "center",
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: Spacing.sm,
   },
-  illustrationEmoji: { fontSize: 44 },
   title: {
     fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
     marginTop: Spacing.sm,
   },
-  retryDot: { fontSize: 8, color: Colors.primary },
+  retryDot: { fontSize: Typography.size.xs, color: Colors.primary },
   retryText: {
     fontSize: Typography.size.sm,
     color: Colors.primaryText,

@@ -5,7 +5,9 @@
  */
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
+import { PermissionCard } from "@/src/components/ui/PermissionCard";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { MaterialIcon } from "@/src/components";
 import React from "react";
 import {
     Linking,
@@ -31,57 +33,35 @@ export default function PermissionDeniedScreen() {
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
-      {/* Back arrow */}
       <TouchableOpacity
         style={styles.backBtn}
         onPress={nav.goBack}
         hitSlop={10}
       >
-        <Text style={styles.backIcon}>←</Text>
+        <MaterialIcon name="arrow-back" size={Typography.size.xxl} color={Colors.textSecondary} />
       </TouchableOpacity>
 
       <View style={styles.content}>
-        {/* Red icon card */}
-        <View style={styles.iconCard}>
-          <Text style={styles.iconEmoji}>🚫</Text>
-        </View>
+        <PermissionCard
+          iconNode={<MaterialIcon name="block" size={Typography.size.xxxl} color={Colors.debit} />}
+          title={t.permissions.deniedTitle}
+          description={t.permissions.deniedBody}
+          primaryLabel={t.permissions.openSettings}
+          onPrimary={handleOpenSettings}
+          secondaryLabel={t.permissions.retry}
+          onSecondary={handleRetry}
+          style={styles.card}
+        />
 
-        <Text style={styles.title}>{t.permissions.deniedTitle}</Text>
-        <Text style={styles.body}>{t.permissions.deniedBody}</Text>
-
-        {/* Data safety note card */}
         <View style={styles.safetyCard}>
           <View style={styles.safetyIconBox}>
-            <Text style={styles.safetyIcon}>🛡️</Text>
+            <MaterialIcon name="shield" size={Typography.size.xl} color={Colors.textSecondary} />
           </View>
           <View style={styles.safetyTextWrap}>
-            <Text style={styles.safetyTitle}>
-              {t.permissions.dataSafetyTitle}
-            </Text>
+            <Text style={styles.safetyTitle}>{t.permissions.dataSafetyTitle}</Text>
             <Text style={styles.safetyBody}>{t.permissions.encryptedNote}</Text>
           </View>
         </View>
-      </View>
-
-      {/* Sticky footer buttons */}
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.primaryBtn}
-          onPress={handleOpenSettings}
-          activeOpacity={0.85}
-        >
-          <Text style={styles.primaryBtnText}>
-            {t.permissions.openSettings}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.outlineBtn}
-          onPress={handleRetry}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.outlineBtnText}>{t.permissions.retry}</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -96,42 +76,17 @@ const styles = StyleSheet.create({
     padding: Spacing.base,
     alignSelf: "flex-start",
   },
-  backIcon: {
-    fontSize: 20,
-    color: Colors.textSecondary,
-  },
 
   content: {
     flex: 1,
-    alignItems: "center",
     paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xl,
-    gap: Spacing.lg,
-  },
-
-  // ── Icon card ──
-  iconCard: {
-    width: 120,
-    height: 120,
-    borderRadius: Radius.xxl,
-    backgroundColor: Colors.errorLight,
-    alignItems: "center",
+    paddingBottom: Spacing.xl,
     justifyContent: "center",
-    marginBottom: Spacing.sm,
+    gap: Spacing.md,
   },
-  iconEmoji: { fontSize: 56 },
-
-  title: {
-    fontSize: Typography.size.xxl,
-    fontWeight: Typography.weight.bold,
-    color: Colors.textPrimary,
-    textAlign: "center",
-  },
-  body: {
-    fontSize: Typography.size.base,
-    color: Colors.textSecondary,
-    textAlign: "center",
-    lineHeight: Typography.size.base * 1.6,
+  card: {
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
   },
 
   // ── Safety card ──
@@ -139,13 +94,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.md,
-    backgroundColor: Colors.infoLight,
+    backgroundColor: Colors.surface,
     borderWidth: 1,
-    borderColor: Colors.info,
+    borderColor: Colors.border,
     borderRadius: Radius.lg,
     padding: Spacing.md,
-    alignSelf: "stretch",
-    marginTop: Spacing.sm,
   },
   safetyIconBox: {
     width: 40,
@@ -155,47 +108,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  safetyIcon: { fontSize: 20 },
   safetyTextWrap: { flex: 1 },
   safetyTitle: {
     fontSize: Typography.size.sm,
     fontWeight: Typography.weight.semibold,
-    color: Colors.info,
+    color: Colors.textPrimary,
   },
   safetyBody: {
     fontSize: Typography.size.xs,
     color: Colors.textSecondary,
     marginTop: 2,
-  },
-
-  // ── Footer ──
-  footer: {
-    paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.xl,
-    paddingTop: Spacing.sm,
-    gap: Spacing.sm,
-  },
-  primaryBtn: {
-    backgroundColor: Colors.primary,
-    borderRadius: Radius.lg,
-    paddingVertical: Spacing.md + 2,
-    alignItems: "center",
-  },
-  primaryBtnText: {
-    fontSize: Typography.size.lg,
-    fontWeight: Typography.weight.semibold,
-    color: Colors.textInverse,
-  },
-  outlineBtn: {
-    borderWidth: 1.5,
-    borderColor: Colors.primary,
-    borderRadius: Radius.lg,
-    paddingVertical: Spacing.md + 2,
-    alignItems: "center",
-  },
-  outlineBtnText: {
-    fontSize: Typography.size.base,
-    fontWeight: Typography.weight.medium,
-    color: Colors.primary,
   },
 });

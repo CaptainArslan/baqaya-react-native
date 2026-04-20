@@ -10,6 +10,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "./MaterialIcon";
 import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
 
 interface Props {
@@ -34,7 +35,7 @@ export function LedgerActionRow({
         activeOpacity={0.85}
         style={[styles.btn, styles.udhaar, Shadows.sm]}
       >
-        <Text style={styles.icon}>↗</Text>
+        <MaterialIcon name="trending-up" size={20} color={Colors.textInverse} />
         <Text style={styles.label}>{udhaarLabel}</Text>
       </TouchableOpacity>
 
@@ -43,7 +44,7 @@ export function LedgerActionRow({
         activeOpacity={0.85}
         style={[styles.btn, styles.payment, Shadows.sm]}
       >
-        <Text style={styles.icon}>💵</Text>
+        <MaterialIcon name="payments" size={20} color={Colors.textInverse} />
         <Text style={styles.label}>{paymentLabel}</Text>
       </TouchableOpacity>
     </View>
@@ -69,10 +70,6 @@ const styles = StyleSheet.create({
   },
   payment: {
     backgroundColor: Colors.primaryMid,
-  },
-  icon: {
-    fontSize: 18,
-    color: Colors.textInverse,
   },
   label: {
     fontSize: Typography.size.base,

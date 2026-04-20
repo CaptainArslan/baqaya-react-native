@@ -13,6 +13,7 @@ interface Props {
   balance: number;
   status: BalanceStatus;
   entryCount?: number;
+  showMeta?: boolean;
   style?: ViewStyle;
 }
 
@@ -22,22 +23,28 @@ const statusConfig: Record<
 > = {
   owed: {
     label: "You'll Get",
-    color: Colors.credit,
-    badgeBg: Colors.creditLight,
-  },
-  toGive: {
-    label: "You'll Give",
     color: Colors.debit,
     badgeBg: Colors.debitLight,
   },
+  toGive: {
+    label: "You'll Give",
+    color: Colors.credit,
+    badgeBg: Colors.creditLight,
+  },
   settled: {
-    label: "Settled",
-    color: Colors.textSecondary,
-    badgeBg: Colors.surfaceSecondary,
+    label: "Net Balance Due",
+    color: Colors.credit,
+    badgeBg: Colors.creditLight,
   },
 };
 
-export function NetBalanceCard({ balance, status, entryCount, style }: Props) {
+export function NetBalanceCard({
+  balance,
+  status,
+  entryCount,
+  showMeta = true,
+  style,
+}: Props) {
   const cfg = statusConfig[status];
 
   return (
@@ -47,38 +54,42 @@ export function NetBalanceCard({ balance, status, entryCount, style }: Props) {
         {formatBalance(balance)}
       </Text>
 
-      <View style={styles.badges}>
-        <View style={[styles.badge, { backgroundColor: cfg.badgeBg }]}>
-          <Text style={[styles.badgeText, { color: cfg.color }]}>
-            ↑ {cfg.label}
-          </Text>
-        </View>
-        {entryCount !== undefined && (
-          <View
-            style={[styles.badge, { backgroundColor: Colors.surfaceSecondary }]}
-          >
-            <Text style={styles.entryText}>{entryCount} Entries</Text>
+      {showMeta ? (
+        <View style={styles.badges}>
+          <View style={[styles.badge, { backgroundColor: cfg.badgeBg }]}>
+            <Text style={[styles.badgeText, { color: cfg.color }]}>
+              ↑ {cfg.label}
+            </Text>
           </View>
-        )}
-      </View>
+          {entryCount !== undefined && (
+            <View
+              style={[styles.badge, { backgroundColor: Colors.surfaceSecondary }]}
+            >
+              <Text style={styles.entryText}>{entryCount} Entries</Text>
+            </View>
+          )}
+        </View>
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.surfaceSecondary,
+    backgroundColor: Colors.surface,
     borderRadius: Radius.xl,
     padding: Spacing.xl,
     alignItems: "center",
     gap: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
   },
   netLabel: {
     fontSize: Typography.size.sm,
     color: Colors.textSecondary,
   },
   amount: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     letterSpacing: Typography.letterSpacing.tight,
   },

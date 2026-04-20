@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# Baqaya Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Baqaya is a React Native + Expo ledger app focused on customer balances, udhaar/payment entries, cashbook tracking, and reminder workflows.
 
-## Get started
+## Tech Stack
+
+- Expo + React Native
+- Expo Router (file-based navigation)
+- TypeScript
+- Centralized theme tokens (`Colors`, `Spacing`, `Radius`, `Typography`, `Shadows`)
+- Centralized relational mock data for screen development
+
+## Run Locally
 
 1. Install dependencies
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Start development server
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## App Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `app/` - Routes/screens (auth, onboarding, tabs, customers, modals)
+- `src/components/` - Reusable UI and shared components
+- `src/constants/mockData.ts` - Runtime-aware relational mock data helpers
+- `data/screenMocks.ts` - Seed mock data for app screens
+- `src/theme/` - Design tokens and UI scales
+- `src/i18n/` - Translation keys and language files
 
-## Join the community
+## Key Features
 
-Join our community of developers creating universal apps.
+- Auth flow: language, phone, OTP, maintenance, suspended
+- Onboarding flow: create shop
+- Drawer + tabs: Home, Customers, Cashbook, Reports
+- Customer flow:
+  - Add/Edit customer with avatar picker (camera/gallery)
+  - Customer detail with ledger/payment actions
+  - Transaction detail + edit transaction + delete confirmation
+  - WhatsApp reminder flow with tone selection and message editing
+- Cashbook flow:
+  - Search + sorting + date filters
+  - Sectioned entries and pagination
+- Import contacts flow:
+  - Permission request and denial handling
+  - Contact picker and multi-number selection
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Recent UI/UX Updates
+
+- Standardized font scale/weights across screens using `Typography` tokens
+- Removed fancy/emoji-based icon styles and replaced with consistent `MaterialIcon` usage
+- Unified card/tile spacing, border, and radius patterns across customers/cashbook/details screens
+- Added global add-customer FAB behavior across tabs
+- Added consistent confirmation modals for delete actions
+- Added dedicated WhatsApp reminder screen before sending messages
+- Refined transaction and edit transaction screens to align with latest design references
+
+## Mock Data Notes
+
+- Mock customers/transactions are relational and shared across screens.
+- Runtime updates are supported for:
+  - add/update/delete customer
+  - add/update/delete transaction
+- This allows realistic cross-screen behavior before backend integration.
+
+## Development Notes
+
+- Keep UI typography consistent with `src/theme/typography.ts`.
+- Prefer theme tokens over hardcoded sizes/colors.
+- Keep user-facing strings in i18n files where applicable.

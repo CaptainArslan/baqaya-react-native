@@ -169,10 +169,10 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    lineHeight: Typography.size.display * 1.2,
+    lineHeight: Typography.size.xxxl * 1.2,
     marginTop: Spacing.xs,
   },
   subtitle: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   checkmark: {
-    fontSize: 12,
+    fontSize: Typography.size.sm,
     color: Colors.textInverse,
     fontWeight: Typography.weight.bold,
   },

@@ -11,16 +11,17 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
+import { MaterialIcon } from './MaterialIcon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Radius, Spacing, Typography } from '../../theme';
 
 type ToastType = 'error' | 'success' | 'warning' | 'info';
 
-const toastConfig: Record<ToastType, { bg: string; icon: string }> = {
-  error:   { bg: Colors.debit,   icon: '⚠' },
-  success: { bg: Colors.credit,  icon: '✓' },
-  warning: { bg: Colors.warning, icon: '⚠' },
-  info:    { bg: Colors.info,    icon: 'ℹ' },
+const toastConfig: Record<ToastType, { bg: string; iconName: 'warning-amber' | 'check-circle-outline' | 'info-outline' }> = {
+  error:   { bg: Colors.debit,   iconName: 'warning-amber' },
+  success: { bg: Colors.credit,  iconName: 'check-circle-outline' },
+  warning: { bg: Colors.warning, iconName: 'warning-amber' },
+  info:    { bg: Colors.info,    iconName: 'info-outline' },
 };
 
 interface Props {
@@ -68,11 +69,11 @@ export function Toast({
         style,
       ]}
     >
-      <Text style={styles.icon}>{cfg.icon}</Text>
+      <MaterialIcon name={cfg.iconName} size={Typography.size.lg} color={Colors.white} />
       <Text style={styles.message} numberOfLines={2}>{message}</Text>
       {onDismiss && (
         <TouchableOpacity onPress={onDismiss} activeOpacity={0.7} hitSlop={8}>
-          <Text style={styles.close}>✕</Text>
+          <MaterialIcon name="close" size={Typography.size.base} color={Colors.white} style={styles.close} />
         </TouchableOpacity>
       )}
     </Animated.View>
@@ -91,12 +92,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.md,
     gap: Spacing.sm,
   },
-  icon: { fontSize: 16, color: Colors.white },
   message: {
     flex: 1,
     fontSize: Typography.size.sm,
     color: Colors.white,
     fontWeight: Typography.weight.medium,
   },
-  close: { fontSize: 14, color: Colors.white, opacity: 0.8 },
+  close: { opacity: 0.8 },
 });

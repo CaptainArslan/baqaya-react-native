@@ -11,6 +11,8 @@ export default function CustomersLayout() {
       <Stack.Screen name="[id]" />
       <Stack.Screen name="add-entry" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
       <Stack.Screen name="transaction-detail" />
+      <Stack.Screen name="edit-transaction" />
+      <Stack.Screen name="whatsapp-reminder" />
 
       {/* import-contacts-flow */}
       <Stack.Screen name="contact-picker" />

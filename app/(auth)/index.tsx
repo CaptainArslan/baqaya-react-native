@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   appName: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
     letterSpacing: Typography.letterSpacing.tight,

@@ -10,6 +10,7 @@ interface StatItem {
   label: string;
   amount: number;
   note?: string;
+  amountColor?: string;
 }
 
 interface Props {
@@ -18,11 +19,13 @@ interface Props {
   style?: ViewStyle;
 }
 
-export function StatCard({ label, amount, note }: StatItem) {
+export function StatCard({ label, amount, note, amountColor }: StatItem) {
   return (
     <View style={[styles.card, Shadows.xs]}>
       <Text style={styles.label}>{label}</Text>
-      <Text style={styles.amount}>{formatCurrency(amount)}</Text>
+      <Text style={[styles.amount, amountColor ? { color: amountColor } : null]}>
+        {formatCurrency(amount)}
+      </Text>
       {note ? <Text style={styles.note}>{note}</Text> : null}
     </View>
   );

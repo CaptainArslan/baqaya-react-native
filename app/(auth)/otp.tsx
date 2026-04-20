@@ -241,10 +241,10 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    lineHeight: Typography.size.display * 1.2,
+    lineHeight: Typography.size.xxxl * 1.2,
     marginTop: Spacing.xs,
   },
   subtitle: {

@@ -13,6 +13,13 @@ export interface CashbookEntryMock {
   section: "today" | "yesterday";
 }
 
+export interface CashbookSummaryMock {
+  todayLedger: number;
+  totalReceived: number;
+  collections: number;
+  deltaPercent: number;
+}
+
 export interface LatePayerMock {
   id: string;
   name: string;
@@ -49,17 +56,214 @@ export const SCREEN_MOCKS = {
   },
   home: {
     stats: {
-      totalBalance: 0,
-      todayPayment: 0,
-      todayLedger: 0,
+      totalBalance: 72250,
+      todayPayment: 12300,
+      todayLedger: 9800,
     },
-    recentTransactions: [] as Transaction[],
-    topDebtors: [] as Customer[],
+    recentTransactions: [
+      {
+        id: "tx-1",
+        customerId: "cu-3",
+        customerName: "Customer 3",
+        type: "debit",
+        amount: 4500,
+        note: "Grocery items",
+        createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
+        synced: true,
+      },
+      {
+        id: "tx-2",
+        customerId: "cu-8",
+        customerName: "Customer 8",
+        type: "credit",
+        amount: 2200,
+        note: "Part payment",
+        createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
+        synced: true,
+      },
+      {
+        id: "tx-3",
+        customerId: "cu-15",
+        customerName: "Customer 15",
+        type: "debit",
+        amount: 8800,
+        note: "Monthly supply",
+        createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+        synced: false,
+      },
+      {
+        id: "tx-4",
+        customerId: "cu-21",
+        customerName: "Customer 21",
+        type: "credit",
+        amount: 5000,
+        note: "Cash collected",
+        createdAt: new Date(Date.now() - 10 * 60 * 60 * 1000).toISOString(),
+        synced: true,
+      },
+      {
+        id: "tx-5",
+        customerId: "cu-27",
+        customerName: "Customer 27",
+        type: "debit",
+        amount: 12000,
+        note: "Bulk order",
+        createdAt: new Date(Date.now() - 20 * 60 * 60 * 1000).toISOString(),
+        synced: false,
+      },
+      {
+        id: "tx-6",
+        customerId: "cu-34",
+        customerName: "Customer 34",
+        type: "credit",
+        amount: 3000,
+        note: "UPI transfer",
+        createdAt: new Date(Date.now() - 26 * 60 * 60 * 1000).toISOString(),
+        synced: true,
+      },
+    ] as Transaction[],
+    topDebtors: [
+      {
+        id: "cu-27",
+        name: "Customer 27",
+        phone: "03210000027",
+        balance: 47500,
+        lastActivity: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000).toISOString(),
+      },
+      {
+        id: "cu-15",
+        name: "Customer 15",
+        phone: "03210000015",
+        balance: 32500,
+        lastActivity: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
+      },
+      {
+        id: "cu-3",
+        name: "Customer 3",
+        phone: "03210000003",
+        balance: 19400,
+        lastActivity: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date(Date.now() - 65 * 24 * 60 * 60 * 1000).toISOString(),
+      },
+      {
+        id: "cu-42",
+        name: "Customer 42",
+        phone: "03210000042",
+        balance: 13800,
+        lastActivity: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date(Date.now() - 48 * 24 * 60 * 60 * 1000).toISOString(),
+      },
+      {
+        id: "cu-8",
+        name: "Customer 8",
+        phone: "03210000008",
+        balance: 10450,
+        lastActivity: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date(Date.now() - 52 * 24 * 60 * 60 * 1000).toISOString(),
+      },
+    ] as Customer[],
   },
   customers: {
-    list: [] as Customer[],
+    list: Array.from({ length: 100 }, (_, index) => {
+      const i = index + 1;
+      const seededBalance = i % 4 === 0 ? 0 : (i * 1375) % 50000;
+      const phoneSuffix = String(1000000 + i).slice(-7);
+      return {
+        id: `cu-${i}`,
+        name: `Customer ${i}`,
+        phone: `03${(i % 5) + 1}${phoneSuffix}`,
+        balance: seededBalance,
+        lastActivity: new Date(
+          Date.now() - ((i % 14) + 1) * 24 * 60 * 60 * 1000,
+        ).toISOString(),
+        createdAt: new Date(
+          Date.now() - ((i % 180) + 10) * 24 * 60 * 60 * 1000,
+        ).toISOString(),
+      };
+    }) as Customer[],
     customerDetail: {
-      transactions: [] as Transaction[],
+      emptyStateCustomer: {
+        id: "cu-empty",
+        name: "Ali House",
+        phone: "",
+        balance: 0,
+        createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+        lastActivity: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      } as Customer,
+      transactions: [
+        {
+          id: "cd-tx-0",
+          customerId: "cu-empty",
+          customerName: "Ali House",
+          type: "debit",
+          amount: 2400,
+          note: "Daily items",
+          createdAt: new Date(Date.now() - 90 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+        {
+          id: "cd-tx-0b",
+          customerId: "cu-empty",
+          customerName: "Ali House",
+          type: "credit",
+          amount: 1200,
+          note: "Partial payment",
+          createdAt: new Date(Date.now() - 26 * 60 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+        {
+          id: "cd-tx-1",
+          customerId: "cu-1",
+          customerName: "Customer 1",
+          type: "debit",
+          amount: 2800,
+          note: "Grocery items",
+          createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+        {
+          id: "cd-tx-2",
+          customerId: "cu-1",
+          customerName: "Customer 1",
+          type: "credit",
+          amount: 1200,
+          note: "Part payment",
+          createdAt: new Date(Date.now() - 26 * 60 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+        {
+          id: "cd-tx-3",
+          customerId: "cu-2",
+          customerName: "Customer 2",
+          type: "debit",
+          amount: 4300,
+          note: "Monthly supply",
+          createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+          synced: false,
+        },
+        {
+          id: "cd-tx-4",
+          customerId: "cu-2",
+          customerName: "Customer 2",
+          type: "credit",
+          amount: 1500,
+          note: "Cash received",
+          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+        {
+          id: "cd-tx-5",
+          customerId: "cu-3",
+          customerName: "Customer 3",
+          type: "credit",
+          amount: 1950,
+          note: "Advance adjustment",
+          createdAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+          synced: true,
+        },
+      ] as Transaction[],
     },
     add: { draft: { name: "", phone: "" } },
     addEntry: { recentNotes: [] as string[] },
@@ -70,6 +274,16 @@ export const SCREEN_MOCKS = {
     contactPicker: { pickedContacts: [] as string[] },
   },
   cashbook: {
+    summary: {
+      todayLedger: 12450,
+      totalReceived: 84200,
+      collections: 14,
+      deltaPercent: 12,
+    } as CashbookSummaryMock,
+    filters: {
+      dateRangeLabel: "Aug 01 - Aug 31",
+      sort: "newest" as "newest" | "oldest",
+    },
     entries: [
       {
         id: "e1",
@@ -86,6 +300,24 @@ export const SCREEN_MOCKS = {
         type: "debit",
         amount: 1200,
         timeLabel: "09:15 AM",
+        noteKey: "udhaar",
+        section: "today",
+      },
+      {
+        id: "e6",
+        customerName: "Asif Traders",
+        type: "credit",
+        amount: 2700,
+        timeLabel: "08:05 AM",
+        noteKey: "payment",
+        section: "today",
+      },
+      {
+        id: "e7",
+        customerName: "Naeem Canteen",
+        type: "debit",
+        amount: 650,
+        timeLabel: "12:30 PM",
         noteKey: "udhaar",
         section: "today",
       },
@@ -114,6 +346,24 @@ export const SCREEN_MOCKS = {
         amount: 950,
         timeLabel: "11:00 AM",
         noteKey: "payment",
+        section: "yesterday",
+      },
+      {
+        id: "e8",
+        customerName: "Sajid Fruits",
+        type: "debit",
+        amount: 2100,
+        timeLabel: "04:40 PM",
+        noteKey: "udhaar",
+        section: "yesterday",
+      },
+      {
+        id: "e9",
+        customerName: "Al Noor Dairy",
+        type: "credit",
+        amount: 5200,
+        timeLabel: "01:10 PM",
+        noteKey: "cashIn",
         section: "yesterday",
       },
     ] as CashbookEntryMock[],

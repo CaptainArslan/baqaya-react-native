@@ -2,7 +2,7 @@
  * Left drawer menu for main app (language, legal, logout).
  */
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import {
   DrawerContentScrollView,
   type DrawerContentComponentProps,
@@ -69,6 +69,13 @@ export function AppDrawerContent(props: DrawerContentComponentProps) {
           }
         />
         <Row
+          label={t.drawer.businessProfile}
+          icon="storefront"
+          onPress={() =>
+            closeThen(() => router.push("/(auth)/business-profile"))
+          }
+        />
+        <Row
           label={t.drawer.privacy}
           icon="privacy-tip"
           onPress={() =>
@@ -89,6 +96,30 @@ export function AppDrawerContent(props: DrawerContentComponentProps) {
               await authStore.logout();
               router.replace("/(auth)");
             })
+          }
+        />
+        <Row
+          label={t.drawer.deleteAccount}
+          icon="delete-forever"
+          danger
+          onPress={() =>
+            closeThen(() =>
+              Alert.alert(
+                t.drawer.deleteAccount,
+                "This will remove your account data from this device.",
+                [
+                  { text: t.common.no, style: "cancel" },
+                  {
+                    text: t.common.yes,
+                    style: "destructive",
+                    onPress: async () => {
+                      await authStore.logout();
+                      router.replace("/(auth)");
+                    },
+                  },
+                ],
+              ),
+            )
           }
         />
       </View>

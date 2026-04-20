@@ -25,7 +25,7 @@ const bannerConfig: Record<
   offline: {
     bg: Colors.offlineBg,
     border: Colors.offlineBorder,
-    text: "#92400E",
+    text: Colors.offlineText,
     action: Colors.warning,
   },
   sync: {
@@ -37,7 +37,7 @@ const bannerConfig: Record<
   warning: {
     bg: Colors.warningLight,
     border: Colors.warning,
-    text: "#92400E",
+    text: Colors.offlineText,
     action: Colors.warning,
   },
   info: {

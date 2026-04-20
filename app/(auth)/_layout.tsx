@@ -14,6 +14,7 @@ export default function AuthLayout() {
       <Stack.Screen name="maintenance" options={{ animation: 'fade' }} />
       <Stack.Screen name="suspended" options={{ animation: 'fade' }} />
       {/* Informational — push */}
+      <Stack.Screen name="business-profile" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="privacy-policy" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="terms" options={{ animation: 'slide_from_right' }} />
     </Stack>

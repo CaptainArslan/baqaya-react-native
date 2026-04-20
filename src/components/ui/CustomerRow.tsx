@@ -27,10 +27,10 @@ interface Props {
   style?: ViewStyle;
 }
 
-const statusConfig: Record<BalanceStatus, { label: string; color: string; bg: string }> = {
-  owes: { label: 'OWES', color: Colors.debit, bg: Colors.debitLight },
-  toGive: { label: 'TO GIVE', color: Colors.credit, bg: Colors.creditLight },
-  settled: { label: 'SETTLED', color: Colors.textMuted, bg: Colors.surfaceSecondary },
+const statusConfig: Record<BalanceStatus, { color: string; bg: string }> = {
+  owes: { color: Colors.debit, bg: Colors.debitLight },
+  toGive: { color: Colors.credit, bg: Colors.creditLight },
+  settled: { color: Colors.primary, bg: Colors.surfaceSecondary },
 };
 
 export function CustomerRow({
@@ -44,7 +44,7 @@ export function CustomerRow({
   style,
 }: Props) {
   const cfg = statusConfig[status];
-  const meta = [lastActive, phone].filter(Boolean).join(' · ');
+  const meta = lastActive?.trim();
 
   return (
     <TouchableOpacity
@@ -52,7 +52,8 @@ export function CustomerRow({
       activeOpacity={0.7}
       style={[styles.row, style]}
     >
-      <Avatar name={name} uri={avatarUri} size="md" />
+      <View style={[styles.leftAccent, { backgroundColor: cfg.color }]} />
+      <Avatar name={name} uri={avatarUri} size="md" style={styles.avatarSquare} />
 
       <View style={styles.info}>
         <Text style={styles.name} numberOfLines={1}>{name}</Text>
@@ -62,10 +63,12 @@ export function CustomerRow({
       </View>
 
       <View style={styles.right}>
-        <View style={[styles.badge, { backgroundColor: cfg.bg }]}>
-          <Text style={[styles.badgeText, { color: cfg.color }]}>{cfg.label}</Text>
-        </View>
-        <Text style={[styles.amount, { color: cfg.color }]}>
+        <Text
+          style={[styles.amount, { color: cfg.color }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.75}
+        >
           {formatBalance(balance)}
         </Text>
       </View>
@@ -85,10 +88,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Colors.divider,
     gap: Spacing.md,
+    overflow: 'hidden',
+  },
+  leftAccent: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
   },
   info: {
     flex: 1,
     gap: 2,
+  },
+  avatarSquare: {
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   name: {
     fontSize: Typography.size.base,
@@ -100,25 +116,20 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
   },
   right: {
+    flexShrink: 1,
+    maxWidth: '42%',
+    minWidth: 88,
     alignItems: 'flex-end',
-    gap: Spacing.xxs,
-  },
-  badge: {
-    borderRadius: Radius.xs,
-    paddingHorizontal: Spacing.xs,
-    paddingVertical: 2,
-  },
-  badgeText: {
-    fontSize: Typography.size.xs,
-    fontWeight: Typography.weight.bold,
-    letterSpacing: Typography.letterSpacing.wide,
+    justifyContent: 'center',
   },
   amount: {
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.bold,
+    textAlign: 'right',
+    width: '100%',
   },
   chevron: {
-    fontSize: 20,
+    fontSize: Typography.size.xxl,
     color: Colors.textMuted,
     marginLeft: -Spacing.xs,
   },

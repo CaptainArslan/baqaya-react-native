@@ -268,6 +268,8 @@ export const ur: TranslationMap = {
   },
   drawer: {
     language: "زبان",
+    businessProfile: "بزنس پروفائل",
+    deleteAccount: "اکاؤنٹ حذف کریں",
     helpSupport: "مدد اور سپورٹ",
     privacy: "رازداری کی پالیسی",
     terms: "شرائط و ضوابط",

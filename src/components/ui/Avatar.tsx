@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   placeholder: {
-    backgroundColor: Colors.primaryLight,
+    backgroundColor: Colors.surfaceSecondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   initials: {
-    color: Colors.primary,
+    color: Colors.textSecondary,
     fontWeight: Typography.weight.semibold,
   },
 });

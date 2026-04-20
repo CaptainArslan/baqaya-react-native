@@ -2,7 +2,7 @@
  * Account Suspended screen
  * Design ref: account_suspended_auth_flow
  */
-import { Button } from "@/src/components";
+import { Button, MaterialIcon } from "@/src/components";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
@@ -19,7 +19,7 @@ export default function SuspendedScreen() {
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerShield}>🛡</Text>
+        <MaterialIcon name="shield" size={Typography.size.lg} color={Colors.primary} />
         <Text style={styles.headerTitle}>{s.screenTitle}</Text>
       </View>
 
@@ -28,7 +28,7 @@ export default function SuspendedScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.warningBox}>
-          <Text style={styles.warningEmoji}>⚠️</Text>
+          <MaterialIcon name="warning-amber" size={36} color={Colors.debit} />
         </View>
 
         <Text style={styles.title}>{s.title}</Text>
@@ -37,7 +37,7 @@ export default function SuspendedScreen() {
         {/* Violation box */}
         <View style={styles.violationBox}>
           <View style={styles.violationHeader}>
-            <Text style={styles.violationIcon}>ℹ</Text>
+            <MaterialIcon name="info-outline" size={Typography.size.base} color={Colors.textMuted} />
             <Text style={styles.violationLabel}>{s.violationLabel}</Text>
           </View>
           <Text style={styles.violationTitle}>{s.violationTitle}</Text>
@@ -45,7 +45,7 @@ export default function SuspendedScreen() {
         </View>
 
         <Button
-          label={`📞  ${s.contactSupport}`}
+          label={s.contactSupport}
           onPress={() =>
             Alert.alert(
               "Contact Support",
@@ -57,14 +57,14 @@ export default function SuspendedScreen() {
           size="lg"
         />
         <Button
-          label={`📄  ${s.reviewTerms}`}
+          label={s.reviewTerms}
           onPress={nav.goToTerms}
           variant="outline"
           size="lg"
         />
 
         <View style={styles.securityNote}>
-          <Text style={styles.securityIcon}>🔒</Text>
+          <MaterialIcon name="lock" size={Typography.size.base} color={Colors.textMuted} />
           <Text style={styles.securityText}>{s.securityNote}</Text>
         </View>
 
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
   },
-  headerShield: { fontSize: 16, color: Colors.primary },
   headerTitle: {
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.semibold,
@@ -106,13 +105,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: Spacing.sm,
   },
-  warningEmoji: { fontSize: 36 },
   title: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
     textAlign: "center",
-    lineHeight: Typography.size.display * 1.2,
+    lineHeight: Typography.size.xxxl * 1.2,
   },
   body: {
     fontSize: Typography.size.base,
@@ -134,7 +132,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.xs,
   },
-  violationIcon: { fontSize: 14, color: Colors.textMuted },
   violationLabel: {
     fontSize: Typography.size.xs,
     fontWeight: Typography.weight.bold,
@@ -157,7 +154,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.sm,
   },
-  securityIcon: { fontSize: 14, color: Colors.textMuted },
   securityText: { fontSize: Typography.size.sm, color: Colors.textMuted },
   backLink: {
     fontSize: Typography.size.base,

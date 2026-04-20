@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     padding: Spacing.xs,
   },
   backArrow: {
-    fontSize: 22,
+    fontSize: Typography.size.xxl,
     color: Colors.primary,
     fontWeight: Typography.weight.medium,
   },

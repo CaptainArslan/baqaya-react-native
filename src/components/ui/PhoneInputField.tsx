@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     gap: Spacing.xs,
   },
-  flag: { fontSize: 18 },
+  flag: { fontSize: Typography.size.xl },
   code: {
     fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,

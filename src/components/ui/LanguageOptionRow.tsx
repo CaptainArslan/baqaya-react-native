@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    fontSize: 18,
+    fontSize: Typography.size.xl,
   },
   info: {
     flex: 1,

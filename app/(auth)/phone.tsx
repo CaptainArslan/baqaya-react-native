@@ -208,11 +208,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   heading: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
     textAlign: "center",
-    lineHeight: Typography.size.display * 1.2,
+    lineHeight: Typography.size.xxxl * 1.2,
   },
   subtitle: {
     fontSize: Typography.size.base,

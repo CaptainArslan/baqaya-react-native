@@ -10,6 +10,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "./MaterialIcon";
 import { Colors, Radius, Spacing, Typography } from "../../theme";
 
 interface Props {
@@ -32,7 +33,12 @@ export function WhatsAppButton({
       style={[styles.btn, disabled && styles.btnDisabled, style]}
     >
       <View style={styles.iconWrap}>
-        <Text style={[styles.icon, disabled && styles.iconDisabled]}>💬</Text>
+        <MaterialIcon
+          name="chat-bubble-outline"
+          size={Typography.size.md}
+          color={disabled ? Colors.textMuted : Colors.primary}
+          style={disabled && styles.iconDisabled}
+        />
       </View>
       <Text style={[styles.label, disabled && styles.labelDisabled]}>
         {label}
@@ -64,7 +70,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  icon: { fontSize: 15 },
   iconDisabled: { opacity: 0.4 },
   label: {
     fontSize: Typography.size.base,

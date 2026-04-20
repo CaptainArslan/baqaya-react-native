@@ -4,7 +4,7 @@
  * Search bar + "RECENT CONTACTS" horizontal chips + "ALL CONTACTS" list.
  * Contacts with no phone show "Missing Phone" in muted red + Action Required toast.
  */
-import { Avatar, SearchBar } from "@/src/components";
+import { Avatar, MaterialIcon, SearchBar } from "@/src/components";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
@@ -31,7 +31,7 @@ interface MockContact {
 }
 
 const MOCK_CONTACTS: MockContact[] = [...SCREEN_MOCKS.modals.importContacts.contacts];
-const RECENT_IDS = [...SCREEN_MOCKS.modals.importContacts.recentIds];
+const RECENT_IDS: string[] = [...SCREEN_MOCKS.modals.importContacts.recentIds];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -157,7 +157,7 @@ export default function ImportContactsScreen() {
           hitSlop={10}
           style={styles.closeBtn}
         >
-          <Text style={styles.closeIcon}>✕</Text>
+          <MaterialIcon name="close" size={Typography.size.xl} color={Colors.textSecondary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t.importContacts.screenTitle}</Text>
         <View style={styles.headerSpacer} />
@@ -233,7 +233,7 @@ export default function ImportContactsScreen() {
           <View style={styles.toast}>
             <View style={styles.toastLeft}>
               <View style={styles.toastIconWrap}>
-                <Text style={styles.toastIcon}>⚠</Text>
+                <MaterialIcon name="warning-amber" size={Typography.size.lg} color={Colors.error} />
               </View>
               <View style={styles.toastTextWrap}>
                 <Text style={styles.toastTitle}>
@@ -249,7 +249,7 @@ export default function ImportContactsScreen() {
               activeOpacity={0.7}
               hitSlop={8}
             >
-              <Text style={styles.toastDismiss}>✕</Text>
+              <MaterialIcon name="close" size={Typography.size.base} color={Colors.textMuted} style={styles.toastDismiss} />
             </TouchableOpacity>
           </View>
 
@@ -300,11 +300,6 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   closeBtn: { padding: Spacing.xs },
-  closeIcon: {
-    fontSize: 18,
-    color: Colors.textSecondary,
-    fontWeight: Typography.weight.bold,
-  },
   headerTitle: {
     flex: 1,
     textAlign: "center",
@@ -365,7 +360,7 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
   },
   addNewIcon: {
-    fontSize: 22,
+    fontSize: Typography.size.xxl,
     color: Colors.primary,
     fontWeight: Typography.weight.bold,
   },
@@ -452,7 +447,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  toastIcon: { fontSize: 16 },
   toastTextWrap: { flex: 1 },
   toastTitle: {
     fontSize: Typography.size.sm,
@@ -464,11 +458,7 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     marginTop: 2,
   },
-  toastDismiss: {
-    fontSize: 14,
-    color: Colors.textMuted,
-    padding: Spacing.xs,
-  },
+  toastDismiss: { padding: Spacing.xs },
   toastActions: {
     flexDirection: "row",
     gap: Spacing.sm,

@@ -271,6 +271,8 @@ export const roman: TranslationMap = {
   },
   drawer: {
     language: "Zuban",
+    businessProfile: "Business Profile",
+    deleteAccount: "Delete Account",
     helpSupport: "Madad aur Support",
     privacy: "Razdaree ki Policy",
     terms: "Sharaat o Zawabit",

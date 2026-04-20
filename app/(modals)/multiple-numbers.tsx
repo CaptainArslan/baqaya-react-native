@@ -8,6 +8,7 @@ import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { useLocalSearchParams } from "expo-router";
 import { SCREEN_MOCKS } from "@/data";
+import { MaterialIcon } from "@/src/components";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -53,7 +54,7 @@ export default function MultipleNumbersScreen() {
           ) : null}
         </View>
         <TouchableOpacity onPress={nav.goBack} hitSlop={10}>
-          <Text style={styles.closeIcon}>✕</Text>
+          <MaterialIcon name="close" size={Typography.size.xl} color={Colors.textSecondary} style={styles.closeIcon} />
         </TouchableOpacity>
       </View>
 
@@ -75,7 +76,7 @@ export default function MultipleNumbersScreen() {
                   isSelected && styles.phoneIconWrapSelected,
                 ]}
               >
-                <Text style={styles.phoneIcon}>📞</Text>
+                <MaterialIcon name="call" size={Typography.size.xxl} color={Colors.textSecondary} />
               </View>
 
               {/* Label + number */}
@@ -166,11 +167,7 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     marginTop: Spacing.xs,
   },
-  closeIcon: {
-    fontSize: 18,
-    color: Colors.textSecondary,
-    padding: Spacing.xs,
-  },
+  closeIcon: { padding: Spacing.xs },
 
   // ── Number list ──
   numberList: {
@@ -204,7 +201,6 @@ const styles = StyleSheet.create({
   phoneIconWrapSelected: {
     backgroundColor: Colors.primaryLight,
   },
-  phoneIcon: { fontSize: 20 },
 
   numberInfo: { flex: 1 },
   numberLabel: {
@@ -233,7 +229,7 @@ const styles = StyleSheet.create({
   },
   checkIcon: {
     color: Colors.textInverse,
-    fontSize: 13,
+    fontSize: Typography.size.sm,
     fontWeight: Typography.weight.bold,
   },
 

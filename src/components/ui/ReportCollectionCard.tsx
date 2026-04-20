@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     opacity: 0.75,
   },
   amount: {
-    fontSize: Typography.size.display,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textInverse,
     letterSpacing: Typography.letterSpacing.tight,

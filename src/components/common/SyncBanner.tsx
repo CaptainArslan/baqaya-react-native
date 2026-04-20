@@ -15,6 +15,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "../ui/MaterialIcon";
 import { useTranslation } from "../../i18n";
 import { Colors, Spacing, Typography } from "../../theme";
 
@@ -35,32 +36,32 @@ const CONFIG: Record<
     bg: string;
     textColor: string;
     actionColor: string;
-    icon: string;
+    iconName: "sync" | "cloud-off" | "warning-amber";
   }
 > = {
   pending: {
     bg: Colors.background,
     textColor: Colors.textSecondary,
     actionColor: Colors.primary,
-    icon: "↻",
+    iconName: "sync",
   },
   offline: {
     bg: Colors.surfaceSecondary,
     textColor: Colors.textMuted,
     actionColor: Colors.primary,
-    icon: "⊗",
+    iconName: "cloud-off",
   },
   syncing: {
     bg: Colors.syncingBg,
     textColor: Colors.info,
     actionColor: Colors.info,
-    icon: "↻",
+    iconName: "sync",
   },
   failed: {
     bg: Colors.errorLight,
     textColor: Colors.error,
     actionColor: Colors.error,
-    icon: "⚠",
+    iconName: "warning-amber",
   },
 };
 
@@ -73,7 +74,7 @@ export function SyncBanner({
   style,
 }: Props) {
   const { t } = useTranslation();
-  const { bg, textColor, actionColor, icon } = CONFIG[variant];
+  const { bg, textColor, actionColor, iconName } = CONFIG[variant];
   const translateY = useRef(new Animated.Value(-24)).current;
 
   useEffect(() => {
@@ -126,7 +127,12 @@ export function SyncBanner({
             style={styles.spinner}
           />
         ) : (
-          <Text style={[styles.icon, { color: textColor }]}>{icon} </Text>
+          <MaterialIcon
+            name={iconName}
+            size={Typography.size.sm}
+            color={textColor}
+            style={styles.icon}
+          />
         )}
         <Text style={[styles.message, { color: textColor }]} numberOfLines={1}>
           {message}
@@ -141,7 +147,12 @@ export function SyncBanner({
           hitSlop={10}
           style={styles.actionWrap}
         >
-          <Text style={[styles.icon, { color: actionColor }]}>↻ </Text>
+          <MaterialIcon
+            name="sync"
+            size={Typography.size.sm}
+            color={actionColor}
+            style={styles.icon}
+          />
           <Text style={[styles.action, { color: actionColor }]}>{action}</Text>
         </TouchableOpacity>
       )}
@@ -166,8 +177,7 @@ const styles = StyleSheet.create({
   },
   spinner: { marginRight: Spacing.xs + 2 },
   icon: {
-    fontSize: Typography.size.sm,
-    fontWeight: Typography.weight.medium,
+    marginRight: Spacing.xs,
   },
   message: {
     fontSize: Typography.size.sm,

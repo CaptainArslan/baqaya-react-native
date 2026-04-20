@@ -97,11 +97,11 @@ const heroStyles = StyleSheet.create({
     opacity: 0.85,
   },
   amount: {
-    fontSize: Typography.size.hero + 4,
+    fontSize: Typography.size.xxxl,
     fontWeight: Typography.weight.bold,
     color: Colors.textInverse,
     textAlign: "center",
-    lineHeight: (Typography.size.hero + 4) * 1.1,
+    lineHeight: Typography.size.xxxl * 1.1,
   },
   pill: {
     backgroundColor: "rgba(255,255,255,0.18)",

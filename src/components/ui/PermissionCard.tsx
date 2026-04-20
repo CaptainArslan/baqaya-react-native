@@ -9,7 +9,8 @@ import { Colors, Radius, Spacing, Typography } from '../../theme';
 import { Button } from './Button';
 
 interface Props {
-  icon: string;
+  icon?: string;
+  iconNode?: React.ReactNode;
   title: string;
   description: string;
   primaryLabel: string;
@@ -21,6 +22,7 @@ interface Props {
 
 export function PermissionCard({
   icon,
+  iconNode,
   title,
   description,
   primaryLabel,
@@ -32,7 +34,7 @@ export function PermissionCard({
   return (
     <View style={[styles.card, style]}>
       <View style={styles.iconBox}>
-        <Text style={styles.icon}>{icon}</Text>
+        {iconNode ?? <Text style={styles.icon}>{icon}</Text>}
       </View>
 
       <Text style={styles.title}>{title}</Text>
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Spacing.xs,
   },
-  icon: { fontSize: 32 },
+  icon: { fontSize: Typography.size.hero },
   title: {
     fontSize: Typography.size.xxl,
     fontWeight: Typography.weight.bold,

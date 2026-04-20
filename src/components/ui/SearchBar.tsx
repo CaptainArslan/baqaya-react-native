@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   searchIcon: {
-    fontSize: 15,
+    fontSize: Typography.size.md,
     opacity: 0.5,
   },
   input: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     padding: Spacing.xs,
   },
   actionIcon: {
-    fontSize: 16,
+    fontSize: Typography.size.lg,
     opacity: 0.6,
   },
 });
