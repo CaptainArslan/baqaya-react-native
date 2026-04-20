@@ -2,14 +2,18 @@
  * Add Customer screen
  * Design ref: add_customer_with_avatar
  */
-import { Avatar, MaterialIcon, TextInputField } from "@/src/components";
+import { MaterialIcon, TextInputField } from "@/src/components";
 import { addMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { pickImageFromGallery, takePhotoWithCamera } from "@/src/utils/media-picker";
 import React, { useState } from "react";
 import {
+    Alert,
+    Image,
     KeyboardAvoidingView,
+    Linking,
     Platform,
     ScrollView,
     StyleSheet,
@@ -24,9 +28,51 @@ export default function AddCustomerScreen() {
   const { t } = useTranslation();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatarUri, setAvatarUri] = useState("");
   const [nameError, setNameError] = useState("");
 
-  function handleSave() {
+  function promptOpenSettings() {
+    Alert.alert(
+      "Permission required",
+      "Please allow camera/photos access in Settings to upload customer photo.",
+      [
+        { text: t.common.cancel, style: "cancel" },
+        { text: "Open Settings", onPress: () => Linking.openSettings() },
+      ],
+    );
+  }
+
+  async function handlePickFromGallery() {
+    const result = await pickImageFromGallery();
+    if (result.status === "success") {
+      setAvatarUri(result.uri);
+      return;
+    }
+    if (result.status === "denied" && !result.canAskAgain) {
+      promptOpenSettings();
+    }
+  }
+
+  async function handleTakePhoto() {
+    const result = await takePhotoWithCamera();
+    if (result.status === "success") {
+      setAvatarUri(result.uri);
+      return;
+    }
+    if (result.status === "denied" && !result.canAskAgain) {
+      promptOpenSettings();
+    }
+  }
+
+  function handleAvatarPress() {
+    Alert.alert("Upload Customer Photo", "Choose an option", [
+      { text: "Take Photo", onPress: () => void handleTakePhoto() },
+      { text: "Choose from Gallery", onPress: () => void handlePickFromGallery() },
+      { text: t.common.cancel, style: "cancel" },
+    ]);
+  }
+
+  async function handleSave() {
     if (!name.trim()) {
       setNameError(t.addCustomer.errorNameRequired);
       return;
@@ -36,6 +82,7 @@ export default function AddCustomerScreen() {
       id: newId,
       name: name.trim(),
       phone: phone.trim(),
+      avatarUrl: avatarUri || undefined,
       balance: 0,
       createdAt: new Date().toISOString(),
       lastActivity: new Date().toISOString(),
@@ -55,7 +102,9 @@ export default function AddCustomerScreen() {
           <MaterialIcon name="close" size={Typography.size.xl} color={Colors.textSecondary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t.addCustomer.screenTitle}</Text>
-        <View style={styles.headerSpacer} />
+        <TouchableOpacity style={styles.headerHelpBtn} activeOpacity={0.7} hitSlop={8}>
+          <MaterialIcon name="help-outline" size={20} color={Colors.textInverse} />
+        </TouchableOpacity>
       </View>
 
       <KeyboardAvoidingView
@@ -68,12 +117,22 @@ export default function AddCustomerScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Avatar */}
-          <View style={styles.avatarWrap}>
-            <Avatar name={name || "?"} size="xl" />
+          <TouchableOpacity
+            style={styles.avatarWrap}
+            activeOpacity={0.8}
+            onPress={handleAvatarPress}
+          >
+            <View style={styles.avatarCard}>
+              {avatarUri ? (
+                <Image source={{ uri: avatarUri }} style={styles.avatarImage} />
+              ) : (
+                <MaterialIcon name="person" size={44} color={Colors.textMuted} />
+              )}
+            </View>
             <View style={styles.cameraBadge}>
               <MaterialIcon name="photo-camera" size={Typography.size.sm} color={Colors.textInverse} />
             </View>
-          </View>
+          </TouchableOpacity>
 
           <Text style={styles.heading}>{t.addCustomer.heading}</Text>
           <Text style={styles.subheading}>{t.addCustomer.subheading}</Text>
@@ -153,7 +212,14 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weight.semibold,
     color: Colors.primary,
   },
-  headerSpacer: { width: 32 },
+  headerHelpBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: Radius.full,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.primary,
+  },
 
   content: {
     alignItems: "center",
@@ -166,6 +232,21 @@ const styles = StyleSheet.create({
   avatarWrap: {
     position: "relative",
     marginBottom: Spacing.sm,
+  },
+  avatarCard: {
+    width: 108,
+    height: 108,
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surfaceSecondary,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
   },
   cameraBadge: {
     position: "absolute",

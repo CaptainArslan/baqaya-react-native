@@ -1,4 +1,4 @@
-import { Avatar, MaterialIcon, TextInputField } from "@/src/components";
+import { MaterialIcon, TextInputField } from "@/src/components";
 import {
   deleteMockCustomer,
   getMockCustomer,
@@ -13,6 +13,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
   Alert,
+  Image,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -100,21 +101,12 @@ export default function EditCustomerScreen() {
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={nav.goBack} hitSlop={10} style={styles.backBtn}>
-          <MaterialIcon name="arrow-back" size={Typography.size.xl} color={Colors.textSecondary} />
+        <TouchableOpacity onPress={nav.goBack} hitSlop={10} style={styles.dismissBtn}>
+          <MaterialIcon name="close" size={Typography.size.xl} color={Colors.textSecondary} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Edit Customer</Text>
-        <TouchableOpacity
-          hitSlop={10}
-          style={styles.saveBtnHead}
-          onPress={handleSave}
-          disabled={!name.trim()}
-        >
-          <Text
-            style={[styles.saveHeadText, !name.trim() && styles.saveHeadTextDisabled]}
-          >
-            {t.common.save}
-          </Text>
+        <TouchableOpacity style={styles.headerHelpBtn} activeOpacity={0.7} hitSlop={8}>
+          <MaterialIcon name="help-outline" size={20} color={Colors.textInverse} />
         </TouchableOpacity>
       </View>
 
@@ -132,12 +124,13 @@ export default function EditCustomerScreen() {
             activeOpacity={0.85}
             onPress={handleAvatarPress}
           >
-            <Avatar
-              name={name.trim() || customer?.name || "Customer"}
-              uri={avatarUri || undefined}
-              size="xl"
-              style={styles.avatar}
-            />
+            <View style={styles.avatarCard}>
+              {avatarUri ? (
+                <Image source={{ uri: avatarUri }} style={styles.avatarImage} />
+              ) : (
+                <MaterialIcon name="person" size={44} color={Colors.textMuted} />
+              )}
+            </View>
             <View style={styles.cameraBadge}>
               <MaterialIcon name="photo-camera" size={Typography.size.sm} color={Colors.textInverse} />
             </View>
@@ -203,6 +196,16 @@ export default function EditCustomerScreen() {
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={[styles.saveBtn, !name.trim() && styles.saveBtnDisabled]}
+          onPress={handleSave}
+          disabled={!name.trim()}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.saveBtnText}>{t.common.save} →</Text>
+        </TouchableOpacity>
+      </View>
 
       <Modal
         visible={deleteConfirmVisible}
@@ -257,26 +260,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
     backgroundColor: Colors.background,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.border,
   },
-  backBtn: { padding: Spacing.xs },
+  dismissBtn: { padding: Spacing.xs },
   headerTitle: {
     flex: 1,
-    textAlign: "left",
-    fontSize: Typography.size.lg,
-    fontWeight: Typography.weight.bold,
-    color: Colors.primaryText,
-    marginLeft: Spacing.sm,
-  },
-  saveBtnHead: {
-    paddingHorizontal: Spacing.xs,
-    paddingVertical: Spacing.xs,
-  },
-  saveHeadText: {
+    textAlign: "center",
     fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
     color: Colors.primary,
   },
-  saveHeadTextDisabled: { opacity: 0.4 },
+  headerHelpBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: Radius.full,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.primary,
+  },
   content: {
     alignItems: "center",
     paddingHorizontal: Spacing.base,
@@ -286,13 +288,22 @@ const styles = StyleSheet.create({
   },
   avatarWrap: {
     position: "relative",
-    alignItems: "center",
-    marginTop: Spacing.sm,
+    marginBottom: Spacing.sm,
   },
-  avatar: {
+  avatarCard: {
+    width: 108,
+    height: 108,
     borderRadius: Radius.lg,
     borderWidth: 1,
     borderColor: Colors.border,
+    backgroundColor: Colors.surfaceSecondary,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
   },
   cameraBadge: {
     position: "absolute",
@@ -313,6 +324,24 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
     fontWeight: Typography.weight.medium,
     color: Colors.textSecondary,
+  },
+  footer: {
+    paddingHorizontal: Spacing.base,
+    paddingBottom: Spacing.base,
+    paddingTop: Spacing.sm,
+    backgroundColor: Colors.background,
+  },
+  saveBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: "center",
+  },
+  saveBtnDisabled: { opacity: 0.45 },
+  saveBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textInverse,
   },
   fields: {
     width: "100%",
