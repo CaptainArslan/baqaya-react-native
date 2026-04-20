@@ -1,23 +1,32 @@
 /**
  * Language Selection screen
  * Design ref: select_language_mobile
- * Back arrow + "Language Settings" header, 3 radio options,
- * feature strip (Secure Setup / Fast Sync), Save Changes button.
  */
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAppNavigation } from '@/src/hooks';
-import { Button, LanguageOptionRow } from '@/src/components';
-import { Colors, Spacing, Typography } from '@/src/theme';
-import { i18nStore, useTranslation } from '@/src/i18n';
-import type { Language } from '@/src/i18n';
+import { MaterialIcon, type MaterialIconName } from "@/src/components";
+import { useAppNavigation } from "@/src/hooks";
+import type { Language } from "@/src/i18n";
+import { i18nStore, useTranslation } from "@/src/i18n";
+import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import React, { useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const LANGUAGES: { id: Language; icon: string; label: string; description: string }[] = [
-  { id: 'en',     icon: '🌐', label: 'English',     description: 'Default international language' },
-  { id: 'ur',     icon: '🇵🇰', label: 'اردو (Urdu)', description: 'National language' },
-  { id: 'roman',  icon: '🔤', label: 'Roman Urdu',   description: 'Asaan Urdu typing mein' },
-];
+// Language display names are intentionally hardcoded in their own script —
+// they must be recognisable to speakers of that language regardless of active locale.
+const LANGUAGE_NAMES: Record<
+  Language,
+  { icon: MaterialIconName | null; abbrev: string; label: string }
+> = {
+  en: { icon: "language", abbrev: "EN", label: "English" },
+  ur: { icon: null, abbrev: "اع", label: "اردو (Urdu)" },
+  roman: { icon: null, abbrev: "Aa", label: "Roman Urdu" },
+};
 
 export default function LanguageScreen() {
   const nav = useAppNavigation();
@@ -30,10 +39,20 @@ export default function LanguageScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.backBtn} onPress={nav.goBack}>←</Text>
+        <TouchableOpacity
+          onPress={nav.goBack}
+          hitSlop={8}
+          style={styles.backBtn}
+        >
+          <MaterialIcon
+            name="arrow-back"
+            size={22}
+            color={Colors.textPrimary}
+          />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>{t.auth.language.screenTitle}</Text>
       </View>
 
@@ -42,42 +61,83 @@ export default function LanguageScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>{t.auth.language.heading}</Text>
+        <Text style={styles.heading}>{t.auth.language.heading}</Text>
         <Text style={styles.subtitle}>{t.auth.language.subtitle}</Text>
 
         {/* Language options */}
         <View style={styles.options}>
-          {LANGUAGES.map((language) => (
-            <LanguageOptionRow
-              key={language.id}
-              icon={language.icon}
-              label={language.label}
-              description={language.description}
-              selected={selected === language.id}
-              onPress={() => setSelected(language.id)}
-            />
-          ))}
+          {(Object.keys(LANGUAGE_NAMES) as Language[]).map((id) => {
+            const active = selected === id;
+            const { icon, abbrev, label } = LANGUAGE_NAMES[id];
+            const desc =
+              id === "en"
+                ? t.auth.language.langEnDesc
+                : id === "ur"
+                  ? t.auth.language.langUrDesc
+                  : t.auth.language.langRomanDesc;
+            return (
+              <TouchableOpacity
+                key={id}
+                style={[styles.optionRow, active && styles.optionRowActive]}
+                onPress={() => setSelected(id)}
+                activeOpacity={0.7}
+              >
+                <View style={[styles.iconBox, active && styles.iconBoxActive]}>
+                  {icon ? (
+                    <MaterialIcon
+                      name={icon}
+                      size={22}
+                      color={active ? Colors.primary : Colors.textSecondary}
+                    />
+                  ) : (
+                    <Text
+                      style={[
+                        styles.iconAbbrev,
+                        active && styles.iconAbbrevActive,
+                      ]}
+                    >
+                      {abbrev}
+                    </Text>
+                  )}
+                </View>
+
+                <View style={styles.optionText}>
+                  <Text
+                    style={[
+                      styles.optionLabel,
+                      active && styles.optionLabelActive,
+                    ]}
+                  >
+                    {label}
+                  </Text>
+                  <Text style={styles.optionDesc}>{desc}</Text>
+                </View>
+
+                <View style={[styles.radio, active && styles.radioActive]}>
+                  {active && <Text style={styles.checkmark}>✓</Text>}
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
-        {/* Feature strip */}
-        <View style={styles.featureStrip}>
-          <Text style={styles.featureLabel}>{t.auth.language.globalAccessibility}</Text>
-          <View style={styles.featureRow}>
-            <View style={styles.featureCard}>
-              <Text style={styles.featureIcon}>🛡</Text>
-              <Text style={styles.featureText}>{t.auth.language.secureSetup}</Text>
-            </View>
-            <View style={[styles.featureCard, styles.featureCardRed]}>
-              <Text style={styles.featureIcon}>⚡</Text>
-              <Text style={styles.featureText}>{t.auth.language.fastSync}</Text>
-            </View>
-          </View>
-        </View>
+        {/* Bento / feature section */}
       </ScrollView>
 
-      {/* CTA */}
+      {/* Sticky footer CTA */}
       <View style={styles.footer}>
-        <Button label={`💾  ${t.auth.language.saveChanges}`} onPress={handleSave} variant="primary" size="lg" />
+        <TouchableOpacity
+          style={styles.saveBtn}
+          onPress={handleSave}
+          activeOpacity={0.85}
+        >
+          <View style={styles.saveBtnInner}>
+            <MaterialIcon name="save" size={20} color={Colors.textInverse} />
+            <Text style={styles.saveBtnText}>
+              {t.auth.language.saveChanges}
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -85,73 +145,164 @@ export default function LanguageScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: Colors.background },
+
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
     gap: Spacing.sm,
+    backgroundColor: Colors.background,
   },
-  backBtn: {
-    fontSize: 22,
-    color: Colors.primary,
-    padding: Spacing.xs,
-    fontWeight: Typography.weight.medium,
-  },
+  backBtn: { padding: Spacing.xs },
   headerTitle: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
+    fontWeight: Typography.weight.medium,
   },
+
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: Spacing.base,
-    paddingBottom: Spacing.xl,
-    gap: Spacing.base,
+    paddingBottom: Spacing.xxl,
+    gap: Spacing.lg,
   },
-  title: {
-    fontSize: Typography.size.xxxl,
+
+  heading: {
+    fontSize: Typography.size.display,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    marginTop: Spacing.sm,
+    lineHeight: Typography.size.display * 1.2,
+    marginTop: Spacing.xs,
   },
   subtitle: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
     lineHeight: Typography.size.base * 1.5,
+    marginTop: -Spacing.sm,
   },
+
   options: { gap: Spacing.sm },
-  featureStrip: {
-    marginTop: Spacing.sm,
-    gap: Spacing.sm,
+
+  optionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: Spacing.base,
+    borderRadius: Radius.lg,
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    gap: Spacing.md,
   },
-  featureLabel: {
-    fontSize: Typography.size.xs,
-    fontWeight: Typography.weight.bold,
-    color: Colors.textMuted,
-    letterSpacing: Typography.letterSpacing.wider,
-    textAlign: 'center',
-  },
-  featureRow: { flexDirection: 'row', gap: Spacing.sm },
-  featureCard: {
-    flex: 1,
+  optionRowActive: {
+    borderColor: Colors.primary,
     backgroundColor: Colors.primaryLight,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: Spacing.lg,
-    gap: Spacing.xs,
   },
-  featureCardRed: { backgroundColor: Colors.debitLight },
-  featureIcon: { fontSize: 24 },
-  featureText: {
-    fontSize: Typography.size.xs,
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.surfaceSecondary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconBoxActive: { backgroundColor: Colors.primaryLight },
+  iconAbbrev: {
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.bold,
     color: Colors.textSecondary,
-    letterSpacing: Typography.letterSpacing.wide,
   },
+  iconAbbrevActive: { color: Colors.primary },
+  optionText: { flex: 1 },
+  optionLabel: {
+    fontSize: Typography.size.base,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textPrimary,
+  },
+  optionLabelActive: { color: Colors.primary },
+  optionDesc: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+    marginTop: 2,
+  },
+  radio: {
+    width: 22,
+    height: 22,
+    borderRadius: Radius.full,
+    borderWidth: 2,
+    borderColor: Colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  radioActive: {
+    borderColor: Colors.primary,
+    backgroundColor: Colors.primary,
+  },
+  checkmark: {
+    fontSize: 12,
+    color: Colors.textInverse,
+    fontWeight: Typography.weight.bold,
+  },
+
+  bento: { gap: Spacing.sm },
+  bentoHero: {
+    height: 120,
+    borderRadius: Radius.xl,
+    overflow: "hidden",
+    justifyContent: "flex-end",
+    padding: Spacing.md,
+  },
+  bentoHeroBg: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.primary,
+    opacity: 0.85,
+  },
+  bentoHeroLabel: {
+    fontSize: Typography.size.xs,
+    fontWeight: Typography.weight.bold,
+    color: Colors.textInverse,
+    letterSpacing: Typography.letterSpacing.wider,
+  },
+  bentoRow: { flexDirection: "row", gap: Spacing.sm },
+  bentoCard: {
+    flex: 1,
+    borderRadius: Radius.xl,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.sm,
+    alignItems: "center",
+    gap: Spacing.sm,
+    backgroundColor: Colors.surface,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  bentoCardLabel: {
+    fontSize: Typography.size.xs,
+    fontWeight: Typography.weight.bold,
+    letterSpacing: Typography.letterSpacing.wide,
+    color: Colors.textPrimary,
+    textAlign: "center",
+  },
+
   footer: {
     paddingHorizontal: Spacing.base,
-    paddingBottom: Spacing.base,
     paddingTop: Spacing.sm,
+    paddingBottom: Spacing.base,
+    backgroundColor: Colors.background,
+  },
+  saveBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: "center",
+  },
+  saveBtnInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
+  },
+  saveBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textInverse,
   },
 });

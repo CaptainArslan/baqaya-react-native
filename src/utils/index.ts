@@ -1,8 +1,12 @@
-import { CURRENCY } from '../constants';
+import { CURRENCY } from "../constants";
+export {
+    buildReminderMessage,
+    buildWhatsAppUrl, normalizePhone, openWhatsAppReminder
+} from "./whatsapp";
 
 export function formatCurrency(amount: number): string {
   const abs = Math.abs(amount);
-  const formatted = abs.toLocaleString('en-PK');
+  const formatted = abs.toLocaleString("en-PK");
   return `${CURRENCY} ${formatted}`;
 }
 
@@ -12,10 +16,10 @@ export function formatBalance(amount: number): string {
 
 export function getInitials(name: string): string {
   return name
-    .split(' ')
+    .split(" ")
     .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? '')
-    .join('');
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
 }
 
 export function formatRelativeDate(isoDate: string): string {
@@ -24,13 +28,13 @@ export function formatRelativeDate(isoDate: string): string {
   const diffMs = now.getTime() - date.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  if (diffDays === 0) return 'Today';
-  if (diffDays === 1) return 'Yesterday';
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "Yesterday";
   if (diffDays < 7) return `${diffDays} days ago`;
-  return date.toLocaleDateString('en-PK', { day: 'numeric', month: 'short' });
+  return date.toLocaleDateString("en-PK", { day: "numeric", month: "short" });
 }
 
 export function maskPhone(phone: string): string {
   if (phone.length < 4) return phone;
-  return phone.slice(0, -4).replace(/\d/g, '*') + phone.slice(-4);
+  return phone.slice(0, -4).replace(/\d/g, "*") + phone.slice(-4);
 }

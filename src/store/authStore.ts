@@ -26,6 +26,7 @@ export type AuthStatus = 'loading' | 'unauthenticated' | 'onboarding' | 'authent
 let _status: AuthStatus = 'loading';
 let _isNewUser = false;
 let _listeners: Array<() => void> = [];
+const BOOTSTRAP_TIMEOUT_MS = 2500;
 
 function notify() {
   _listeners.forEach((fn) => fn());
@@ -40,7 +41,22 @@ export const authStore = {
   /** Called once on app start. Reads token from AsyncStorage. */
   async bootstrap(): Promise<void> {
     try {
-      const token = await getToken();
+      const timeoutToken = Symbol('bootstrap-timeout');
+      const tokenOrTimeout = await Promise.race([
+        getToken(),
+        new Promise<typeof timeoutToken>((resolve) =>
+          setTimeout(() => resolve(timeoutToken), BOOTSTRAP_TIMEOUT_MS),
+        ),
+      ]);
+
+      if (tokenOrTimeout === timeoutToken) {
+        _status = 'unauthenticated';
+        _isNewUser = false;
+        notify();
+        return;
+      }
+
+      const token = tokenOrTimeout;
       if (!token) {
         _status = 'unauthenticated';
         _isNewUser = false;

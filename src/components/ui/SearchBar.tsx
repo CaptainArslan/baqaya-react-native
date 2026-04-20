@@ -2,16 +2,16 @@
  * SearchBar — search input with optional filter/icon slots.
  * Used on customers list, cashbook, etc.
  */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Radius, Spacing, Typography } from '../../theme';
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Spacing, Typography } from "../../theme";
 
 interface Props {
   value: string;
@@ -25,7 +25,7 @@ interface Props {
 export function SearchBar({
   value,
   onChangeText,
-  placeholder = 'Search…',
+  placeholder = "Search…",
   onFilterPress,
   onCalendarPress,
   style,
@@ -46,12 +46,20 @@ export function SearchBar({
         returnKeyType="search"
       />
       {onFilterPress && (
-        <TouchableOpacity onPress={onFilterPress} hitSlop={8} style={styles.iconBtn}>
+        <TouchableOpacity
+          onPress={onFilterPress}
+          hitSlop={8}
+          style={styles.iconBtn}
+        >
           <Text style={styles.actionIcon}>⚙</Text>
         </TouchableOpacity>
       )}
       {onCalendarPress && (
-        <TouchableOpacity onPress={onCalendarPress} hitSlop={8} style={styles.iconBtn}>
+        <TouchableOpacity
+          onPress={onCalendarPress}
+          hitSlop={8}
+          style={styles.iconBtn}
+        >
           <Text style={styles.actionIcon}>📅</Text>
         </TouchableOpacity>
       )}
@@ -61,8 +69,8 @@ export function SearchBar({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.surface,
     borderRadius: Radius.lg,
     borderWidth: 1.5,

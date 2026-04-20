@@ -2,15 +2,17 @@
  * TabHeader — dark green header used on all main tab screens.
  * Shows hamburger (or custom left), title, and right slot.
  */
-import React from 'react';
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Spacing, Typography } from '../../theme';
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Spacing, Typography } from "../../theme";
+import { MaterialIcon } from "../ui/MaterialIcon";
 
 interface Props {
   title?: string;
@@ -21,7 +23,7 @@ interface Props {
 }
 
 export function TabHeader({
-  title = 'Baqaya',
+  title = "Baqaya",
   leftElement,
   rightElement,
   onMenuPress,
@@ -29,15 +31,26 @@ export function TabHeader({
 }: Props) {
   return (
     <View style={[styles.header, style]}>
-      <View style={styles.left}>
+      <View style={styles.leftRow}>
         {leftElement ?? (
-          <TouchableOpacity onPress={onMenuPress} hitSlop={8} style={styles.iconBtn}>
-            <Text style={styles.menuIcon}>☰</Text>
+          <TouchableOpacity
+            onPress={onMenuPress}
+            hitSlop={8}
+            style={styles.iconBtn}
+            accessibilityRole="button"
+            accessibilityLabel="Open menu"
+          >
+            <MaterialIcon name="menu" size={22} color={Colors.textInverse} />
           </TouchableOpacity>
         )}
+        <Text
+          style={styles.title}
+          numberOfLines={1}
+          {...(Platform.OS === "android" ? { includeFontPadding: false } : {})}
+        >
+          {title}
+        </Text>
       </View>
-
-      <Text style={styles.title}>{title}</Text>
 
       <View style={styles.right}>{rightElement ?? null}</View>
     </View>
@@ -47,33 +60,36 @@ export function TabHeader({
 const styles = StyleSheet.create({
   header: {
     backgroundColor: Colors.headerBg,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.md,
-    minHeight: 52,
+    paddingBottom: Spacing.md,
+    paddingTop: Spacing.sm,
+    minHeight: 48,
   },
-  left: {
+  leftRow: {
     flex: 1,
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: Spacing.xs,
+    minWidth: 0,
   },
   title: {
-    flex: 2,
-    textAlign: 'center',
+    flexShrink: 1,
     fontSize: Typography.size.xl,
     fontWeight: Typography.weight.bold,
     color: Colors.textInverse,
     letterSpacing: Typography.letterSpacing.tight,
   },
   right: {
-    flex: 1,
-    alignItems: 'flex-end',
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: Spacing.xs,
   },
   iconBtn: {
     padding: Spacing.xs,
-  },
-  menuIcon: {
-    fontSize: 20,
-    color: Colors.textInverse,
   },
 });

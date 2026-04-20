@@ -1,14 +1,9 @@
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
-const shadow = (
-  elevation: number,
-  opacity = 0.08,
-  radius = 8,
-  offsetY = 2,
-) =>
+const shadow = (elevation: number, opacity = 0.08, radius = 8, offsetY = 2) =>
   Platform.select({
     ios: {
-      shadowColor: '#000',
+      shadowColor: "#000",
       shadowOffset: { width: 0, height: offsetY },
       shadowOpacity: opacity,
       shadowRadius: radius,

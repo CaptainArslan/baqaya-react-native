@@ -33,6 +33,9 @@ export interface TranslationMap {
       globalAccessibility: string;
       secureSetup: string;
       fastSync: string;
+      langEnDesc: string;
+      langUrDesc: string;
+      langRomanDesc: string;
     };
     phone: {
       heading: string;
@@ -86,6 +89,7 @@ export interface TranslationMap {
       placeholder: string;
       safeTitle: string;
       safeBody: string;
+      hint: string;
       continue: string;
       errorEmpty: string;
     };
@@ -101,6 +105,8 @@ export interface TranslationMap {
 
   // ─── Home ─────────────────────────────────────────────────
   home: {
+    welcomeTitle: string;
+    welcomeBody: string;
     emptyTitle: string;
     emptyBody: string;
     syncPending: string;
@@ -110,6 +116,8 @@ export interface TranslationMap {
     todayLedger: string;
     recentTransactions: string;
     topDebtors: string;
+    offlineHint: string;
+    noEntriesToday: string;
   };
 
   // ─── Customers ────────────────────────────────────────────
@@ -151,6 +159,8 @@ export interface TranslationMap {
     whatsappReminder: string;
     noEntries: string;
     noEntriesBody: string;
+    typeUdhaar: string;
+    typePayment: string;
   };
 
   // ─── Cashbook ─────────────────────────────────────────────
@@ -160,6 +170,19 @@ export interface TranslationMap {
     filterGiven: string;
     emptyTitle: string;
     emptyBody: string;
+    newEntry: string;
+    searchPlaceholder: string;
+    dateFilter: string;
+    sort: string;
+    todayLedger: string;
+    totalReceived: string;
+    collections: string;
+    vsYesterday: string;
+    sectionToday: string;
+    sectionYesterday: string;
+    typeReceived: string;
+    typeGave: string;
+    typeCashIn: string;
   };
 
   // ─── Reports ──────────────────────────────────────────────
@@ -168,10 +191,49 @@ export interface TranslationMap {
     week: string;
     month: string;
     youNeedToCollect: string;
+    pendingSettlements: string;
+    allSettled: string;
+    viewingPeriod: string;
     latePayers: string;
+    noLatePayers: string;
+    noLatePayersBody: string;
+    remind: string;
+    daysPending: string;
     topDebtors: string;
+    noDebtors: string;
+    transactions: string;
+    reportSummary: string;
+    selectedPeriod: string;
+    totalToCollect: string;
+    totalReceived: string;
+    weeklyCollections: string;
+    noChartData: string;
+    noChartDataBody: string;
+    addNewEntry: string;
     emptyTitle: string;
     emptyBody: string;
+  };
+
+  // ─── WhatsApp ─────────────────────────────────────────────
+  whatsapp: {
+    /** Prefilled reminder message. Use {name} and {balance} as placeholders. */
+    message: string;
+    buttonLabel: string;
+    noPhone: string;
+    notInstalled: string;
+  };
+
+  // ─── Sync / Offline ───────────────────────────────────────
+  sync: {
+    pending: string; // "{n} changes pending sync"
+    pendingOne: string; // "1 change pending sync"
+    syncing: string; // "Syncing changes…"
+    offline: string; // "You are offline. Changes will sync later."
+    failed: string; // "Sync failed. Tap to retry."
+    syncNow: string; // "Sync Now"
+    retry: string; // "Retry"
+    synced: string; // "Synced"
+    syncedBody: string; // "All data is up to date."
   };
 
   // ─── Permissions ──────────────────────────────────────────
@@ -184,6 +246,39 @@ export interface TranslationMap {
     deniedBody: string;
     openSettings: string;
     addManually: string;
+    retry: string;
+    encryptedNote: string;
+    dataSafetyTitle: string;
+    heroTitle: string;
+    heroTagline: string;
+    checkingPermission: string;
+  };
+
+  // ─── Import contacts ──────────────────────────────────────
+  importContacts: {
+    screenTitle: string;
+    searchPlaceholder: string;
+    recentContacts: string;
+    allContacts: string;
+    addNew: string;
+    owes: string;
+    advance: string;
+    noPhone: string;
+    noPhoneToastTitle: string;
+    noPhoneToastBody: string;
+    skip: string;
+    addNumber: string;
+  };
+
+  // ─── Multiple numbers ─────────────────────────────────────
+  multipleNumbers: {
+    title: string;
+    contactPrefix: string;
+    confirm: string;
+    cancel: string;
+    labelMobile: string;
+    labelHome: string;
+    labelWork: string;
   };
 
   // ─── Duplicate warning ────────────────────────────────────
@@ -192,6 +287,9 @@ export interface TranslationMap {
     body: string;
     viewExisting: string;
     addAnyway: string;
+    phone: string;
+    owes: string;
+    cancel: string;
   };
 
   // ─── Drawer ───────────────────────────────────────────────

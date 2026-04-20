@@ -1,88 +1,186 @@
 /**
- * SyncBanner — sits directly below TabHeader.
- * Variants: pending (orange), offline (orange), syncing (blue).
+ * SyncBanner — thin strip below TabHeader.
+ * Variants: pending (cream), offline (grey), syncing (blue), failed (red).
+ * Design ref: baqaya_home_manual_sync_banner_added_1
+ *             baqaya_home_manual_sync_banner_added_2
+ *             baqaya_home_refined_sync_banner
  */
-import React from 'react';
+import React, { useEffect, useRef } from "react";
 import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Spacing, Typography } from '../../theme';
+    ActivityIndicator,
+    Animated,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { useTranslation } from "../../i18n";
+import { Colors, Spacing, Typography } from "../../theme";
 
-type Variant = 'pending' | 'offline' | 'syncing';
+export type SyncVariant = "pending" | "offline" | "syncing" | "failed";
 
 interface Props {
-  variant: Variant;
+  variant: SyncVariant;
   pendingCount?: number;
-  onSyncPress?: () => void;
+  onActionPress?: () => void;
   style?: ViewStyle;
 }
 
-const config: Record<Variant, { bg: string; text: string }> = {
-  pending: { bg: Colors.syncPending, text: Colors.syncPendingText },
-  offline: { bg: Colors.offlineBg, text: Colors.offlineText },
-  syncing: { bg: Colors.syncingBg, text: Colors.info },
+// ─── Per-variant config ───────────────────────────────────────────────────────
+
+const CONFIG: Record<
+  SyncVariant,
+  {
+    bg: string;
+    textColor: string;
+    actionColor: string;
+    icon: string;
+  }
+> = {
+  pending: {
+    bg: Colors.background,
+    textColor: Colors.textSecondary,
+    actionColor: Colors.primary,
+    icon: "↻",
+  },
+  offline: {
+    bg: Colors.surfaceSecondary,
+    textColor: Colors.textMuted,
+    actionColor: Colors.primary,
+    icon: "⊗",
+  },
+  syncing: {
+    bg: Colors.syncingBg,
+    textColor: Colors.info,
+    actionColor: Colors.info,
+    icon: "↻",
+  },
+  failed: {
+    bg: Colors.errorLight,
+    textColor: Colors.error,
+    actionColor: Colors.error,
+    icon: "⚠",
+  },
 };
 
-export function SyncBanner({ variant, pendingCount = 0, onSyncPress, style }: Props) {
-  const { bg, text } = config[variant];
+// ─── Component ────────────────────────────────────────────────────────────────
 
-  function getMessage() {
-    if (variant === 'offline') return 'You are offline. Changes will sync later.';
-    if (variant === 'syncing') return 'Syncing changes…';
-    return `${pendingCount} ${pendingCount === 1 ? 'change' : 'changes'} pending sync`;
+export function SyncBanner({
+  variant,
+  pendingCount = 0,
+  onActionPress,
+  style,
+}: Props) {
+  const { t } = useTranslation();
+  const { bg, textColor, actionColor, icon } = CONFIG[variant];
+  const translateY = useRef(new Animated.Value(-24)).current;
+
+  useEffect(() => {
+    Animated.timing(translateY, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  function getMessage(): string {
+    switch (variant) {
+      case "pending": {
+        const count = pendingCount;
+        const suffix = count === 1 ? t.sync.pendingOne : t.sync.pending;
+        return `${count} ${suffix}`;
+      }
+      case "offline":
+        return t.sync.offline;
+      case "syncing":
+        return t.sync.syncing;
+      case "failed":
+        return t.sync.failed;
+    }
   }
 
+  function getAction(): string | null {
+    if (variant === "pending") return t.sync.syncNow;
+    if (variant === "failed") return t.sync.retry;
+    return null;
+  }
+
+  const action = getAction();
+  const message = getMessage();
+
   return (
-    <View style={[styles.banner, { backgroundColor: bg }, style]}>
+    <Animated.View
+      style={[
+        styles.banner,
+        { backgroundColor: bg, transform: [{ translateY }] },
+        style,
+      ]}
+    >
+      {/* Left: icon + message */}
       <View style={styles.left}>
-        {variant === 'syncing' && (
-          <ActivityIndicator size={12} color={text} style={styles.spinner} />
+        {variant === "syncing" ? (
+          <ActivityIndicator
+            size={11}
+            color={textColor}
+            style={styles.spinner}
+          />
+        ) : (
+          <Text style={[styles.icon, { color: textColor }]}>{icon} </Text>
         )}
-        {variant !== 'syncing' && <Text style={[styles.dot, { color: text }]}>↻ </Text>}
-        <Text style={[styles.message, { color: text }]}>{getMessage()}</Text>
+        <Text style={[styles.message, { color: textColor }]} numberOfLines={1}>
+          {message}
+        </Text>
       </View>
 
-      {variant === 'pending' && onSyncPress && (
-        <TouchableOpacity onPress={onSyncPress} hitSlop={8}>
-          <Text style={[styles.action, { color: text }]}>Sync Now</Text>
+      {/* Right: action */}
+      {action && onActionPress && (
+        <TouchableOpacity
+          onPress={onActionPress}
+          activeOpacity={0.7}
+          hitSlop={10}
+          style={styles.actionWrap}
+        >
+          <Text style={[styles.icon, { color: actionColor }]}>↻ </Text>
+          <Text style={[styles.action, { color: actionColor }]}>{action}</Text>
         </TouchableOpacity>
       )}
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   banner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.xs + 2,
+    paddingVertical: Spacing.xs + 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.border,
   },
   left: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
-  spinner: {
-    marginRight: Spacing.xs,
-  },
-  dot: {
+  spinner: { marginRight: Spacing.xs + 2 },
+  icon: {
     fontSize: Typography.size.sm,
+    fontWeight: Typography.weight.medium,
   },
   message: {
     fontSize: Typography.size.sm,
     fontWeight: Typography.weight.medium,
     flexShrink: 1,
   },
+  actionWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: Spacing.sm,
+  },
   action: {
     fontSize: Typography.size.sm,
     fontWeight: Typography.weight.bold,
-    marginLeft: Spacing.sm,
   },
 });

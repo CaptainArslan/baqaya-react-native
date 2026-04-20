@@ -58,10 +58,10 @@ export function Toast({
     ]).start();
   }, [visible]);
 
-  if (!visible) return null;
-
+  // Keep mounted so the hide animation can play; pointer events blocked when hidden
   return (
     <Animated.View
+      pointerEvents={visible ? 'auto' : 'none'}
       style={[
         styles.toast,
         { backgroundColor: cfg.bg, bottom: insets.bottom + Spacing.base, opacity, transform: [{ translateY }] },
@@ -71,7 +71,7 @@ export function Toast({
       <Text style={styles.icon}>{cfg.icon}</Text>
       <Text style={styles.message} numberOfLines={2}>{message}</Text>
       {onDismiss && (
-        <TouchableOpacity onPress={onDismiss} hitSlop={8}>
+        <TouchableOpacity onPress={onDismiss} activeOpacity={0.7} hitSlop={8}>
           <Text style={styles.close}>✕</Text>
         </TouchableOpacity>
       )}

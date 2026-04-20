@@ -1,27 +1,21 @@
 /**
  * Splash screen
  * Design ref: baqaya_splash_screen_with_progress_bar
- * Light green-white gradient bg, centered logo + name + tagline,
- * animated progress bar, "END-TO-END ENCRYPTED DATA" footer.
  */
 import React, { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { MaterialIcon } from '@/src/components';
 import { Colors, Spacing, Typography } from '@/src/theme';
-import { APP_NAME, APP_TAGLINE } from '@/src/constants';
+import { useTranslation } from '@/src/i18n';
 
 const BAR_DURATION = 1800;
 
 export default function SplashScreen() {
+  const { t } = useTranslation();
   const progress = useRef(new Animated.Value(0)).current;
-  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+  const [done, setDone] = React.useState(false);
 
   useEffect(() => {
     Animated.timing(progress, {
@@ -29,50 +23,56 @@ export default function SplashScreen() {
       duration: BAR_DURATION,
       easing: Easing.out(Easing.quad),
       useNativeDriver: false,
-    }).start(() => {
-      setShouldRedirect(true);
-    });
+    }).start(() => setDone(true));
   }, [progress]);
 
-  if (shouldRedirect) {
-    return <Redirect href="/(auth)/language" />;
-  }
+  if (done) return <Redirect href="/(auth)/language" />;
 
   const barWidth = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0%', '40%'],
+    outputRange: ['0%', '42%'],
   });
 
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+      {/* subtle radial tint top-left */}
+      <View style={styles.tintTL} pointerEvents="none" />
+
       <View style={styles.body}>
         {/* Logo */}
         <View style={styles.logoBox}>
-          <Text style={styles.logoEmoji}>🪙</Text>
+          <MaterialIcon name="account-balance-wallet" size={40} color={Colors.textInverse} />
         </View>
 
-        {/* Name + tagline */}
-        <Text style={styles.appName}>{APP_NAME}</Text>
-        <Text style={styles.tagline}>{APP_TAGLINE.toUpperCase()}</Text>
+        <Text style={styles.appName}>{t.common.appName}</Text>
+        <Text style={styles.tagline}>{t.common.tagline.toUpperCase()}</Text>
 
-        {/* Progress bar */}
         <View style={styles.barTrack}>
           <Animated.View style={[styles.barFill, { width: barWidth }]} />
         </View>
       </View>
 
-      {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>🔒  END-TO-END ENCRYPTED DATA</Text>
+        <View style={styles.footerRow}>
+          <MaterialIcon name="lock-outline" size={16} color={Colors.textMuted} />
+          <Text style={styles.footerText}>{t.auth.splash.encrypted.toUpperCase()}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: '#F0F5F3',
+  screen: { flex: 1, backgroundColor: Colors.background },
+  tintTL: {
+    position: 'absolute',
+    top: -60,
+    left: -60,
+    width: 240,
+    height: 240,
+    borderRadius: 120,
+    backgroundColor: Colors.primaryLight,
+    opacity: 0.5,
   },
   body: {
     flex: 1,
@@ -88,9 +88,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: Spacing.sm,
-  },
-  logoEmoji: {
-    fontSize: 36,
   },
   appName: {
     fontSize: Typography.size.display,
@@ -120,6 +117,11 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     paddingBottom: Spacing.lg,
+  },
+  footerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
   },
   footerText: {
     fontSize: Typography.size.xs,

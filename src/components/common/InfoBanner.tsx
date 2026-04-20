@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Radius, Spacing, Typography } from '../../theme';
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Spacing, Typography } from "../../theme";
 
-type BannerType = 'offline' | 'sync' | 'warning' | 'info' | 'success' | 'error';
+type BannerType = "offline" | "sync" | "warning" | "info" | "success" | "error";
 
 interface Props {
   type: BannerType;
@@ -18,11 +18,14 @@ interface Props {
   style?: ViewStyle;
 }
 
-const bannerConfig: Record<BannerType, { bg: string; border: string; text: string; action: string }> = {
+const bannerConfig: Record<
+  BannerType,
+  { bg: string; border: string; text: string; action: string }
+> = {
   offline: {
     bg: Colors.offlineBg,
     border: Colors.offlineBorder,
-    text: '#92400E',
+    text: "#92400E",
     action: Colors.warning,
   },
   sync: {
@@ -34,7 +37,7 @@ const bannerConfig: Record<BannerType, { bg: string; border: string; text: strin
   warning: {
     bg: Colors.warningLight,
     border: Colors.warning,
-    text: '#92400E',
+    text: "#92400E",
     action: Colors.warning,
   },
   info: {
@@ -57,7 +60,13 @@ const bannerConfig: Record<BannerType, { bg: string; border: string; text: strin
   },
 };
 
-export function InfoBanner({ type, message, actionLabel, onAction, style }: Props) {
+export function InfoBanner({
+  type,
+  message,
+  actionLabel,
+  onAction,
+  style,
+}: Props) {
   const config = bannerConfig[type];
 
   return (
@@ -73,8 +82,10 @@ export function InfoBanner({ type, message, actionLabel, onAction, style }: Prop
     >
       <Text style={[styles.message, { color: config.text }]}>{message}</Text>
       {actionLabel && onAction ? (
-        <TouchableOpacity onPress={onAction}>
-          <Text style={[styles.action, { color: config.action }]}>{actionLabel}</Text>
+        <TouchableOpacity onPress={onAction} activeOpacity={0.7}>
+          <Text style={[styles.action, { color: config.action }]}>
+            {actionLabel}
+          </Text>
         </TouchableOpacity>
       ) : null}
     </View>
@@ -83,9 +94,9 @@ export function InfoBanner({ type, message, actionLabel, onAction, style }: Prop
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.sm + 2,
     borderRadius: Radius.md,

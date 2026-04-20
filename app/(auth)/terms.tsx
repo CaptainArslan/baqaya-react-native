@@ -1,11 +1,13 @@
 // Terms & conditions screen — placeholder
 import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from '@/src/i18n';
 import { Colors, Typography } from '@/src/theme';
 
 export default function TermsScreen() {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Terms & Conditions</Text>
+      <Text style={styles.text}>{t.drawer.terms}</Text>
     </View>
   );
 }

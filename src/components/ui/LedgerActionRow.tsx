@@ -2,15 +2,15 @@
  * LedgerActionRow — "Udhaar add" (debit/red) + "Payment add" (credit/green) side by side.
  * Used on customer detail screen.
  */
-import React from 'react';
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Radius, Shadows, Spacing, Typography } from '../../theme';
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
 
 interface Props {
   onUdhaarPress?: () => void;
@@ -23,8 +23,8 @@ interface Props {
 export function LedgerActionRow({
   onUdhaarPress,
   onPaymentPress,
-  udhaarLabel = 'Udhaar add',
-  paymentLabel = 'Payment add',
+  udhaarLabel = "Udhaar add",
+  paymentLabel = "Payment add",
   style,
 }: Props) {
   return (
@@ -52,14 +52,14 @@ export function LedgerActionRow({
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: Spacing.sm,
   },
   btn: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: Spacing.sm,
     borderRadius: Radius.lg,
     paddingVertical: Spacing.base,

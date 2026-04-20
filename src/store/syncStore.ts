@@ -5,7 +5,7 @@
  */
 import { useState, useEffect } from 'react';
 
-export type SyncState = 'synced' | 'pending' | 'syncing' | 'offline';
+export type SyncState = 'synced' | 'pending' | 'syncing' | 'offline' | 'failed';
 
 let _state: SyncState = 'synced';
 let _pendingCount = 0;
@@ -38,6 +38,11 @@ export const syncStore = {
 
   setOffline() {
     _state = 'offline';
+    notify();
+  },
+
+  setFailed() {
+    _state = 'failed';
     notify();
   },
 

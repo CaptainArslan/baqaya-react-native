@@ -2,12 +2,18 @@
  * LedgerEntryRow — single transaction in a customer ledger or cashbook.
  * Shows title, time, amount (+/-), and entry type tag.
  */
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, type ViewStyle } from 'react-native';
-import { Colors, Radius, Spacing, Typography } from '../../theme';
-import { formatCurrency } from '../../utils';
+import React from "react";
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Spacing, Typography } from "../../theme";
+import { formatCurrency } from "../../utils";
 
-type EntryType = 'udhaar' | 'payment';
+type EntryType = "udhaar" | "payment";
 
 interface Props {
   title: string;
@@ -18,12 +24,22 @@ interface Props {
   style?: ViewStyle;
 }
 
-const typeConfig: Record<EntryType, { label: string; sign: string; color: string }> = {
-  udhaar: { label: 'UDHAAR', sign: '+', color: Colors.debit },
-  payment: { label: 'PAYMENT', sign: '-', color: Colors.credit },
+const typeConfig: Record<
+  EntryType,
+  { label: string; sign: string; color: string }
+> = {
+  udhaar: { label: "UDHAAR", sign: "+", color: Colors.debit },
+  payment: { label: "PAYMENT", sign: "-", color: Colors.credit },
 };
 
-export function LedgerEntryRow({ title, time, amount, type, onPress, style }: Props) {
+export function LedgerEntryRow({
+  title,
+  time,
+  amount,
+  type,
+  onPress,
+  style,
+}: Props) {
   const cfg = typeConfig[type];
 
   return (
@@ -33,16 +49,29 @@ export function LedgerEntryRow({ title, time, amount, type, onPress, style }: Pr
       style={[styles.row, style]}
     >
       <View style={styles.info}>
-        <Text style={styles.title} numberOfLines={1}>{title}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {title}
+        </Text>
         <Text style={styles.time}>🕐 {time}</Text>
       </View>
 
       <View style={styles.right}>
         <Text style={[styles.amount, { color: cfg.color }]}>
-          {cfg.sign}{formatCurrency(amount)}
+          {cfg.sign}
+          {formatCurrency(amount)}
         </Text>
-        <View style={[styles.tag, { backgroundColor: type === 'udhaar' ? Colors.debitLight : Colors.creditLight }]}>
-          <Text style={[styles.tagText, { color: cfg.color }]}>{cfg.label}</Text>
+        <View
+          style={[
+            styles.tag,
+            {
+              backgroundColor:
+                type === "udhaar" ? Colors.debitLight : Colors.creditLight,
+            },
+          ]}
+        >
+          <Text style={[styles.tagText, { color: cfg.color }]}>
+            {cfg.label}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -51,8 +80,8 @@ export function LedgerEntryRow({ title, time, amount, type, onPress, style }: Pr
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: Spacing.md,
     paddingHorizontal: Spacing.base,
     backgroundColor: Colors.surface,
@@ -74,7 +103,7 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
   },
   right: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     gap: Spacing.xxs + 1,
   },
   amount: {

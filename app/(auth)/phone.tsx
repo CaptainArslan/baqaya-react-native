@@ -1,43 +1,45 @@
 /**
  * Phone Number Entry screen
- * Design ref: phone_number_entry_active_state_1 / error_toast_state
- * Inner header (back + "Baqaya"), lock icon, title, phone input,
- * privacy note, Send OTP button, Terms link, footer links, error toast.
+ * Design ref: phone_number_entry_active_state_1
  */
-import React, { useState } from 'react';
+import { MaterialIcon, Toast } from "@/src/components";
+import { PhoneInputField } from "@/src/components/ui/PhoneInputField";
+import { useAppNavigation } from "@/src/hooks";
+import { useTranslation } from "@/src/i18n";
+import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import { useAppNavigation } from '@/src/hooks';
-import { Button, Toast } from '@/src/components';
-import { PhoneInputField } from '@/src/components/ui/PhoneInputField';
-import { Colors, Radius, Spacing, Typography } from '@/src/theme';
-import { useTranslation } from '@/src/i18n';
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function validate(phone: string) {
-  return /^3[0-9]{9}$/.test(phone.replace(/\s/g, ''));
+  return /^3[0-9]{9}$/.test(phone.replace(/\s/g, ""));
 }
 
 export default function PhoneScreen() {
   const nav = useAppNavigation();
   const router = useRouter();
   const { t } = useTranslation();
-  const [phone, setPhone] = useState('');
-  const [fieldError, setFieldError] = useState('');
-  const [toast, setToast] = useState('');
+
+  const [phone, setPhone] = useState("");
+  const [fieldError, setFieldError] = useState("");
+  const [toast, setToast] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const canSendOtp = validate(phone);
+
   function handleSend() {
-    setFieldError('');
-    setToast('');
+    setFieldError("");
+    setToast("");
     if (!validate(phone)) {
       setFieldError(t.auth.phone.errorInvalidFormat);
       setToast(t.auth.phone.errorSendFailed);
@@ -46,63 +48,89 @@ export default function PhoneScreen() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      // Pass phone so OTP screen can show masked number
-      router.push({ pathname: '/(auth)/otp', params: { phone } });
+      router.push({ pathname: "/(auth)/otp", params: { phone } });
     }, 800);
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={nav.goBack} hitSlop={10}>
-          <Text style={styles.backArrow}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Baqaya</Text>
-        <View style={{ width: 32 }} />
+        <View style={styles.headerLeft}>
+          <TouchableOpacity
+            onPress={nav.goBack}
+            hitSlop={10}
+            style={styles.backBtn}
+          >
+            <MaterialIcon name="arrow-back" size={22} color={Colors.textPrimary} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>{t.common.appName}</Text>
+        </View>
       </View>
 
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
+        {/* Scrollable content */}
         <ScrollView
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Lock icon */}
-          <View style={styles.iconBox}>
-            <Text style={styles.lockIcon}>🔒</Text>
+          {/* Hero */}
+          <View style={styles.heroSection}>
+            <View style={styles.iconBox}>
+              <MaterialIcon name="lock" size={34} color={Colors.primary} />
+            </View>
+            <Text style={styles.heading}>{t.auth.phone.heading}</Text>
+            <Text style={styles.subtitle}>{t.auth.phone.subtitle}</Text>
           </View>
 
-          <Text style={styles.title}>{t.auth.phone.heading}</Text>
-          <Text style={styles.subtitle}>{t.auth.phone.subtitle}</Text>
-
-          {/* Input */}
-          <View style={styles.inputGroup}>
+          {/* Form */}
+          <View style={styles.formSection}>
             <Text style={styles.inputLabel}>{t.auth.phone.label}</Text>
             <PhoneInputField
               value={phone}
-              onChangeText={(v) => { setPhone(v); setFieldError(''); }}
+              onChangeText={(v) => {
+                setPhone(v);
+                setFieldError("");
+              }}
               hasError={!!fieldError}
             />
-            {fieldError ? <Text style={styles.fieldError}>{fieldError}</Text> : null}
-          </View>
+            {fieldError ? (
+              <Text style={styles.fieldError}>{fieldError}</Text>
+            ) : null}
 
-          {/* Privacy note */}
-          <View style={styles.privacyRow}>
-            <Text style={styles.privacyIcon}>ℹ</Text>
-            <Text style={styles.privacyText}>{t.auth.phone.privacyNote}</Text>
+            {/* <View style={styles.privacyBox}>
+              <MaterialIcon
+                name="info-outline"
+                size={18}
+                color={Colors.textMuted}
+                style={styles.privacyIcon}
+              />
+              <Text style={styles.privacyText}>{t.auth.phone.privacyNote}</Text>
+            </View> */}
           </View>
+        </ScrollView>
 
-          {/* CTA */}
-          <Button
-            label={t.auth.phone.sendOtp}
+        {/* Sticky bottom CTA */}
+        <View style={styles.bottom}>
+          <TouchableOpacity
+            style={[
+              styles.ctaBtn,
+              (!canSendOtp || loading) && styles.ctaBtnDisabled,
+            ]}
             onPress={handleSend}
-            loading={loading}
-            style={styles.cta}
-          />
+            disabled={loading || !canSendOtp}
+            activeOpacity={0.85}
+          >
+            {loading ? (
+              <ActivityIndicator color={Colors.textInverse} size="small" />
+            ) : (
+              <Text style={styles.ctaBtnText}>{t.auth.phone.sendOtp}</Text>
+            )}
+          </TouchableOpacity>
 
           <Text style={styles.terms}>
             {t.auth.phone.termsPrefix}
@@ -111,80 +139,89 @@ export default function PhoneScreen() {
             </Text>
           </Text>
 
-          {/* Footer links */}
           <View style={styles.footerLinks}>
-            <TouchableOpacity hitSlop={8}>
-              <Text style={styles.footerLink}>❓ {t.common.needHelp}</Text>
+            <TouchableOpacity activeOpacity={0.7} hitSlop={8} style={styles.footerLinkRow}>
+              <MaterialIcon name="help-outline" size={18} color={Colors.textMuted} />
+              <Text style={styles.footerLink}>{t.common.needHelp}</Text>
             </TouchableOpacity>
-            <TouchableOpacity hitSlop={8}>
-              <Text style={styles.footerLink}>📞 {t.common.contactSupport}</Text>
+            <TouchableOpacity activeOpacity={0.7} hitSlop={8} style={styles.footerLinkRow}>
+              <MaterialIcon name="phone-in-talk" size={18} color={Colors.textMuted} />
+              <Text style={styles.footerLink}>{t.common.contactSupport}</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
 
-      {/* Error toast */}
       <Toast
         visible={!!toast}
         message={toast}
         type="error"
-        onDismiss={() => setToast('')}
+        onDismiss={() => setToast("")}
       />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: Colors.surface },
+  screen: { flex: 1, backgroundColor: Colors.background },
   flex: { flex: 1 },
+
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
+    backgroundColor: Colors.background,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.border,
   },
-  backArrow: {
-    fontSize: 22,
-    color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
   },
+  backBtn: { padding: Spacing.xs },
   headerTitle: {
     fontSize: Typography.size.lg,
     fontWeight: Typography.weight.bold,
-    color: Colors.textPrimary,
+    color: Colors.primary,
   },
+
   content: {
     paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.huge,
-    gap: Spacing.base,
-    alignItems: 'center',
+    paddingBottom: Spacing.lg,
+    gap: Spacing.xxl,
+  },
+
+  heroSection: {
+    alignItems: "center",
+    paddingTop: Spacing.lg,
+    gap: Spacing.md,
   },
   iconBox: {
-    width: 64,
-    height: 64,
-    borderRadius: 16,
-    backgroundColor: Colors.surfaceSecondary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: Spacing.lg,
-    marginBottom: Spacing.sm,
+    width: 72,
+    height: 72,
+    borderRadius: 18,
+    backgroundColor: Colors.primaryLight,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  lockIcon: { fontSize: 28 },
-  title: {
-    fontSize: Typography.size.xxxl,
+  heading: {
+    fontSize: Typography.size.display,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    textAlign: 'center',
-    lineHeight: Typography.size.xxxl * 1.25,
+    textAlign: "center",
+    lineHeight: Typography.size.display * 1.2,
   },
   subtitle: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: Typography.size.base * 1.5,
   },
-  inputGroup: { width: '100%', gap: Spacing.xs },
+
+  formSection: { gap: Spacing.md },
   inputLabel: {
     fontSize: Typography.size.xs,
     fontWeight: Typography.weight.semibold,
@@ -194,39 +231,64 @@ const styles = StyleSheet.create({
   fieldError: {
     fontSize: Typography.size.sm,
     color: Colors.error,
-    marginTop: 2,
   },
-  privacyRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+  privacyBox: {
+    flexDirection: "row",
+    alignItems: "flex-start",
     gap: Spacing.sm,
-    backgroundColor: Colors.infoLight,
+    backgroundColor: Colors.surface,
     borderRadius: Radius.md,
     padding: Spacing.md,
-    width: '100%',
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
-  privacyIcon: { fontSize: 14, color: Colors.info, marginTop: 1 },
+  privacyIcon: { marginTop: 1 },
   privacyText: {
     flex: 1,
     fontSize: Typography.size.sm,
-    color: Colors.info,
+    color: Colors.textSecondary,
     lineHeight: Typography.size.sm * 1.5,
   },
-  cta: { width: '100%', marginTop: Spacing.sm },
+
+  bottom: {
+    paddingHorizontal: Spacing.xl,
+    paddingBottom: Spacing.md,
+    paddingTop: Spacing.sm,
+    gap: Spacing.sm,
+    backgroundColor: Colors.background,
+  },
+  ctaBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: "center",
+  },
+  ctaBtnDisabled: { opacity: 0.6 },
+  ctaBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textInverse,
+  },
   terms: {
     fontSize: Typography.size.sm,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   termsLink: {
     color: Colors.primary,
     fontWeight: Typography.weight.medium,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   footerLinks: {
-    flexDirection: 'row',
-    gap: Spacing.xl,
-    marginTop: Spacing.sm,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: Spacing.lg,
+    flexWrap: "wrap",
+  },
+  footerLinkRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
   },
   footerLink: {
     fontSize: Typography.size.sm,

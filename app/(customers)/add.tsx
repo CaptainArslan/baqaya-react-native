@@ -1,118 +1,192 @@
 /**
- * Add Customer screen — add-customer-flow
- * Name (required) + phone (optional).
- * On save: duplicate check → show warning or save locally → go to detail.
- * Import from Contacts shortcut at bottom.
+ * Add Customer screen
+ * Design ref: add_customer_with_avatar
  */
-import React, { useState } from 'react';
+import { Avatar, TextInputField } from "@/src/components";
+import { addMockCustomer } from "@/src/constants/mockData";
+import { useAppNavigation } from "@/src/hooks";
+import { useTranslation } from "@/src/i18n";
+import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import React, { useState } from "react";
 import {
-  KeyboardAvoidingView, Platform, ScrollView,
-  StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAppNavigation } from '@/src/hooks';
-import { InnerHeader, TextInputField, Button } from '@/src/components';
-import { Colors, Radius, Spacing, Typography } from '@/src/theme';
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AddCustomerScreen() {
   const nav = useAppNavigation();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [nameError, setNameError] = useState('');
+  const { t } = useTranslation();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [nameError, setNameError] = useState("");
 
   function handleSave() {
     if (!name.trim()) {
-      setNameError('Customer name is required.');
+      setNameError(t.addCustomer.errorNameRequired);
       return;
     }
-    // TODO: check for duplicate by phone → nav.goToDuplicateWarning(existingId, phone)
-    // Save locally, then navigate to the new customer's detail
-    const newId = Date.now().toString(); // placeholder id
+    const newId = Date.now().toString();
+    addMockCustomer({
+      id: newId,
+      name: name.trim(),
+      phone: phone.trim(),
+      balance: 0,
+      createdAt: new Date().toISOString(),
+      lastActivity: new Date().toISOString(),
+    });
     nav.goToCustomerDetail(newId);
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
-      <InnerHeader title="Add Customer" onBack={nav.goBack} />
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
+      {/* Header — × dismiss style */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={nav.goBack}
+          hitSlop={10}
+          style={styles.dismissBtn}
+        >
+          <Text style={styles.dismissIcon}>✕</Text>
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>{t.addCustomer.screenTitle}</Text>
+        <View style={styles.headerSpacer} />
+      </View>
 
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <ScrollView
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.avatarPlaceholder}>
-            <Text style={styles.avatarEmoji}>👤</Text>
+          {/* Avatar */}
+          <View style={styles.avatarWrap}>
+            <Avatar name={name || "?"} size="xl" />
+            <View style={styles.cameraBadge}>
+              <Text style={styles.cameraIcon}>📷</Text>
+            </View>
           </View>
 
-          <Text style={styles.heading}>New Connection</Text>
-          <Text style={styles.subheading}>
-            Add a customer to start recording transactions.
-          </Text>
+          <Text style={styles.heading}>{t.addCustomer.heading}</Text>
+          <Text style={styles.subheading}>{t.addCustomer.subheading}</Text>
 
-          <TextInputField
-            label="CUSTOMER NAME *"
-            placeholder="Enter name (e.g. Aslam Bhai)"
-            value={name}
-            onChangeText={(t) => { setName(t); setNameError(''); }}
-            error={nameError}
-          />
+          <View style={styles.fields}>
+            <TextInputField
+              label={t.addCustomer.nameLabel}
+              placeholder={t.addCustomer.namePlaceholder}
+              value={name}
+              onChangeText={(v) => {
+                setName(v);
+                setNameError("");
+              }}
+              error={nameError}
+              autoFocus
+            />
 
-          <TextInputField
-            label="PHONE NUMBER (OPTIONAL)"
-            placeholder="03XX-XXXXXXX"
-            value={phone}
-            onChangeText={setPhone}
-            keyboardType="phone-pad"
-          />
+            <TextInputField
+              label={t.addCustomer.phoneLabel}
+              placeholder={t.addCustomer.phonePlaceholder}
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+            />
 
-          {/* Import from contacts shortcut */}
-          <TouchableOpacity
-            onPress={nav.goToContactPicker}
-            style={styles.importRow}
-          >
-            <Text style={styles.importIcon}>📇</Text>
-            <View>
-              <Text style={styles.importLabel}>Import from Contacts</Text>
-              <Text style={styles.importSub}>Speed up by selecting from your phonebook.</Text>
-            </View>
-          </TouchableOpacity>
+            {/* Import from contacts */}
+            <TouchableOpacity
+              onPress={nav.goToImportContacts}
+              style={styles.importRow}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.importIcon}>📇</Text>
+              <View style={styles.importText}>
+                <Text style={styles.importLabel}>
+                  {t.addCustomer.importLabel}
+                </Text>
+                <Text style={styles.importSub}>{t.addCustomer.importSub}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-      </KeyboardAvoidingView>
 
-      <View style={styles.footer}>
-        <Button
-          label="Save / Save Karein  →"
-          onPress={handleSave}
-          disabled={!name.trim()}
-        />
-      </View>
+        {/* Sticky CTA */}
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={[styles.saveBtn, !name.trim() && styles.saveBtnDisabled]}
+            onPress={handleSave}
+            disabled={!name.trim()}
+            activeOpacity={0.85}
+          >
+            <Text style={styles.saveBtnText}>{t.addCustomer.save} →</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: Colors.surface },
+  screen: { flex: 1, backgroundColor: Colors.background },
   flex: { flex: 1 },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: Spacing.base,
+    paddingVertical: Spacing.md,
+    backgroundColor: Colors.background,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.border,
+  },
+  dismissBtn: { padding: Spacing.xs },
+  dismissIcon: {
+    fontSize: 18,
+    color: Colors.textSecondary,
+    fontWeight: Typography.weight.bold,
+  },
+  headerTitle: {
+    flex: 1,
+    textAlign: "center",
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.primary,
+  },
+  headerSpacer: { width: 32 },
+
   content: {
-    padding: Spacing.base,
-    gap: Spacing.base,
-    alignItems: 'center',
+    alignItems: "center",
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.xl,
     paddingBottom: Spacing.huge,
+    gap: Spacing.sm,
   },
-  avatarPlaceholder: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    backgroundColor: Colors.surfaceSecondary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: Spacing.md,
+
+  avatarWrap: {
+    position: "relative",
+    marginBottom: Spacing.sm,
   },
-  avatarEmoji: { fontSize: 32 },
+  cameraBadge: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: Colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: Colors.background,
+  },
+  cameraIcon: { fontSize: 12 },
+
   heading: {
     fontSize: Typography.size.xxl,
     fontWeight: Typography.weight.bold,
@@ -121,18 +195,22 @@ const styles = StyleSheet.create({
   subheading: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
+    marginBottom: Spacing.sm,
   },
+
+  fields: { width: "100%", gap: Spacing.md },
+
   importRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: Spacing.md,
     backgroundColor: Colors.primaryLight,
     borderRadius: Radius.md,
     padding: Spacing.md,
-    width: '100%',
   },
   importIcon: { fontSize: 22 },
+  importText: { flex: 1 },
   importLabel: {
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.semibold,
@@ -141,9 +219,25 @@ const styles = StyleSheet.create({
   importSub: {
     fontSize: Typography.size.sm,
     color: Colors.textSecondary,
+    marginTop: 2,
   },
+
   footer: {
-    padding: Spacing.base,
-    paddingBottom: Spacing.lg,
+    paddingHorizontal: Spacing.base,
+    paddingBottom: Spacing.base,
+    paddingTop: Spacing.sm,
+    backgroundColor: Colors.background,
+  },
+  saveBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: "center",
+  },
+  saveBtnDisabled: { opacity: 0.45 },
+  saveBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textInverse,
   },
 });

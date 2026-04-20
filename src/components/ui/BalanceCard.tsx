@@ -2,32 +2,47 @@
  * BalanceCard — large dark green card on Home screen.
  * Shows total balance + Add Entry CTA.
  */
-import React from 'react';
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { Colors, Radius, Shadows, Spacing, Typography } from '../../theme';
-import { formatBalance } from '../../utils';
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
+import { formatBalance } from "../../utils";
+
+type Variant = "primary" | "debit";
 
 interface Props {
   balance: number;
   label?: string;
+  addEntryLabel?: string;
   onAddEntry?: () => void;
+  variant?: Variant;
   style?: ViewStyle;
 }
 
 export function BalanceCard({
   balance,
-  label = 'TOTAL BALANCE',
+  label = "TOTAL BALANCE",
+  addEntryLabel = "+ Add Entry",
   onAddEntry,
+  variant = "debit",
   style,
 }: Props) {
+  const cardBg =
+    balance === 0
+      ? Colors.primary
+      : variant === "debit"
+        ? Colors.debit
+        : Colors.primary;
+  const btnBg = variant === "debit" ? Colors.surface : Colors.debit;
+  const btnColor = variant === "debit" ? Colors.debit : Colors.textInverse;
+
   return (
-    <View style={[styles.card, Shadows.md, style]}>
+    <View style={[styles.card, { backgroundColor: cardBg }, Shadows.md, style]}>
       <Text style={styles.label}>{label}</Text>
       <Text style={styles.amount}>{formatBalance(balance)}</Text>
 
@@ -35,9 +50,11 @@ export function BalanceCard({
         <TouchableOpacity
           onPress={onAddEntry}
           activeOpacity={0.85}
-          style={styles.addBtn}
+          style={[styles.addBtn, { backgroundColor: btnBg }]}
         >
-          <Text style={styles.addBtnText}>+ Add Entry</Text>
+          <Text style={[styles.addBtnText, { color: btnColor }]}>
+            {addEntryLabel}
+          </Text>
         </TouchableOpacity>
       )}
     </View>
@@ -46,10 +63,9 @@ export function BalanceCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.primary,
     borderRadius: Radius.xl,
     padding: Spacing.xl,
-    alignItems: 'center',
+    alignItems: "flex-start",
     gap: Spacing.sm,
   },
   label: {
@@ -64,18 +80,17 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weight.bold,
     color: Colors.textInverse,
     letterSpacing: Typography.letterSpacing.tight,
+    textAlign: "left",
+    width: "100%",
   },
   addBtn: {
     marginTop: Spacing.xs,
-    backgroundColor: Colors.debit,
     borderRadius: Radius.lg,
     paddingVertical: Spacing.sm + 2,
-    paddingHorizontal: Spacing.xl,
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    alignSelf: "stretch",
+    alignItems: "center",
   },
   addBtnText: {
-    color: Colors.textInverse,
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.semibold,
   },

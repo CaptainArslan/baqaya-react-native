@@ -1,188 +1,267 @@
 /**
  * Create Shop screen
- * Design ref: create_shop
- * Back + "Create Shop" header, step indicator, shop illustration,
- * title, shop name input, data safety note, Continue button.
+ * Design ref: design-reference/screens/create_shop
  */
-import React, { useState } from 'react';
+import { MaterialIcon, TextInputField } from "@/src/components";
+import { useTranslation } from "@/src/i18n";
+import { setShopName } from "@/src/services/storage";
+import { authStore } from "@/src/store/authStore";
+import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAppNavigation } from '@/src/hooks';
-import { Button, TextInputField } from '@/src/components';
-import { Colors, Radius, Spacing, Typography } from '@/src/theme';
-import { authStore } from '@/src/store/authStore';
-import { useTranslation } from '@/src/i18n';
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreateShopScreen() {
-  const nav = useAppNavigation();
+  const router = useRouter();
   const { t } = useTranslation();
-  const [shopName, setShopName] = useState('');
-  const [error, setError] = useState('');
+  const [shopName, setShopNameState] = useState("");
+  const [error, setError] = useState("");
 
   async function handleContinue() {
-    if (!shopName.trim()) {
+    const trimmed = shopName.trim();
+    if (!trimmed) {
       setError(t.onboarding.createShop.errorEmpty);
       return;
     }
-    await import('@/src/services/storage').then(({ setShopName }) => setShopName(shopName.trim()));
+    await setShopName(trimmed);
     await authStore.completeOnboarding();
+    router.replace("/(drawer)/(tabs)");
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={nav.goBack} hitSlop={10}>
-          <Text style={styles.backArrow}>←</Text>
-        </TouchableOpacity>
-        <View style={styles.headerCenter}>
-          <View style={styles.stepDot} />
-          <View style={[styles.stepDot, styles.stepDotActive]} />
-        </View>
-        <View style={{ width: 32 }} />
+        <Text style={styles.headerTitle} numberOfLines={1}>
+          {t.onboarding.createShop.screenTitle}
+        </Text>
       </View>
 
       <KeyboardAvoidingView
         style={styles.flex}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <ScrollView
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Shop illustration */}
-          <View style={styles.illustrationBox}>
-            <Text style={styles.illustrationEmoji}>🏪</Text>
-          </View>
+          {/* Accent bar */}
+          <View style={styles.accentBar} />
 
-          <Text style={styles.title}>{t.onboarding.createShop.title}</Text>
-          <Text style={styles.subtitle}>{t.onboarding.createShop.subtitle}</Text>
+          {/* Heading */}
+          <Text style={styles.heading}>{t.onboarding.createShop.title}</Text>
+          <Text style={styles.subtitle}>
+            {t.onboarding.createShop.subtitle}
+          </Text>
+
+          {/* Hero card — 16:9 wide panel with step dots */}
+          <View style={styles.heroCard}>
+            <View style={styles.heroIconCircle}>
+              <MaterialIcon name="storefront" size={34} color={Colors.primary} />
+            </View>
+            <View style={styles.stepDots}>
+              <View style={[styles.dot, styles.dotActive]} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+            </View>
+          </View>
 
           {/* Input */}
           <TextInputField
             label={t.onboarding.createShop.label}
             placeholder={t.onboarding.createShop.placeholder}
             value={shopName}
-            onChangeText={(v) => { setShopName(v); setError(''); }}
+            onChangeText={(v) => {
+              setShopNameState(v);
+              setError("");
+            }}
             error={error}
-            style={styles.input}
+            hint={t.onboarding.createShop.hint}
           />
 
-          {/* Data safety note */}
-          <View style={styles.safetyNote}>
-            <Text style={styles.safetyIcon}>🛡</Text>
-            <Text style={styles.safetyText}>
-              {t.onboarding.createShop.safeTitle}{'\n'}
-              <Text style={styles.safetyMuted}>{t.onboarding.createShop.safeBody}</Text>
-            </Text>
+          {/* Safety note */}
+          <View style={styles.safetyCard}>
+            <View style={styles.safetyIconBox}>
+              <MaterialIcon name="shield" size={22} color={Colors.primary} />
+            </View>
+            <View style={styles.safetyText}>
+              <Text style={styles.safetyTitle}>
+                {t.onboarding.createShop.safeTitle}
+              </Text>
+              <Text style={styles.safetyBody}>
+                {t.onboarding.createShop.safeBody}
+              </Text>
+            </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
 
-      {/* CTA */}
-      <View style={styles.footer}>
-        <Button
-          label={t.onboarding.createShop.continue}
-          onPress={handleContinue}
-          disabled={!shopName.trim()}
-        />
-      </View>
+        {/* Sticky CTA */}
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={[styles.ctaBtn, !shopName.trim() && styles.ctaBtnDisabled]}
+            onPress={handleContinue}
+            disabled={!shopName.trim()}
+            activeOpacity={0.85}
+          >
+            <View style={styles.ctaBtnInner}>
+              <Text style={styles.ctaBtnText}>
+                {t.onboarding.createShop.continue}
+              </Text>
+              <MaterialIcon name="arrow-forward" size={20} color={Colors.textInverse} />
+            </View>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: Colors.surface },
+  screen: { flex: 1, backgroundColor: Colors.background },
   flex: { flex: 1 },
+
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
+    backgroundColor: Colors.background,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.border,
   },
-  backArrow: {
-    fontSize: 22,
-    color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
+  headerTitle: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.bold,
+    color: Colors.primary,
   },
-  headerCenter: {
-    flexDirection: 'row',
-    gap: Spacing.xs,
-    alignItems: 'center',
-  },
-  stepDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: Colors.border,
-  },
-  stepDotActive: {
-    backgroundColor: Colors.primary,
-    width: 18,
-    borderRadius: 3,
-  },
+
   content: {
-    paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.huge,
+    paddingHorizontal: Spacing.base,
+    paddingBottom: Spacing.xxl,
     gap: Spacing.base,
   },
-  illustrationBox: {
-    alignSelf: 'center',
-    width: 100,
-    height: 100,
-    borderRadius: 20,
-    backgroundColor: Colors.surfaceSecondary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: Spacing.base,
+
+  accentBar: {
+    width: 64,
+    height: 4,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.primary,
+    marginBottom: Spacing.xs,
   },
-  illustrationEmoji: { fontSize: 48 },
-  title: {
-    fontSize: Typography.size.xxl,
+
+  heading: {
+    fontSize: Typography.size.display,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    lineHeight: Typography.size.xxl * 1.3,
+    lineHeight: Typography.size.display * 1.2,
+    marginTop: -Spacing.xs,
   },
   subtitle: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
     lineHeight: Typography.size.base * 1.5,
   },
-  input: { marginTop: Spacing.xs },
-  safetyNote: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: Spacing.sm,
-    backgroundColor: Colors.surfaceSecondary,
-    borderRadius: Radius.md,
-    padding: Spacing.md,
-    marginTop: Spacing.xs,
+
+  // 16:9 hero card
+  heroCard: {
+    width: "100%",
+    aspectRatio: 16 / 9,
+    borderRadius: Radius.xl,
+    backgroundColor: Colors.surface,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.md,
+    overflow: "hidden",
   },
-  safetyIcon: { fontSize: 16, marginTop: 2 },
-  safetyText: {
-    flex: 1,
+  heroIconCircle: {
+    width: 72,
+    height: 72,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.primaryLight,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stepDots: {
+    flexDirection: "row",
+    gap: Spacing.xs,
+    alignItems: "center",
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.border,
+  },
+  dotActive: {
+    width: 28,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.primary,
+  },
+
+  safetyCard: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.md,
+    backgroundColor: Colors.surface,
+    borderRadius: Radius.lg,
+    padding: Spacing.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  safetyIconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.primaryLight,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  safetyText: { flex: 1, gap: 2 },
+  safetyTitle: {
     fontSize: Typography.size.sm,
-    fontWeight: Typography.weight.semibold,
+    fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
+  },
+  safetyBody: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
     lineHeight: Typography.size.sm * 1.5,
   },
-  safetyMuted: {
-    fontWeight: Typography.weight.regular,
-    color: Colors.textSecondary,
-  },
+
   footer: {
-    paddingHorizontal: Spacing.xl,
+    paddingHorizontal: Spacing.base,
     paddingBottom: Spacing.base,
     paddingTop: Spacing.sm,
+    backgroundColor: Colors.background,
+  },
+  ctaBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: "center",
+  },
+  ctaBtnInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.sm,
+  },
+  ctaBtnDisabled: { opacity: 0.45 },
+  ctaBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.bold,
+    color: Colors.textInverse,
   },
 });

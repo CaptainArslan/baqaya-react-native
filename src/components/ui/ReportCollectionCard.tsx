@@ -2,10 +2,16 @@
  * ReportCollectionCard — dark green card on reports screen.
  * "You need to collect Rs. X" with optional date range label.
  */
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, type ViewStyle } from 'react-native';
-import { Colors, Radius, Shadows, Spacing, Typography } from '../../theme';
-import { formatBalance } from '../../utils';
+import React from "react";
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
+import { formatBalance } from "../../utils";
 
 interface Props {
   amount: number;
@@ -26,7 +32,11 @@ export function ReportCollectionCard({
       <Text style={styles.amount}>{formatBalance(amount)}</Text>
 
       {dateRange && (
-        <TouchableOpacity onPress={onDateRangePress} style={styles.dateBtn}>
+        <TouchableOpacity
+          onPress={onDateRangePress}
+          activeOpacity={0.75}
+          style={styles.dateBtn}
+        >
           <Text style={styles.dateLabel}>📅 {dateRange}</Text>
         </TouchableOpacity>
       )}
@@ -39,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     borderRadius: Radius.xl,
     padding: Spacing.xl,
-    alignItems: 'center',
+    alignItems: "center",
     gap: Spacing.sm,
   },
   eyebrow: {
@@ -57,7 +67,7 @@ const styles = StyleSheet.create({
   },
   dateBtn: {
     marginTop: Spacing.xxs,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: Radius.full,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.xs,

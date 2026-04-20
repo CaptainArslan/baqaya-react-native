@@ -1,27 +1,32 @@
-import { useEffect } from 'react';
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import 'react-native-reanimated';
-import { authStore } from '@/src/store/authStore';
-import { i18nStore } from '@/src/i18n';
+import { AuthProvider } from '@/src/context/AuthContext';
 
-// Bootstrap runs once before any screen renders
-authStore.bootstrap();
-i18nStore.bootstrap();
+function RootNavigator() {
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(onboarding)" />
+      <Stack.Screen name="(drawer)" />
+      <Stack.Screen name="(customers)" />
+      <Stack.Screen name="(modals)" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   return (
-    <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(onboarding)" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(customers)" />
-        <Stack.Screen name="drawer" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-      </Stack>
-      <StatusBar style="dark" />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <AuthProvider>
+          <RootNavigator />
+          <StatusBar style="dark" />
+        </AuthProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

@@ -1,11 +1,10 @@
 /**
  * OTP Verification screen
- * Design ref: verify_otp_active_state_1 / error_state_clean_inputs / rate_limit
- * Header (back + Baqaya + shield icon), title, masked phone, 4-box OTP,
- * inline error, resend countdown, Verify button, footer links, error toast.
+ * Design ref: verify_otp_active_state_1
  */
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -15,21 +14,22 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAppNavigation } from '@/src/hooks';
-import { Button, Toast } from '@/src/components';
-import { OtpInput } from '@/src/components/ui/OtpInput';
-import { Colors, Spacing, Typography } from '@/src/theme';
-import { authStore } from '@/src/store/authStore';
+import { MaterialIcon, OtpInput, Toast } from '@/src/components';
+import { Colors, Radius, Spacing, Typography } from '@/src/theme';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTranslation } from '@/src/i18n';
 
 const RESEND_SECONDS = 30;
 
 export default function OtpScreen() {
   const nav = useAppNavigation();
+  const router = useRouter();
   const { t } = useTranslation();
+  const { login } = useAuth();
   const { phone } = useLocalSearchParams<{ phone: string }>();
-  const maskedPhone = phone ? `+92 3xx${phone.slice(-4)}` : '+92 3xx••••';
+  const maskedPhone = phone ? `+92 3xx xxx${phone.slice(-4)}` : '+92 3xx xxx••••';
 
   const [otp, setOtp] = useState('');
   const [fieldError, setFieldError] = useState('');
@@ -66,23 +66,24 @@ export default function OtpScreen() {
       return;
     }
     setLoading(true);
-    // Simulate network delay
-    await new Promise((r) => setTimeout(r, 900));
-    setLoading(false);
+    try {
+      await new Promise((r) => setTimeout(r, 900));
 
-    // Simulate wrong code
-    if (otp === '0000') {
-      setFieldError(t.auth.otp.errorInvalidCode);
-      setToast(t.auth.otp.errorVerifyFailed);
-      setOtp('');
-      return;
+      if (otp === '0000') {
+        setFieldError(t.auth.otp.errorInvalidCode);
+        setToast(t.auth.otp.errorVerifyFailed);
+        setOtp('');
+        return;
+      }
+
+      // Mock: any code except 0000 succeeds. `login()` generates a token and persists it
+      // (see authStore.login). '1111' = returning user — skip onboarding.
+      const isNewUser = otp !== '1111';
+      await login(isNewUser);
+      router.replace(isNewUser ? '/(onboarding)/create-shop' : '/(drawer)/(tabs)');
+    } finally {
+      setLoading(false);
     }
-
-    // '1111' = returning user, any other valid code = new user
-    // Replace with real API is_new_user flag when backend integrates
-    const isNewUser = otp !== '1111';
-    await authStore.login(isNewUser);
-    // Root layout auth gate handles the redirect automatically
   }
 
   function handleResend() {
@@ -92,15 +93,19 @@ export default function OtpScreen() {
     startTimer();
   }
 
+  const canVerify = otp.replace(/\s/g, '').length === 4 && !loading;
+
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={nav.goBack} hitSlop={10}>
-          <Text style={styles.backArrow}>←</Text>
+        <TouchableOpacity onPress={nav.goBack} hitSlop={10} style={styles.backBtn}>
+          <MaterialIcon name="arrow-back" size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Baqaya</Text>
-        <Text style={styles.shieldIcon}>🛡</Text>
+        <Text style={styles.headerTitle}>{t.common.appName}</Text>
+        <View style={styles.shieldBadge}>
+          <MaterialIcon name="shield" size={18} color={Colors.primary} />
+        </View>
       </View>
 
       <KeyboardAvoidingView
@@ -112,67 +117,86 @@ export default function OtpScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.title}>{t.auth.otp.heading}</Text>
-
+          {/* Hero text — left aligned */}
+          <Text style={styles.heading}>{t.auth.otp.heading}</Text>
           <Text style={styles.subtitle}>
             {t.auth.otp.sentTo}
-            <Text style={styles.bold}>{maskedPhone}</Text>
+            <Text style={styles.boldPhone}>{maskedPhone}</Text>
           </Text>
 
-          {/* Edit number link */}
-          <TouchableOpacity onPress={nav.goBack} style={styles.editRow}>
-            <Text style={styles.editIcon}>✏</Text>
+          <TouchableOpacity onPress={nav.goBack} style={styles.editRow} hitSlop={8}>
+            <MaterialIcon name="edit" size={16} color={Colors.primary} />
             <Text style={styles.editLabel}>{t.auth.otp.editNumber}</Text>
           </TouchableOpacity>
 
-          {/* OTP boxes */}
-          <OtpInput
-            value={otp}
-            onChange={(v) => { setOtp(v); setFieldError(''); }}
-            hasError={!!fieldError}
-            style={styles.otpInput}
-          />
+          {/* OTP input */}
+          <View style={styles.otpWrapper}>
+            <OtpInput
+              value={otp}
+              onChange={(v) => { setOtp(v); setFieldError(''); }}
+              hasError={!!fieldError}
+            />
+            {fieldError ? (
+              <Text style={styles.fieldError}>{fieldError}</Text>
+            ) : null}
+          </View>
 
-          {/* Inline error */}
-          {fieldError ? (
-            <Text style={styles.fieldError}>{fieldError}</Text>
-          ) : null}
+          {/* Resend section */}
+          <View style={styles.resendSection}>
+            {resendSeconds > 0 ? (
+              <View style={styles.timerPill}>
+                <MaterialIcon name="timer" size={16} color={Colors.textMuted} />
+                <Text style={styles.timerText}>
+                  {t.auth.otp.resendIn}
+                  <Text style={styles.timerBold}>
+                    0:{String(resendSeconds).padStart(2, '0')}
+                  </Text>
+                </Text>
+              </View>
+            ) : null}
 
-          {/* Resend row */}
-          <View style={styles.resendRow}>
-            <Text style={styles.resendHint}>
-              {resendSeconds > 0
-                ? `⊙  ${t.auth.otp.resendIn}${String(resendSeconds).padStart(2, '0')}`
-                : null}
-            </Text>
-            <TouchableOpacity onPress={handleResend} disabled={resendSeconds > 0}>
-              <Text
-                style={[styles.resendBtn, resendSeconds > 0 && styles.resendDisabled]}
-              >
+            <TouchableOpacity onPress={handleResend} activeOpacity={0.7} disabled={resendSeconds > 0} hitSlop={8}>
+              <Text style={[styles.resendText, resendSeconds > 0 && styles.resendDisabled]}>
                 {t.auth.otp.resendOtp}
               </Text>
             </TouchableOpacity>
           </View>
+        </ScrollView>
 
-          {/* Verify CTA */}
-          <Button
-            label={`${t.auth.otp.verify} 🛡`}
+        {/* Sticky bottom CTA */}
+        <View style={styles.bottom}>
+          <TouchableOpacity
+            style={[styles.ctaBtn, !canVerify && styles.ctaBtnDisabled]}
             onPress={handleVerify}
-            loading={loading}
-            disabled={otp.length < 4}
-            style={styles.cta}
-          />
+            disabled={!canVerify}
+            activeOpacity={0.85}
+          >
+            {loading
+              ? <ActivityIndicator color={Colors.textInverse} size="small" />
+              : (
+                <View style={styles.ctaBtnInner}>
+                  <Text style={styles.ctaBtnText}>{t.auth.otp.verify}</Text>
+                  <MaterialIcon name="check" size={20} color={Colors.textInverse} />
+                </View>
+              )
+            }
+          </TouchableOpacity>
 
-          {/* Footer links */}
           <View style={styles.footerLinks}>
-            <TouchableOpacity hitSlop={8}>
-              <Text style={styles.footerLink}>❓ {t.common.needHelp}</Text>
+            <TouchableOpacity activeOpacity={0.7} hitSlop={8}>
+              <View style={styles.footerLinkInner}>
+                <MaterialIcon name="help-outline" size={16} color={Colors.primary} />
+                <Text style={styles.footerLink}>{t.common.needHelp}</Text>
+              </View>
             </TouchableOpacity>
-            <TouchableOpacity hitSlop={8}>
-              <Text style={styles.footerLink}>📞 {t.common.contactSupport}</Text>
+            <TouchableOpacity activeOpacity={0.7} hitSlop={8}>
+              <View style={styles.footerLinkInner}>
+                <MaterialIcon name="phone-in-talk" size={16} color={Colors.primary} />
+                <Text style={styles.footerLink}>{t.common.contactSupport}</Text>
+              </View>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
 
       <Toast
@@ -186,8 +210,9 @@ export default function OtpScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: Colors.surface },
+  screen: { flex: 1, backgroundColor: Colors.background },
   flex: { flex: 1 },
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -195,74 +220,121 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
   },
-  backArrow: {
-    fontSize: 22,
-    color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
-  },
+  backBtn: { padding: Spacing.xs },
   headerTitle: {
     fontSize: Typography.size.lg,
     fontWeight: Typography.weight.bold,
-    color: Colors.textPrimary,
+    color: Colors.primary,
   },
-  shieldIcon: { fontSize: 18, opacity: 0.5 },
+  shieldBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.surfaceSecondary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   content: {
     paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.huge,
-    gap: Spacing.base,
+    paddingBottom: Spacing.lg,
+    gap: Spacing.lg,
   },
-  title: {
-    fontSize: Typography.size.xxxl,
+
+  heading: {
+    fontSize: Typography.size.display,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
-    lineHeight: Typography.size.xxxl * 1.25,
-    marginTop: Spacing.sm,
+    lineHeight: Typography.size.display * 1.2,
+    marginTop: Spacing.xs,
   },
   subtitle: {
     fontSize: Typography.size.base,
     color: Colors.textSecondary,
     lineHeight: Typography.size.base * 1.5,
+    marginTop: -Spacing.sm,
   },
-  bold: { fontWeight: Typography.weight.semibold, color: Colors.textPrimary },
+  boldPhone: {
+    fontWeight: Typography.weight.bold,
+    color: Colors.textPrimary,
+  },
+
   editRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.xs,
-    marginTop: -Spacing.xs,
+    marginTop: -Spacing.sm,
   },
-  editIcon: { fontSize: 13, color: Colors.primary },
   editLabel: {
     fontSize: Typography.size.sm,
     color: Colors.primary,
-    fontWeight: Typography.weight.medium,
+    fontWeight: Typography.weight.semibold,
   },
-  otpInput: { marginVertical: Spacing.sm },
+
+  otpWrapper: { gap: Spacing.sm },
   fieldError: {
     fontSize: Typography.size.sm,
     color: Colors.error,
     textAlign: 'center',
-    marginTop: -Spacing.xs,
   },
-  resendRow: {
+
+  resendSection: { alignItems: 'center', gap: Spacing.sm },
+  timerPill: {
+    flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.xxs,
+    gap: Spacing.xs,
+    backgroundColor: Colors.surfaceSecondary,
+    borderRadius: Radius.full,
+    paddingVertical: Spacing.xs + 2,
+    paddingHorizontal: Spacing.md,
   },
-  resendHint: {
+  timerText: {
     fontSize: Typography.size.sm,
-    color: Colors.textMuted,
+    color: Colors.textSecondary,
   },
-  resendBtn: {
+  timerBold: {
+    fontWeight: Typography.weight.bold,
+    color: Colors.textPrimary,
+  },
+  resendText: {
     fontSize: Typography.size.sm,
     color: Colors.primary,
-    fontWeight: Typography.weight.medium,
+    fontWeight: Typography.weight.semibold,
   },
   resendDisabled: { color: Colors.textMuted },
-  cta: { marginTop: Spacing.sm },
+
+  bottom: {
+    paddingHorizontal: Spacing.xl,
+    paddingBottom: Spacing.md,
+    paddingTop: Spacing.sm,
+    gap: Spacing.sm,
+    backgroundColor: Colors.background,
+  },
+  ctaBtn: {
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.lg,
+    paddingVertical: Spacing.md + 2,
+    alignItems: 'center',
+  },
+  ctaBtnDisabled: { opacity: 0.45 },
+  ctaBtnInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  ctaBtnText: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textInverse,
+  },
   footerLinks: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: Spacing.xl,
-    marginTop: Spacing.sm,
+  },
+  footerLinkInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xxs,
   },
   footerLink: {
     fontSize: Typography.size.sm,

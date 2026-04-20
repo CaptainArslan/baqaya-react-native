@@ -1,10 +1,10 @@
 /**
  * StatRow — two stat cards side by side (Today's Payment / Today's Ledger).
  */
-import React from 'react';
-import { StyleSheet, Text, View, type ViewStyle } from 'react-native';
-import { Colors, Radius, Shadows, Spacing, Typography } from '../../theme';
-import { formatCurrency } from '../../utils';
+import React from "react";
+import { StyleSheet, Text, View, type ViewStyle } from "react-native";
+import { Colors, Radius, Shadows, Spacing, Typography } from "../../theme";
+import { formatCurrency } from "../../utils";
 
 interface StatItem {
   label: string;
@@ -18,7 +18,7 @@ interface Props {
   style?: ViewStyle;
 }
 
-function StatCard({ label, amount, note }: StatItem) {
+export function StatCard({ label, amount, note }: StatItem) {
   return (
     <View style={[styles.card, Shadows.xs]}>
       <Text style={styles.label}>{label}</Text>
@@ -39,7 +39,7 @@ export function StatRow({ left, right, style }: Props) {
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: Spacing.sm,
   },
   card: {

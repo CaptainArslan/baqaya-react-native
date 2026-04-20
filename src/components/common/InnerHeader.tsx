@@ -2,22 +2,22 @@
  * InnerHeader — light header for inner/detail screens.
  * Shows back arrow (optional avatar), title, and right slot.
  */
-import React from 'react';
+import { useRouter } from "expo-router";
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  type ViewStyle,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { Colors, Spacing, Typography } from '../../theme';
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    type ViewStyle,
+} from "react-native";
+import { Colors, Spacing, Typography } from "../../theme";
 
 interface Props {
   title: string;
   subtitle?: string;
   onBack?: () => void;
-  leftElement?: React.ReactNode;  // e.g. Avatar next to title
+  leftElement?: React.ReactNode; // e.g. Avatar next to title
   rightElement?: React.ReactNode;
   style?: ViewStyle;
 }
@@ -39,14 +39,20 @@ export function InnerHeader({
 
   return (
     <View style={[styles.header, style]}>
-      <TouchableOpacity onPress={handleBack} hitSlop={10} style={styles.backBtn}>
+      <TouchableOpacity
+        onPress={handleBack}
+        hitSlop={10}
+        style={styles.backBtn}
+      >
         <Text style={styles.backArrow}>←</Text>
       </TouchableOpacity>
 
       {leftElement ? <View style={styles.leftEl}>{leftElement}</View> : null}
 
       <View style={styles.titleBlock}>
-        <Text style={styles.title} numberOfLines={1}>{title}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {title}
+        </Text>
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
       </View>
 
@@ -58,8 +64,8 @@ export function InnerHeader({
 const styles = StyleSheet.create({
   header: {
     backgroundColor: Colors.surface,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
     minHeight: 56,
@@ -93,6 +99,6 @@ const styles = StyleSheet.create({
   },
   right: {
     marginLeft: Spacing.sm,
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
 });

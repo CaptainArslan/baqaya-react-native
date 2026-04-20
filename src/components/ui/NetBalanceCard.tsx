@@ -2,12 +2,12 @@
  * NetBalanceCard — shown on customer detail screen.
  * Light bg, large balance, status badge row.
  */
-import React from 'react';
-import { StyleSheet, Text, View, type ViewStyle } from 'react-native';
-import { Colors, Radius, Spacing, Typography } from '../../theme';
-import { formatBalance } from '../../utils';
+import React from "react";
+import { StyleSheet, Text, View, type ViewStyle } from "react-native";
+import { Colors, Radius, Spacing, Typography } from "../../theme";
+import { formatBalance } from "../../utils";
 
-type BalanceStatus = 'owed' | 'toGive' | 'settled';
+type BalanceStatus = "owed" | "toGive" | "settled";
 
 interface Props {
   balance: number;
@@ -16,10 +16,25 @@ interface Props {
   style?: ViewStyle;
 }
 
-const statusConfig: Record<BalanceStatus, { label: string; color: string; badgeBg: string }> = {
-  owed: { label: "You'll Get", color: Colors.credit, badgeBg: Colors.creditLight },
-  toGive: { label: "You'll Give", color: Colors.debit, badgeBg: Colors.debitLight },
-  settled: { label: 'Settled', color: Colors.textSecondary, badgeBg: Colors.surfaceSecondary },
+const statusConfig: Record<
+  BalanceStatus,
+  { label: string; color: string; badgeBg: string }
+> = {
+  owed: {
+    label: "You'll Get",
+    color: Colors.credit,
+    badgeBg: Colors.creditLight,
+  },
+  toGive: {
+    label: "You'll Give",
+    color: Colors.debit,
+    badgeBg: Colors.debitLight,
+  },
+  settled: {
+    label: "Settled",
+    color: Colors.textSecondary,
+    badgeBg: Colors.surfaceSecondary,
+  },
 };
 
 export function NetBalanceCard({ balance, status, entryCount, style }: Props) {
@@ -34,10 +49,14 @@ export function NetBalanceCard({ balance, status, entryCount, style }: Props) {
 
       <View style={styles.badges}>
         <View style={[styles.badge, { backgroundColor: cfg.badgeBg }]}>
-          <Text style={[styles.badgeText, { color: cfg.color }]}>↑ {cfg.label}</Text>
+          <Text style={[styles.badgeText, { color: cfg.color }]}>
+            ↑ {cfg.label}
+          </Text>
         </View>
         {entryCount !== undefined && (
-          <View style={[styles.badge, { backgroundColor: Colors.surfaceSecondary }]}>
+          <View
+            style={[styles.badge, { backgroundColor: Colors.surfaceSecondary }]}
+          >
             <Text style={styles.entryText}>{entryCount} Entries</Text>
           </View>
         )}
@@ -51,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.surfaceSecondary,
     borderRadius: Radius.xl,
     padding: Spacing.xl,
-    alignItems: 'center',
+    alignItems: "center",
     gap: Spacing.sm,
   },
   netLabel: {
@@ -64,7 +83,7 @@ const styles = StyleSheet.create({
     letterSpacing: Typography.letterSpacing.tight,
   },
   badges: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: Spacing.sm,
     marginTop: Spacing.xxs,
   },

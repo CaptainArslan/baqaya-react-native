@@ -15,6 +15,7 @@ import { en }     from './translations/en';
 import { ur }     from './translations/ur';
 import { roman }  from './translations/roman';
 import type { TranslationMap } from './keys';
+export type { TranslationMap };
 import { getLanguage, setLanguage } from '../services/storage';
 
 export type Language = 'en' | 'ur' | 'roman';
@@ -43,10 +44,14 @@ export const i18nStore = {
 
   /** Called once at app start alongside authStore.bootstrap() */
   async bootstrap(): Promise<void> {
-    const stored = await getLanguage();
-    if (stored && stored in translations) {
-      _lang = stored as Language;
-      notify();
+    try {
+      const stored = await getLanguage();
+      if (stored && stored in translations) {
+        _lang = stored as Language;
+        notify();
+      }
+    } catch {
+      /* keep default language */
     }
   },
 

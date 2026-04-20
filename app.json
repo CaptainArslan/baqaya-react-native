@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Baqaya-react-natie",
+    "name": "Baqaya",
     "slug": "Baqaya-react-natie",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -44,7 +44,7 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactCompiler": true
+      "reactCompiler": false
     }
   }
 }

@@ -1,131 +1,165 @@
 # Baqaya Mobile App
 
 ## Overview
-Baqaya is an offline-first mobile ledger app designed for small business owners to track customer balances, manage transactions, and send WhatsApp reminders.
+
+Baqaya is an offline-first mobile ledger app for small business owners to:
+
+- track customer balances
+- record transactions
+- view reports
+- send WhatsApp reminders
+
+This is a **frontend-first prototype phase** (no backend integration yet).
 
 ---
 
 ## Tech Stack
+
 - React Native (Expo)
-- TypeScript
-- Expo Router
-- Laravel Backend API
+- TypeScript (strict)
+- Expo Router (file-based navigation)
+- Local storage (AsyncStorage)
+- i18n (JSON-based translations)
+
+---
+
+## Primary Goal
+
+Build a **fully working prototype** where:
+
+- all screens render correctly
+- all navigation flows work
+- all buttons perform actions
+- no dead interactions exist
+- app feels complete without backend
 
 ---
 
 ## Design Source
 
-All UI design references are stored in:
+All UI references are located in:
 
-design-reference/screens/
+`design-reference/screens/<screen-name>/`
 
-Each screen has:
-- design.png → visual reference
-- layout.html → structure reference
+Each folder contains:
 
----
+- `design.png` → visual source of truth
+- `layout.html` → structure reference only
 
-## How to Use Design Reference
+### Rules:
 
-IMPORTANT RULES:
-
-1. Do NOT copy HTML directly into React Native.
-2. HTML is only for layout understanding.
-3. PNG is the visual source of truth.
-4. Build UI using native React Native components.
+1. NEVER copy HTML into React Native
+2. ALWAYS follow `design.png` visually
+3. Use HTML only to understand hierarchy
+4. Build UI using React Native components only
 
 ---
 
-## Screen Development Workflow
+## Mandatory Development Workflow
 
-For every screen:
+For EVERY screen:
 
-1. Open corresponding folder in:
-   design-reference/screens/
+1. Identify screen from:
+   `design-reference/screens/`
 
 2. Review:
-    - design.png (visual)
-    - layout.html (structure)
+   - design.png (visual)
+   - layout.html (structure)
 
-3. Map screen to route using:
-   design-reference/mapping/screen-mapping.md
+3. Map to route using:
+   `design-reference/mapping/screen-mapping.md`
 
-4. Build UI in:
-   app/ or src/features/
+4. Build using:
+   - reusable components first
+   - then screen layout
 
-5. Extract reusable components
+5. Add navigation
 
-6. Implement navigation
-
----
-
-## Folder Usage
-
-### design-reference/screens/
-Per screen design source
-
-### design-reference/flows/
-Defines user journeys:
-- auth
-- onboarding
-- transactions
-- reminders
-
-### design-reference/mapping/
-Maps design → actual routes
-
-### design-reference/components/
-Reusable UI patterns
+6. Replace all text with translation keys
 
 ---
 
-## Development Rules
+## Folder Architecture (STRICT)
 
-- Use TypeScript strictly
-- Build reusable components
-- Follow mobile-first design
-- Keep UI clean and readable
-- Focus on usability over pixel perfection
+### Routing
 
----
+- `app/` → all screens (Expo Router)
 
-## Core Product Principles
+### Core Code
 
-- Offline-first
-- Fast data entry
-- Minimal friction
-- Action-driven UX
-- WhatsApp integration
-- Clear empty states
+- `src/components/ui/` → reusable UI primitives
+- `src/components/common/` → shared components
+- `src/features/` → feature-specific logic
+- `src/theme/` → colors, spacing, typography
+- `src/constants/` → constants
+- `src/hooks/` → custom hooks
+- `src/utils/` → helpers
+- `src/services/` → storage, API placeholders
+- `src/types/` → TypeScript types
+- `src/animations/` → animation helpers
 
----
+### Design Reference (DO NOT TOUCH)
 
-## Modules
-
-- Auth
-- Onboarding
-- Home Dashboard
-- Customers
-- Transactions
-- Reports
-- Sync states
-- Reminders
+- `design-reference/`
 
 ---
 
-## What to Avoid
+## Navigation Rules (CRITICAL)
 
-- Do NOT mix design files with app code
-- Do NOT build using web layouts
-- Do NOT duplicate UI unnecessarily
-- Do NOT over-engineer
+### Route Groups:
+
+- `(auth)` → login, verify
+- `(onboarding)` → create-shop
+- `(tabs)` → home, customers, cashbook, reports
+
+### Flow:
+
+- app start →
+  - if no token → auth
+  - if token → tabs
+
+### Rules:
+
+- use `router.replace()` for auth transitions
+- use `router.push()` for internal navigation
+- no auth screen accessible after login
+- all back buttons must work correctly
 
 ---
 
-## Expected Output
+## Auth Behavior (Prototype Mode)
 
-When building:
-- Mention screen reference folder
-- Keep code modular
-- Reuse components
-- Follow design closely
+- login → verify → success
+- on success:
+  - generate mock token
+  - store in AsyncStorage
+- app restart:
+  - token exists → skip auth
+- logout:
+  - remove token → go to login
+
+---
+
+## Translation System (MANDATORY)
+
+ALL static text must be translatable.
+
+### Rules:
+
+- NEVER hardcode strings
+- ALWAYS use:
+  `t("key.path")`
+
+### Structure:
+
+`src/i18n/en.json`
+
+Example:
+
+```json
+{
+  "auth": {
+    "login_title": "Login"
+  }
+}
+```
