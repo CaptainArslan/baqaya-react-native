@@ -24,6 +24,14 @@ export function useAppNavigation() {
     }
   };
 
+  const goBackOr = (fallbackRoute: string) => {
+    if (navigation.canGoBack()) {
+      router.back();
+      return;
+    }
+    router.replace(fallbackRoute as any);
+  };
+
   return {
     // ─── Auth (auth-flow) ──────────────────────────────────
     goToLanguage: () => router.push("/(auth)/language"),
@@ -105,5 +113,6 @@ export function useAppNavigation() {
 
     // ─── Generic ───────────────────────────────────────────
     goBack: () => router.back(),
+    goBackOr,
   };
 }

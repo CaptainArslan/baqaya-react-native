@@ -10,6 +10,12 @@ export default function DrawerLayout() {
         headerShown: false,
         drawerType: "front",
       }}
-    />
+    >
+      <Drawer.Screen name="(tabs)" />
+      <Drawer.Screen name="business-profile" />
+      <Drawer.Screen name="privacy-policy" />
+      <Drawer.Screen name="delete-account" />
+      <Drawer.Screen name="delete-account-verify" />
+    </Drawer>
   );
 }

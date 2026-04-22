@@ -9,6 +9,7 @@ const KEYS = {
   IS_NEW_USER:  'baqaya.is_new_user',
   LANGUAGE:     'baqaya.language',
   SHOP_NAME:    'baqaya.shop_name',
+  BUSINESS_PROFILE: 'baqaya.business_profile',
 } as const;
 
 // ─── Token ───────────────────────────────────────────────────
@@ -55,6 +56,32 @@ export async function setShopName(name: string): Promise<void> {
 
 export async function getShopName(): Promise<string | null> {
   return AsyncStorage.getItem(KEYS.SHOP_NAME);
+}
+
+export interface BusinessProfile {
+  shopName: string;
+  ownerName: string;
+  category: string;
+  phonePrimary: string;
+  whatsappEnabled: boolean;
+  whatsappNumber: string;
+  email: string;
+  address: string;
+  city: string;
+}
+
+export async function setBusinessProfile(profile: BusinessProfile): Promise<void> {
+  await AsyncStorage.setItem(KEYS.BUSINESS_PROFILE, JSON.stringify(profile));
+}
+
+export async function getBusinessProfile(): Promise<BusinessProfile | null> {
+  const raw = await AsyncStorage.getItem(KEYS.BUSINESS_PROFILE);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as BusinessProfile;
+  } catch {
+    return null;
+  }
 }
 
 // ─── Full logout clear ────────────────────────────────────────

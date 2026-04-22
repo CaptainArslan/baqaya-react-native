@@ -35,8 +35,8 @@ export default function LanguageScreen() {
 
   async function handleSave() {
     // Language is applied instantly on selection and persisted in AsyncStorage.
-    // Save now just closes the screen without forcing auth navigation.
-    nav.goBack();
+    // On fresh launch there may be no back stack, so fallback to phone route.
+    nav.goBackOr("/(auth)/phone");
   }
 
   return (

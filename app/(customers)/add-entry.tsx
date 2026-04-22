@@ -4,12 +4,12 @@
  *               Home / Cashbook → Add Entry FAB
  */
 import { Avatar, MaterialIcon } from "@/src/components";
-import { getMockCustomer } from "@/src/constants/mockData";
+import { getAllMockCustomers, getMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/src/theme";
 import { formatCurrency } from "@/src/utils";
 import { useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -29,8 +29,14 @@ export default function AddEntryScreen() {
     type: "udhaar" | "payment";
   }>();
 
-  const customer = getMockCustomer(customerId ?? "");
-  const customerName = customer?.name ?? "Customer";
+  const allCustomers = useMemo(() => getAllMockCustomers(), []);
+  const initialCustomerId =
+    (customerId && getMockCustomer(customerId)?.id) || allCustomers[0]?.id || "";
+  const [selectedCustomerId, setSelectedCustomerId] = useState(initialCustomerId);
+  const [showCustomerDropdown, setShowCustomerDropdown] = useState(false);
+  const [customerSearch, setCustomerSearch] = useState("");
+  const selectedCustomer = getMockCustomer(selectedCustomerId);
+  const customerName = selectedCustomer?.name ?? "Customer";
   const [entryType, setEntryType] = useState<"udhaar" | "payment">(
     type === "payment" ? "payment" : "udhaar",
   );
@@ -51,10 +57,18 @@ export default function AddEntryScreen() {
     year: "numeric",
   });
   const parsedAmount = parseFloat(amount.replace(/,/g, "")) || 0;
-  const customerBalance = Math.max(customer?.balance ?? 0, 0);
+  const customerBalance = Math.max(selectedCustomer?.balance ?? 0, 0);
   const newBalance = Math.max(customerBalance - parsedAmount, 0);
+  const hasCustomers = allCustomers.length > 0;
+  const filteredCustomers = allCustomers.filter((c) =>
+    c.name.toLowerCase().includes(customerSearch.trim().toLowerCase()),
+  );
 
   function handleSave() {
+    if (!selectedCustomer) {
+      setAmountError("Please select a customer first");
+      return;
+    }
     const parsed = parseFloat(amount.replace(/,/g, ""));
     if (!amount.trim() || isNaN(parsed) || parsed <= 0) {
       setAmountError("Enter a valid amount greater than 0");
@@ -63,7 +77,7 @@ export default function AddEntryScreen() {
     setShowToast(true);
   }
 
-  const canSave = amount.trim().length > 0;
+  const canSave = amount.trim().length > 0 && !!selectedCustomer;
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
@@ -116,6 +130,102 @@ export default function AddEntryScreen() {
               </Text>
             </TouchableOpacity>
           </View>
+
+          <Text style={styles.label}>Customer / Grahak</Text>
+          {!hasCustomers ? (
+            <View style={styles.emptyCustomerBox}>
+              <Text style={styles.emptyCustomerTitle}>No customer available</Text>
+              <Text style={styles.emptyCustomerBody}>
+                Add a customer first, then create entry.
+              </Text>
+              <TouchableOpacity
+                style={styles.emptyCustomerBtn}
+                activeOpacity={0.85}
+                onPress={nav.goToAddCustomer}
+              >
+                <MaterialIcon name="person-add" size={18} color={Colors.textInverse} />
+                <Text style={styles.emptyCustomerBtnText}>Add Customer</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.customerDropdownWrap}>
+              <TouchableOpacity
+                style={styles.customerDropdownBtn}
+                activeOpacity={0.85}
+                onPress={() =>
+                  setShowCustomerDropdown((v) => {
+                    const next = !v;
+                    if (!next) setCustomerSearch("");
+                    return next;
+                  })
+                }
+              >
+                <View style={styles.customerDropdownLeft}>
+                  <Avatar name={customerName} size="sm" />
+                  <View>
+                    <Text style={styles.customerDropdownName}>{customerName}</Text>
+                    <Text style={styles.customerDropdownSub}>
+                      Balance: {formatCurrency(customerBalance)}
+                    </Text>
+                  </View>
+                </View>
+                <MaterialIcon
+                  name={showCustomerDropdown ? "keyboard-arrow-up" : "keyboard-arrow-down"}
+                  size={22}
+                  color={Colors.textSecondary}
+                />
+              </TouchableOpacity>
+
+              {showCustomerDropdown ? (
+                <View style={styles.customerDropdownMenu}>
+                  <View style={styles.customerSearchRow}>
+                    <MaterialIcon name="search" size={18} color={Colors.textMuted} />
+                    <TextInput
+                      value={customerSearch}
+                      onChangeText={setCustomerSearch}
+                      placeholder="Search customer..."
+                      placeholderTextColor={Colors.textMuted}
+                      style={styles.customerSearchInput}
+                    />
+                  </View>
+                  {filteredCustomers.map((c) => {
+                    const active = c.id === selectedCustomerId;
+                    return (
+                      <TouchableOpacity
+                        key={c.id}
+                        style={[styles.customerOption, active && styles.customerOptionActive]}
+                        activeOpacity={0.8}
+                        onPress={() => {
+                          setSelectedCustomerId(c.id);
+                          setCustomerSearch("");
+                          setShowCustomerDropdown(false);
+                        }}
+                      >
+                        <Avatar name={c.name} size="sm" />
+                        <View style={styles.customerOptionMeta}>
+                          <Text style={styles.customerOptionName} numberOfLines={1}>
+                            {c.name}
+                          </Text>
+                          <Text style={styles.customerOptionSub}>
+                            {formatCurrency(Math.max(c.balance ?? 0, 0))}
+                          </Text>
+                        </View>
+                        {active ? (
+                          <MaterialIcon name="check-circle" size={18} color={Colors.primary} />
+                        ) : null}
+                      </TouchableOpacity>
+                    );
+                  })}
+                  {filteredCustomers.length === 0 ? (
+                    <View style={styles.customerNoResult}>
+                      <Text style={styles.customerNoResultText}>No customer found</Text>
+                    </View>
+                  ) : null}
+                </View>
+              ) : null}
+            </View>
+          )}
+
           {isUdhaar ? (
             <>
               <Text style={styles.label}>Amount / Raqam</Text>
@@ -210,7 +320,10 @@ export default function AddEntryScreen() {
                     {customerName}
                   </Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.75}>
+                <TouchableOpacity
+                  activeOpacity={0.75}
+                  onPress={() => setShowCustomerDropdown(true)}
+                >
                   <Text style={styles.changeText}>Change</Text>
                 </TouchableOpacity>
               </View>
@@ -379,6 +492,125 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     padding: Spacing.xs,
     gap: Spacing.xs,
+  },
+  customerDropdownWrap: {
+    gap: Spacing.xs,
+  },
+  customerDropdownBtn: {
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm + 2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.sm,
+  },
+  customerDropdownLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
+    flex: 1,
+  },
+  customerDropdownName: {
+    fontSize: Typography.size.base,
+    color: Colors.textPrimary,
+    fontWeight: Typography.weight.semibold,
+  },
+  customerDropdownSub: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+  },
+  customerDropdownMenu: {
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    overflow: "hidden",
+  },
+  customerSearchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.borderLight,
+    backgroundColor: Colors.surfaceSecondary,
+  },
+  customerSearchInput: {
+    flex: 1,
+    fontSize: Typography.size.base,
+    color: Colors.textPrimary,
+    paddingVertical: 0,
+  },
+  customerOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm + 2,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.borderLight,
+  },
+  customerOptionActive: {
+    backgroundColor: Colors.primaryLight,
+  },
+  customerOptionMeta: {
+    flex: 1,
+  },
+  customerOptionName: {
+    fontSize: Typography.size.base,
+    color: Colors.textPrimary,
+    fontWeight: Typography.weight.medium,
+  },
+  customerOptionSub: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+  },
+  customerNoResult: {
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.md,
+  },
+  customerNoResultText: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+  },
+  emptyCustomerBox: {
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    padding: Spacing.md,
+    gap: Spacing.xs,
+  },
+  emptyCustomerTitle: {
+    fontSize: Typography.size.base,
+    color: Colors.textPrimary,
+    fontWeight: Typography.weight.semibold,
+  },
+  emptyCustomerBody: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+    lineHeight: Typography.size.sm * 1.45,
+  },
+  emptyCustomerBtn: {
+    marginTop: Spacing.xs,
+    alignSelf: "flex-start",
+    backgroundColor: Colors.primary,
+    borderRadius: Radius.md,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
+  },
+  emptyCustomerBtnText: {
+    fontSize: Typography.size.base,
+    color: Colors.textInverse,
+    fontWeight: Typography.weight.semibold,
   },
   typeTab: {
     flex: 1,
