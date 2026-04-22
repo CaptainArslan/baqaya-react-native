@@ -34,8 +34,9 @@ export default function LanguageScreen() {
   const [selected, setSelected] = useState<Language>(lang);
 
   async function handleSave() {
-    await i18nStore.setLanguage(selected);
-    nav.goToPhone();
+    // Language is applied instantly on selection and persisted in AsyncStorage.
+    // Save now just closes the screen without forcing auth navigation.
+    nav.goBack();
   }
 
   return (
@@ -79,7 +80,10 @@ export default function LanguageScreen() {
               <TouchableOpacity
                 key={id}
                 style={[styles.optionRow, active && styles.optionRowActive]}
-                onPress={() => setSelected(id)}
+                onPress={async () => {
+                  setSelected(id);
+                  await i18nStore.setLanguage(id);
+                }}
                 activeOpacity={0.7}
               >
                 <View style={[styles.iconBox, active && styles.iconBoxActive]}>

@@ -24,6 +24,44 @@ npm install
 npx expo start
 ```
 
+3. Start development server with cache reset (used in this session)
+
+```bash
+npx expo start -c
+```
+
+## Commands Used In This Session
+
+```bash
+# Install project dependencies
+npm install
+
+# Start Expo development server
+npx expo start
+
+# Start Expo server and clear Metro cache
+npx expo start -c
+
+# Build Android release bundle (AAB)
+cd android
+.\gradlew.bat bundleRelease
+
+# Build Android release APK (direct install)
+.\gradlew.bat assembleRelease
+
+# Install release APK on connected Android device
+adb install -r "D:\reactnative\Baqaya-react-natie\android\app\build\outputs\apk\release\app-release.apk"
+
+# If install fails due to signature/package conflict
+adb uninstall com.anonymous.Baqayareactnatie
+adb install -r "D:\reactnative\Baqaya-react-natie\android\app\build\outputs\apk\release\app-release.apk"
+```
+
+## Release Artifacts
+
+- AAB: `android/app/build/outputs/bundle/release/app-release.aab`
+- APK: `android/app/build/outputs/apk/release/app-release.apk`
+
 ## App Structure
 
 - `app/` - Routes/screens (auth, onboarding, tabs, customers, modals)
