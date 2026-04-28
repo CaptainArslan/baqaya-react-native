@@ -29,6 +29,7 @@ export function WhatsAppButton({
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={disabled}
       activeOpacity={disabled ? 1 : 0.75}
       style={[styles.btn, disabled && styles.btnDisabled, style]}
     >

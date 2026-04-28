@@ -7,7 +7,7 @@ import { deleteMockTransaction, getAllMockTransactions } from "@/src/constants/m
 import { useAppNavigation } from "@/src/hooks";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { formatCurrency } from "@/src/utils";
-import { useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import {
   Modal,
@@ -23,8 +23,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function TransactionDetailScreen() {
   const nav = useAppNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const tx = getAllMockTransactions().find((t) => t.id === id);
+  useFocusEffect(
+    React.useCallback(() => {
+      setRefreshKey((prev) => prev + 1);
+    }, []),
+  );
+
+  const tx = React.useMemo(
+    () => getAllMockTransactions().find((t) => t.id === id),
+    [id, refreshKey],
+  );
   const isCredit = tx?.type === "credit";
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const statusLabel = isCredit ? "PAYMENT RECEIVED" : "CREDIT ADDED";

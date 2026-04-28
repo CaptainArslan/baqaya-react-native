@@ -17,7 +17,8 @@ import { useAppNavigation } from "@/src/hooks";
 import { useTranslation, type TranslationMap } from "@/src/i18n";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/src/theme";
 import { formatCurrency } from "@/src/utils";
-import React, { useState } from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useMemo, useState } from "react";
 import type { DateRangeSelection } from "@/src/components/common/DateRangeSelectionSheet";
 import {
     Alert,
@@ -288,7 +289,15 @@ export default function CashbookScreen() {
   const [selectedSort, setSelectedSort] = useState<"newest" | "oldest">("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const cashbookMock = getCashbookMockData();
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setRefreshKey((prev) => prev + 1);
+    }, []),
+  );
+
+  const cashbookMock = useMemo(() => getCashbookMockData(), [refreshKey]);
 
   // Filter entries by search query + date range, then sort by date.
   const filteredEntries = cashbookMock.entries

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryMid,
   },
   label: {
-    fontSize: Typography.size.base,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
     color: Colors.textInverse,
   },

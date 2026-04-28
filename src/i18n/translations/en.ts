@@ -173,7 +173,7 @@ export const en: TranslationMap = {
     whatsappReminder: "WhatsApp Reminder",
     noEntries: "No entries found",
     noEntriesBody: "Start by adding your first transaction for this customer.",
-    typeUdhaar: "Udhaar",
+    typeUdhaar: "Credit",
     typePayment: "Payment",
   },
   cashbook: {

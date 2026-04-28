@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
   },
   sectionTitle: {
-    fontSize: Typography.size.xxl,
+    fontSize: Typography.size.xl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
   },
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   modalTitle: {
-    fontSize: Typography.size.xxl,
+    fontSize: Typography.size.xl,
     fontWeight: Typography.weight.bold,
     color: Colors.textPrimary,
   },
@@ -400,9 +400,9 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   sortLabel: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.base,
     color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
+    fontWeight: Typography.weight.semibold,
   },
   radioOuter: {
     width: 24,
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   },
   applyBtnText: {
     color: Colors.textInverse,
-    fontSize: Typography.size.xxl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
   },
   paginationFooter: {

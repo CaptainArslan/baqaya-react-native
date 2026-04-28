@@ -22,7 +22,7 @@ import { useTranslation } from "@/src/i18n";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/src/theme";
 import type { Transaction } from "@/src/types";
 import { formatCurrency, formatRelativeDate } from "@/src/utils";
-import { useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
     FlatList,
@@ -41,14 +41,28 @@ export default function CustomerDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [menuVisible, setMenuVisible] = React.useState(false);
   const [deleteConfirmVisible, setDeleteConfirmVisible] = React.useState(false);
+  const [refreshKey, setRefreshKey] = React.useState(0);
   const EMPTY_STATE_CUSTOMER = SCREEN_MOCKS.customers.customerDetail.emptyStateCustomer;
 
-  const customer = getMockCustomer(id ?? "") ?? {
-    ...EMPTY_STATE_CUSTOMER,
-    id: id ?? EMPTY_STATE_CUSTOMER.id,
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      setRefreshKey((prev) => prev + 1);
+    }, []),
+  );
 
-  const entries = getMockTransactionsForCustomer(customer.id);
+  const customer = React.useMemo(
+    () =>
+      getMockCustomer(id ?? "") ?? {
+        ...EMPTY_STATE_CUSTOMER,
+        id: id ?? EMPTY_STATE_CUSTOMER.id,
+      },
+    [EMPTY_STATE_CUSTOMER, id, refreshKey],
+  );
+
+  const entries = React.useMemo(
+    () => getMockTransactionsForCustomer(customer.id),
+    [customer.id, refreshKey],
+  );
   const hasEntries = entries.length > 0;
   const displayBalance = hasEntries ? Math.abs(customer.balance) : 0;
 
@@ -192,7 +206,10 @@ export default function CustomerDetailScreen() {
             {/* WhatsApp reminder */}
             <WhatsAppButton
               label={t.whatsapp.buttonLabel}
-              onPress={() => nav.goToWhatsAppReminder(customer.id)}
+              onPress={() => {
+                if (!canWhatsApp) return;
+                nav.goToWhatsAppReminder(customer.id);
+              }}
               disabled={!canWhatsApp}
               style={styles.whatsappBtn}
             />

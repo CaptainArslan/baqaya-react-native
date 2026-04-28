@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: Typography.size.base,
-    fontWeight: Typography.weight.semibold,
+    fontWeight: Typography.weight.medium,
     color: Colors.textPrimary,
   },
   lastActive: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontSize: Typography.size.base,
-    fontWeight: Typography.weight.bold,
+    fontWeight: Typography.weight.semibold,
     textAlign: 'right',
     width: '100%',
   },
