@@ -6,6 +6,7 @@
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
 import { PermissionCard } from "@/src/components/ui/PermissionCard";
+import { requestContactsPermission } from "@/src/services";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { MaterialIcon } from "@/src/components";
 import React from "react";
@@ -16,12 +17,13 @@ export default function PermissionRequestScreen() {
   const nav = useAppNavigation();
   const { t } = useTranslation();
 
-  function handleAllow() {
-    // TODO: call expo-contacts requestPermissionsAsync()
-    // On grant  → show contact picker (the import-contacts modal)
-    // On deny   → go to permission-denied screen
-    // Stub: simulate granted
-    nav.goToImportContacts();
+  async function handleAllow() {
+    const granted = await requestContactsPermission();
+    if (granted) {
+      nav.goToImportContacts();
+      return;
+    }
+    nav.goToPermissionDenied();
   }
 
   return (

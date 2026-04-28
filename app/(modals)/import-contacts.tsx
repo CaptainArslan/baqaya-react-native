@@ -1,17 +1,17 @@
 /**
  * Contact Picker — import-contacts-flow
- * Design ref: contact_picker_preview/screen.png
- * Search bar + "RECENT CONTACTS" horizontal chips + "ALL CONTACTS" list.
- * Contacts with no phone show "Missing Phone" in muted red + Action Required toast.
+ * Loads real device contacts from expo-contacts.
  */
 import { Avatar, MaterialIcon, SearchBar } from "@/src/components";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
+import { getAllDeviceContacts, toast, type DeviceContact } from "@/src/services";
+import { importContactsStore } from "@/src/store";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
-import { formatCurrency } from "@/src/utils";
-import { SCREEN_MOCKS } from "@/data";
-import React, { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useMemo, useState } from "react";
 import {
+    ActivityIndicator,
     FlatList,
     ScrollView,
     StyleSheet,
@@ -21,25 +21,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// ─── Mock contacts ────────────────────────────────────────────────────────────
-
-interface MockContact {
-  id: string;
-  name: string;
-  phone: string | null; // null = no phone number
-  existingBalance?: number; // positive = owes you, negative = you owe
-}
-
-const MOCK_CONTACTS: MockContact[] = [...SCREEN_MOCKS.modals.importContacts.contacts];
-const RECENT_IDS: string[] = [...SCREEN_MOCKS.modals.importContacts.recentIds];
-
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function RecentChip({
   contact,
   onPress,
 }: {
-  contact: MockContact;
+  contact: DeviceContact;
   onPress: () => void;
 }) {
   return (
@@ -61,12 +49,12 @@ function ContactListRow({
   onPress,
   onNoPhoneAction,
 }: {
-  contact: MockContact;
+  contact: DeviceContact;
   onPress: () => void;
-  onNoPhoneAction: (contact: MockContact) => void;
+  onNoPhoneAction: (contact: DeviceContact) => void;
 }) {
   const { t } = useTranslation();
-  const hasPhone = !!contact.phone;
+  const hasPhone = contact.phoneNumbers.length > 0;
 
   return (
     <TouchableOpacity
@@ -79,35 +67,11 @@ function ContactListRow({
       <View style={styles.contactInfo}>
         <Text style={styles.contactName}>{contact.name}</Text>
         {hasPhone ? (
-          <Text style={styles.contactPhone}>{contact.phone}</Text>
+          <Text style={styles.contactPhone}>{contact.phoneNumbers[0].value}</Text>
         ) : (
           <Text style={styles.noPhoneLabel}>{t.importContacts.noPhone}</Text>
         )}
       </View>
-
-      {contact.existingBalance !== undefined && hasPhone && (
-        <View
-          style={[
-            styles.balancePill,
-            contact.existingBalance > 0
-              ? styles.balancePillDebit
-              : styles.balancePillCredit,
-          ]}
-        >
-          <Text
-            style={[
-              styles.balancePillText,
-              contact.existingBalance > 0
-                ? styles.balancePillTextDebit
-                : styles.balancePillTextCredit,
-            ]}
-          >
-            {contact.existingBalance > 0
-              ? `${t.importContacts.owes} ${formatCurrency(contact.existingBalance)}`
-              : `${t.importContacts.advance} ${formatCurrency(Math.abs(contact.existingBalance))}`}
-          </Text>
-        </View>
-      )}
     </TouchableOpacity>
   );
 }
@@ -118,29 +82,73 @@ export default function ImportContactsScreen() {
   const nav = useAppNavigation();
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
-  const [noPhoneContact, setNoPhoneContact] = useState<MockContact | null>(
-    null,
+  const [contacts, setContacts] = useState<DeviceContact[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [noPhoneContact, setNoPhoneContact] = useState<DeviceContact | null>(null);
+
+  const recentContacts = useMemo(() => contacts.slice(0, 8), [contacts]);
+  const filtered = useMemo(() => {
+    if (!query) return contacts;
+    const q = query.toLowerCase();
+    return contacts.filter((c) => {
+      if (c.name.toLowerCase().includes(q)) return true;
+      return c.phoneNumbers.some((p) => p.value.toLowerCase().includes(q) || p.normalized.includes(q));
+    });
+  }, [contacts, query]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const picked = importContactsStore.consumeImportedSelection();
+      if (picked) {
+        nav.goBack();
+      }
+    }, [nav]),
   );
 
-  const recentContacts = MOCK_CONTACTS.filter((c) => RECENT_IDS.includes(c.id));
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      void (async () => {
+        setLoading(true);
+        try {
+          const all = await getAllDeviceContacts();
+          if (!active) return;
+          setContacts(all);
+        } catch {
+          toast.error("Could not load contacts. Please try again.");
+        } finally {
+          if (active) setLoading(false);
+        }
+      })();
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
 
-  const filtered = MOCK_CONTACTS.filter((c) => {
-    if (!query) return true;
-    const q = query.toLowerCase();
-    return c.name.toLowerCase().includes(q) || (c.phone ?? "").includes(q);
-  });
-
-  function handleSelectContact(contact: MockContact) {
-    if (!contact.phone) {
+  function handleSelectContact(contact: DeviceContact) {
+    if (contact.phoneNumbers.length === 0) {
       setNoPhoneContact(contact);
       return;
     }
-    // Stub: in production check contact.phoneNumbers.length > 1 → multipleNumbers sheet
-    // For now navigate straight to add-customer (number pre-filled in a real implementation)
+
+    if (contact.phoneNumbers.length > 1) {
+      importContactsStore.setPendingPhoneChoice({
+        contactName: contact.name,
+        numbers: contact.phoneNumbers,
+      });
+      nav.goToMultipleNumbers(contact.name);
+      return;
+    }
+
+    importContactsStore.setImportedSelection({
+      name: contact.name,
+      phone: contact.phoneNumbers[0].normalized || contact.phoneNumbers[0].value,
+    });
     nav.goBack();
   }
 
-  function handleNoPhoneAction(contact: MockContact) {
+  function handleNoPhoneAction(contact: DeviceContact) {
     setNoPhoneContact(contact);
   }
 
@@ -172,6 +180,12 @@ export default function ImportContactsScreen() {
         />
       </View>
 
+      {loading ? (
+        <View style={styles.centeredState}>
+          <ActivityIndicator size="small" color={Colors.primary} />
+          <Text style={styles.centeredStateText}>Loading contacts...</Text>
+        </View>
+      ) : (
       <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}
@@ -226,6 +240,7 @@ export default function ImportContactsScreen() {
         )}
         ItemSeparatorComponent={() => <View style={styles.divider} />}
       />
+      )}
 
       {/* No phone number toast */}
       {noPhoneContact && (
@@ -320,6 +335,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
     paddingBottom: 120,
   },
+  centeredState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.sm,
+  },
+  centeredStateText: {
+    fontSize: Typography.size.base,
+    color: Colors.textSecondary,
+  },
 
   sectionLabel: {
     fontSize: Typography.size.xs,
@@ -389,21 +414,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontWeight: Typography.weight.medium,
   },
-
-  // ── Balance pill ──
-  balancePill: {
-    borderRadius: Radius.full,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 3,
-  },
-  balancePillDebit: { backgroundColor: Colors.debitLight },
-  balancePillCredit: { backgroundColor: Colors.creditLight },
-  balancePillText: {
-    fontSize: Typography.size.xs,
-    fontWeight: Typography.weight.semibold,
-  },
-  balancePillTextDebit: { color: Colors.debit },
-  balancePillTextCredit: { color: Colors.credit },
 
   divider: {
     height: StyleSheet.hairlineWidth,

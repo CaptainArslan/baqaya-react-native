@@ -2,10 +2,11 @@
  * Phone Number Entry screen
  * Design ref: phone_number_entry_active_state_1
  */
-import { MaterialIcon, Toast } from "@/src/components";
+import { MaterialIcon } from "@/src/components";
 import { PhoneInputField } from "@/src/components/ui/PhoneInputField";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
+import { toast } from "@/src/services";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -32,17 +33,15 @@ export default function PhoneScreen() {
 
   const [phone, setPhone] = useState("");
   const [fieldError, setFieldError] = useState("");
-  const [toast, setToast] = useState("");
   const [loading, setLoading] = useState(false);
 
   const canSendOtp = validate(phone);
 
   function handleSend() {
     setFieldError("");
-    setToast("");
     if (!validate(phone)) {
       setFieldError(t.auth.phone.errorInvalidFormat);
-      setToast(t.auth.phone.errorSendFailed);
+      toast.error(t.auth.phone.errorSendFailed, { throttleKey: "auth:phone:invalid" });
       return;
     }
     setLoading(true);
@@ -152,12 +151,6 @@ export default function PhoneScreen() {
         </View>
       </KeyboardAvoidingView>
 
-      <Toast
-        visible={!!toast}
-        message={toast}
-        type="error"
-        onDismiss={() => setToast("")}
-      />
     </SafeAreaView>
   );
 }

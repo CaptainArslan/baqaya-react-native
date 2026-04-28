@@ -6,9 +6,11 @@ import { MaterialIcon, TextInputField } from "@/src/components";
 import { addMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
+import { importContactsStore } from "@/src/store";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
+import { useFocusEffect } from "@react-navigation/native";
 import { pickImageFromGallery, takePhotoWithCamera } from "@/src/utils/media-picker";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
     Alert,
     Image,
@@ -30,6 +32,16 @@ export default function AddCustomerScreen() {
   const [phone, setPhone] = useState("");
   const [avatarUri, setAvatarUri] = useState("");
   const [nameError, setNameError] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      const imported = importContactsStore.consumeImportedSelection();
+      if (!imported) return;
+      setName(imported.name);
+      setPhone(imported.phone);
+      setNameError("");
+    }, []),
+  );
 
   function promptOpenSettings() {
     Alert.alert(
@@ -160,7 +172,7 @@ export default function AddCustomerScreen() {
 
             {/* Import from contacts */}
             <TouchableOpacity
-              onPress={nav.goToImportContacts}
+              onPress={nav.goToContactPicker}
               style={styles.importRow}
               activeOpacity={0.7}
             >

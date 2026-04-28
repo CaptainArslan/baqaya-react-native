@@ -5,18 +5,13 @@
  */
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
+import { importContactsStore } from "@/src/store";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { useLocalSearchParams } from "expo-router";
-import { SCREEN_MOCKS } from "@/data";
 import { MaterialIcon } from "@/src/components";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-// ─── Mock: phone numbers for a contact ───────────────────────────────────────
-// In production these come from expo-contacts selectedContact.phoneNumbers[]
-// Labels resolved from translation keys at render time (see getMockNumbers below)
-const MOCK_NUMBER_VALUES = [...SCREEN_MOCKS.modals.multipleNumbers.numbers];
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
@@ -25,16 +20,47 @@ export default function MultipleNumbersScreen() {
   const { t } = useTranslation();
   const { contactName } = useLocalSearchParams<{ contactName: string }>();
 
-  const numbers = MOCK_NUMBER_VALUES.map((n) => ({
-    ...n,
-    label: t.multipleNumbers[n.labelKey],
-  }));
+  const pending = importContactsStore.getPendingPhoneChoice();
+  const numbers = useMemo(() => {
+    if (!pending) return [];
+    return pending.numbers.map((n) => ({
+      id: n.id,
+      label:
+        n.label.includes("home")
+          ? t.multipleNumbers.labelHome
+          : n.label.includes("work")
+            ? t.multipleNumbers.labelWork
+            : t.multipleNumbers.labelMobile,
+      value: n.value,
+      normalized: n.normalized,
+    }));
+  }, [pending, t.multipleNumbers.labelHome, t.multipleNumbers.labelMobile, t.multipleNumbers.labelWork]);
 
-  const [selected, setSelected] = useState<string>(numbers[0].id);
+  const [selected, setSelected] = useState<string>(numbers[0]?.id ?? "");
 
   function handleConfirm() {
-    // TODO: pass selected number back to add-customer flow via router params or store
+    const picked = numbers.find((n) => n.id === selected);
+    if (!picked) {
+      nav.goBack();
+      return;
+    }
+    importContactsStore.setImportedSelection({
+      name: pending?.contactName ?? contactName ?? "",
+      phone: picked.normalized || picked.value,
+    });
+    importContactsStore.clearPendingPhoneChoice();
     nav.goBack();
+  }
+
+  if (!pending || numbers.length === 0) {
+    return (
+      <SafeAreaView style={styles.screen} edges={["bottom"]}>
+        <View style={styles.sheetHandle} />
+        <View style={styles.emptyWrap}>
+          <Text style={styles.emptyText}>No numbers found.</Text>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (
@@ -102,7 +128,7 @@ export default function MultipleNumbersScreen() {
               {/* Checkmark */}
               {isSelected && (
                 <View style={styles.checkWrap}>
-                  <Text style={styles.checkIcon}>✓</Text>
+                  <MaterialIcon name="check" size={14} color={Colors.textInverse} />
                 </View>
               )}
             </TouchableOpacity>
@@ -227,10 +253,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  checkIcon: {
-    color: Colors.textInverse,
-    fontSize: Typography.size.sm,
-    fontWeight: Typography.weight.bold,
+  emptyWrap: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyText: {
+    fontSize: Typography.size.base,
+    color: Colors.textMuted,
   },
 
   // ── Footer ──

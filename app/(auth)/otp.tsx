@@ -16,10 +16,11 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAppNavigation } from '@/src/hooks';
-import { MaterialIcon, OtpInput, Toast } from '@/src/components';
+import { MaterialIcon, OtpInput } from '@/src/components';
 import { Colors, Radius, Spacing, Typography } from '@/src/theme';
 import { useAuth } from '@/src/context/AuthContext';
 import { useTranslation } from '@/src/i18n';
+import { toast } from '@/src/services';
 
 const RESEND_SECONDS = 30;
 
@@ -33,7 +34,6 @@ export default function OtpScreen() {
 
   const [otp, setOtp] = useState('');
   const [fieldError, setFieldError] = useState('');
-  const [toast, setToast] = useState('');
   const [loading, setLoading] = useState(false);
   const [resendSeconds, setResendSeconds] = useState(RESEND_SECONDS);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -60,7 +60,6 @@ export default function OtpScreen() {
 
   async function handleVerify() {
     setFieldError('');
-    setToast('');
     if (otp.length < 4) {
       setFieldError(t.auth.otp.errorEnterCode);
       return;
@@ -71,7 +70,7 @@ export default function OtpScreen() {
 
       if (otp === '0000') {
         setFieldError(t.auth.otp.errorInvalidCode);
-        setToast(t.auth.otp.errorVerifyFailed);
+        toast.error(t.auth.otp.errorVerifyFailed, { throttleKey: "auth:otp:invalid" });
         setOtp('');
         return;
       }
@@ -199,12 +198,6 @@ export default function OtpScreen() {
         </View>
       </KeyboardAvoidingView>
 
-      <Toast
-        visible={!!toast}
-        message={toast}
-        type="error"
-        onDismiss={() => setToast('')}
-      />
     </SafeAreaView>
   );
 }

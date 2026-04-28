@@ -6,6 +6,7 @@
 import { useAppNavigation } from "@/src/hooks";
 import { useTranslation } from "@/src/i18n";
 import { PermissionCard } from "@/src/components/ui/PermissionCard";
+import { requestContactsPermission } from "@/src/services";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { MaterialIcon } from "@/src/components";
 import React from "react";
@@ -26,9 +27,12 @@ export default function PermissionDeniedScreen() {
     Linking.openSettings();
   }
 
-  function handleRetry() {
-    // Navigate back so they can re-trigger the permission request
-    nav.goBack();
+  async function handleRetry() {
+    const granted = await requestContactsPermission();
+    if (granted) {
+      nav.goToImportContacts();
+      return;
+    }
   }
 
   return (

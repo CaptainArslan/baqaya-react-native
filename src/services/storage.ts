@@ -10,6 +10,7 @@ const KEYS = {
   LANGUAGE:     'baqaya.language',
   SHOP_NAME:    'baqaya.shop_name',
   BUSINESS_PROFILE: 'baqaya.business_profile',
+  TOAST_QUEUE: 'baqaya.toast_queue',
 } as const;
 
 // ─── Token ───────────────────────────────────────────────────
@@ -88,4 +89,18 @@ export async function getBusinessProfile(): Promise<BusinessProfile | null> {
 
 export async function clearAuthData(): Promise<void> {
   await AsyncStorage.multiRemove([KEYS.AUTH_TOKEN, KEYS.IS_NEW_USER]);
+}
+
+// ─── Toast queue persistence (optional) ──────────────────────
+
+export async function setPersistedToastQueue(rawJson: string): Promise<void> {
+  await AsyncStorage.setItem(KEYS.TOAST_QUEUE, rawJson);
+}
+
+export async function getPersistedToastQueue(): Promise<string | null> {
+  return AsyncStorage.getItem(KEYS.TOAST_QUEUE);
+}
+
+export async function clearPersistedToastQueue(): Promise<void> {
+  await AsyncStorage.removeItem(KEYS.TOAST_QUEUE);
 }

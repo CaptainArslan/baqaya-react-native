@@ -1,6 +1,7 @@
-import { Avatar, InnerHeader, MaterialIcon, Toast } from "@/src/components";
+import { Avatar, InnerHeader, MaterialIcon } from "@/src/components";
 import { getMockCustomer } from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
+import { toast } from "@/src/services";
 import { Colors, Radius, Spacing, Typography } from "@/src/theme";
 import { buildReminderMessage, formatCurrency, openWhatsAppReminder } from "@/src/utils";
 import { useLocalSearchParams } from "expo-router";
@@ -36,7 +37,6 @@ export default function WhatsAppReminderScreen() {
   );
   const [tone, setTone] = useState<Tone>("normal");
   const [customMessage, setCustomMessage] = useState("");
-  const [toast, setToast] = useState("");
 
   const balanceText = formatCurrency(Math.abs(customer?.balance ?? 0));
   const canSend = !!customer?.phone?.trim();
@@ -50,13 +50,13 @@ export default function WhatsAppReminderScreen() {
 
   async function handleSend() {
     if (!customer?.phone?.trim()) {
-      setToast("Phone number missing for this customer.");
+      toast.error("Phone number missing for this customer.", { throttleKey: "wa:no-phone" });
       return;
     }
     const result = await openWhatsAppReminder(customer.phone, message);
     if (result === "opened") return;
-    if (result === "no_phone") setToast("Phone number missing for this customer.");
-    if (result === "no_app") setToast("Could not open WhatsApp.");
+    if (result === "no_phone") toast.error("Phone number missing for this customer.", { throttleKey: "wa:no-phone" });
+    if (result === "no_app") toast.warning("Could not open WhatsApp.", { throttleKey: "wa:no-app" });
   }
 
   if (!customer) {
@@ -153,12 +153,6 @@ export default function WhatsAppReminderScreen() {
         <Text style={styles.footerNote}>INSTANT RECOVERY THROUGH DIRECT MESSAGING</Text>
       </View>
 
-      <Toast
-        visible={!!toast}
-        message={toast}
-        type="error"
-        onDismiss={() => setToast("")}
-      />
     </SafeAreaView>
   );
 }
