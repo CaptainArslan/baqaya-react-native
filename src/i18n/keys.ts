@@ -77,6 +77,24 @@ export interface TranslationMap {
       securityNote: string;
       backToLogin: string;
     };
+    terms: {
+      screenTitle: string;
+      title: string;
+      lastUpdated: string;
+      cta: string;
+      section1Title: string;
+      section1Body: string;
+      section2Title: string;
+      section2Body: string;
+      section3Title: string;
+      section3Body: string;
+      section4Title: string;
+      section4Body: string;
+      section5Title: string;
+      section5Body: string;
+      section6Title: string;
+      section6Body: string;
+    };
   };
 
   // ─── Onboarding ───────────────────────────────────────────

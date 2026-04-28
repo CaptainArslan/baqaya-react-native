@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
   },
   backBtn: { padding: Spacing.xs },
   headerTitle: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     color: Colors.primary,
-    fontWeight: Typography.weight.bold,
+    fontWeight: Typography.weight.semibold,
   },
   content: {
     flex: 1,
@@ -123,16 +123,16 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: Typography.size.xxxl,
-    lineHeight: Typography.size.xxxl * 1.2,
+    fontSize: Typography.size.display,
+    lineHeight: Typography.size.display * 1.2,
     color: Colors.textPrimary,
     fontWeight: Typography.weight.bold,
   },
   subtitle: {
     marginTop: Spacing.sm,
     textAlign: "center",
-    fontSize: Typography.size.lg,
-    lineHeight: Typography.size.lg * 1.5,
+    fontSize: Typography.size.base,
+    lineHeight: Typography.size.base * 1.5,
     color: Colors.textSecondary,
     paddingHorizontal: Spacing.xs,
   },
@@ -160,9 +160,9 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   riskTitle: {
-    fontSize: Typography.size.lg,
+    fontSize: Typography.size.base,
     color: Colors.textPrimary,
-    fontWeight: Typography.weight.bold,
+    fontWeight: Typography.weight.semibold,
   },
   riskBody: {
     fontSize: Typography.size.base,
@@ -183,8 +183,8 @@ const styles = StyleSheet.create({
   },
   keepBtnText: {
     color: Colors.textInverse,
-    fontSize: Typography.size.xl,
-    fontWeight: Typography.weight.bold,
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
   },
   deleteLinkBtn: {
     alignItems: "center",
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   deleteLinkText: {
     color: Colors.debit,
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
   },
 });

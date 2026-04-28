@@ -10,6 +10,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "./MaterialIcon";
 import { Colors, Radius, Spacing, Typography } from "../../theme";
 import { formatCurrency } from "../../utils";
 
@@ -52,7 +53,10 @@ export function LedgerEntryRow({
         <Text style={styles.title} numberOfLines={1}>
           {title}
         </Text>
-        <Text style={styles.time}>🕐 {time}</Text>
+        <View style={styles.timeRow}>
+          <MaterialIcon name="schedule" size={12} color={Colors.textMuted} />
+          <Text style={styles.time}>{time}</Text>
+        </View>
       </View>
 
       <View style={styles.right}>
@@ -101,6 +105,11 @@ const styles = StyleSheet.create({
   time: {
     fontSize: Typography.size.sm,
     color: Colors.textMuted,
+  },
+  timeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xxs + 1,
   },
   right: {
     alignItems: "flex-end",

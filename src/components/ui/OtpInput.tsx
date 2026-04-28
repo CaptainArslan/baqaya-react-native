@@ -22,25 +22,35 @@ interface Props {
 
 export function OtpInput({ value, onChange, hasError = false, style }: Props) {
   const inputs = useRef<Array<TextInput | null>>([]);
+  const getDigits = () => Array.from({ length: OTP_LENGTH }, (_, i) => value[i] ?? '');
 
   function handleChange(text: string, index: number) {
     const digit = text.replace(/[^0-9]/g, '').slice(-1);
-    const arr = value.split('');
-    arr[index] = digit;
-    // fill gaps
-    const next = Array.from({ length: OTP_LENGTH }, (_, i) => arr[i] ?? '').join('');
-    onChange(next);
+    const digits = getDigits();
+    digits[index] = digit;
+    onChange(digits.join(''));
     if (digit && index < OTP_LENGTH - 1) {
       inputs.current[index + 1]?.focus();
     }
   }
 
   function handleKeyPress(key: string, index: number) {
-    if (key === 'Backspace' && !value[index] && index > 0) {
+    if (key !== 'Backspace') return;
+
+    const digits = getDigits();
+
+    // Clear current digit immediately when present.
+    if (digits[index]) {
+      digits[index] = '';
+      onChange(digits.join(''));
+      return;
+    }
+
+    // If current is empty, move back and clear previous.
+    if (index > 0) {
+      digits[index - 1] = '';
+      onChange(digits.join(''));
       inputs.current[index - 1]?.focus();
-      const arr = value.split('');
-      arr[index - 1] = '';
-      onChange(arr.join(''));
     }
   }
 

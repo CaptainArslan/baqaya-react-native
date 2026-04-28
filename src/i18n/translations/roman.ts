@@ -75,6 +75,30 @@ export const roman: TranslationMap = {
       securityNote: "Aapka maali data encrypted aur mehfooz hai.",
       backToLogin: "← Login par wapas",
     },
+    terms: {
+      screenTitle: "Legal Information",
+      title: "Terms & Conditions",
+      lastUpdated: "Last updated: October 24, 2023",
+      cta: "I Understand",
+      section1Title: "Acceptance",
+      section1Body:
+        "By accessing or using Baqaya, you agree to be bound by these Terms & Conditions. This agreement governs your use of our digital ledger services. If you do not agree, please discontinue use immediately.",
+      section2Title: "Usage",
+      section2Body:
+        "Baqaya is designed for tracking credit, payments, and informal financial records. Users are solely responsible for maintaining the security of their accounts and the confidentiality of their transaction data.",
+      section3Title: "Accuracy",
+      section3Body:
+        "The platform provides tools for record-keeping, but the accuracy of entries depends entirely on user input. Users should regularly verify all ledger entries and calculations before finalizing settlements.",
+      section4Title: "Data Responsibility",
+      section4Body:
+        "You retain ownership of the data you enter. Baqaya acts as a processor to provide the service. We recommend regular backups of your ledger data through our export features.",
+      section5Title: "Limitations",
+      section5Body:
+        "Baqaya is NOT a bank or a regulated financial institution. We are not liable for financial losses, data loss, or disputes between users and their customers. The app is a utility tool 'as is.'",
+      section6Title: "Updates",
+      section6Body:
+        "We may update these terms to reflect changes in our service or legal requirements. Continued use of Baqaya after updates constitutes acceptance of the new terms.",
+    },
   },
   onboarding: {
     createShop: {

@@ -715,7 +715,7 @@ export default function ReportsScreen() {
           onPress={() => nav.goToAddEntry("", "udhaar")}
           activeOpacity={0.85}
         >
-          <Text style={styles.addBtnIcon}>⊕</Text>
+          <MaterialIcon name="add-circle-outline" size={20} color={Colors.textInverse} />
           <Text style={styles.addBtnText}>{t.reports.addNewEntry}</Text>
         </TouchableOpacity>
       </View>
@@ -781,11 +781,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     paddingVertical: Spacing.md + 2,
     gap: Spacing.sm,
-  },
-  addBtnIcon: {
-    fontSize: Typography.size.lg,
-    color: Colors.textInverse,
-    fontWeight: Typography.weight.bold,
   },
   addBtnText: {
     fontSize: Typography.size.lg,

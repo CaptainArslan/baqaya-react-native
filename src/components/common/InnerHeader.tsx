@@ -11,6 +11,7 @@ import {
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "../ui/MaterialIcon";
 import { Colors, Spacing, Typography } from "../../theme";
 
 interface Props {
@@ -44,7 +45,7 @@ export function InnerHeader({
         hitSlop={10}
         style={styles.backBtn}
       >
-        <Text style={styles.backArrow}>←</Text>
+        <MaterialIcon name="arrow-back" size={22} color={Colors.primary} />
       </TouchableOpacity>
 
       {leftElement ? <View style={styles.leftEl}>{leftElement}</View> : null}
@@ -75,11 +76,6 @@ const styles = StyleSheet.create({
   backBtn: {
     marginRight: Spacing.sm,
     padding: Spacing.xs,
-  },
-  backArrow: {
-    fontSize: Typography.size.xxl,
-    color: Colors.primary,
-    fontWeight: Typography.weight.medium,
   },
   leftEl: {
     marginRight: Spacing.sm,

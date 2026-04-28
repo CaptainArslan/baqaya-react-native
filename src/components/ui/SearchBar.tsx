@@ -5,12 +5,12 @@
 import React, { useState } from "react";
 import {
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
     View,
     type ViewStyle,
 } from "react-native";
+import { MaterialIcon } from "./MaterialIcon";
 import { Colors, Radius, Spacing, Typography } from "../../theme";
 
 interface Props {
@@ -34,7 +34,7 @@ export function SearchBar({
 
   return (
     <View style={[styles.container, focused && styles.focused, style]}>
-      <Text style={styles.searchIcon}>🔍</Text>
+      <MaterialIcon name="search" size={18} color={Colors.textMuted} />
       <TextInput
         style={styles.input}
         value={value}
@@ -51,7 +51,7 @@ export function SearchBar({
           hitSlop={8}
           style={styles.iconBtn}
         >
-          <Text style={styles.actionIcon}>⚙</Text>
+          <MaterialIcon name="tune" size={18} color={Colors.textSecondary} />
         </TouchableOpacity>
       )}
       {onCalendarPress && (
@@ -60,7 +60,7 @@ export function SearchBar({
           hitSlop={8}
           style={styles.iconBtn}
         >
-          <Text style={styles.actionIcon}>📅</Text>
+          <MaterialIcon name="calendar-today" size={18} color={Colors.textSecondary} />
         </TouchableOpacity>
       )}
     </View>
@@ -82,10 +82,6 @@ const styles = StyleSheet.create({
   focused: {
     borderColor: Colors.primary,
   },
-  searchIcon: {
-    fontSize: Typography.size.md,
-    opacity: 0.5,
-  },
   input: {
     flex: 1,
     fontSize: Typography.size.base,
@@ -94,9 +90,5 @@ const styles = StyleSheet.create({
   },
   iconBtn: {
     padding: Spacing.xs,
-  },
-  actionIcon: {
-    fontSize: Typography.size.lg,
-    opacity: 0.6,
   },
 });

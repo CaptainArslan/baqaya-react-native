@@ -11,6 +11,7 @@ export default function DeleteAccountVerifyScreen() {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const canDelete = /^\d{4}$/.test(otp);
 
   async function handleDelete() {
     if (otp.length !== 4) {
@@ -61,10 +62,10 @@ export default function DeleteAccountVerifyScreen() {
         />
 
         <TouchableOpacity
-          style={[styles.deleteBtn, loading && styles.disabledBtn]}
+          style={[styles.deleteBtn, (!canDelete || loading) && styles.disabledBtn]}
           onPress={handleDelete}
           activeOpacity={0.85}
-          disabled={loading}
+          disabled={loading || !canDelete}
         >
           <Text style={styles.deleteBtnText}>
             {loading ? "Deleting..." : "Delete My Account Permanently"}
@@ -102,9 +103,9 @@ const styles = StyleSheet.create({
   },
   backBtn: { padding: Spacing.xs },
   headerTitle: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     color: Colors.primary,
-    fontWeight: Typography.weight.bold,
+    fontWeight: Typography.weight.semibold,
   },
   card: {
     marginHorizontal: Spacing.base,
@@ -125,16 +126,19 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.base,
   },
   title: {
-    fontSize: Typography.size.xxxl,
+    fontSize: Typography.size.display,
     color: Colors.textPrimary,
     fontWeight: Typography.weight.bold,
-    lineHeight: Typography.size.xxxl * 1.2,
+    lineHeight: Typography.size.display * 1.2,
+    textAlign: "center",
   },
   subtitle: {
-    marginTop: Spacing.xs,
-    fontSize: Typography.size.lg,
-    lineHeight: Typography.size.lg * 1.5,
+    marginTop: Spacing.sm,
+    fontSize: Typography.size.base,
+    lineHeight: Typography.size.base * 1.5,
     color: Colors.textSecondary,
+    textAlign: "center",
+    paddingHorizontal: Spacing.xs,
   },
   otp: {
     marginTop: Spacing.lg,
@@ -149,16 +153,16 @@ const styles = StyleSheet.create({
   },
   disabledBtn: { opacity: 0.6 },
   deleteBtnText: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     color: Colors.textInverse,
-    fontWeight: Typography.weight.bold,
+    fontWeight: Typography.weight.semibold,
     textAlign: "center",
     paddingHorizontal: Spacing.md,
   },
   resendBtn: { alignItems: "center", paddingVertical: Spacing.md },
   resendText: {
     color: Colors.info,
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
   },
   infoBox: {

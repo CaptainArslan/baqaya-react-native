@@ -13,6 +13,7 @@ import {
 import { Colors, Radius, Spacing, Typography } from '../../theme';
 import { formatBalance } from '../../utils';
 import { Avatar } from './Avatar';
+import { MaterialIcon } from './MaterialIcon';
 
 type BalanceStatus = 'owes' | 'settled' | 'toGive';
 
@@ -73,7 +74,7 @@ export function CustomerRow({
         </Text>
       </View>
 
-      <Text style={styles.chevron}>›</Text>
+      <MaterialIcon name="chevron-right" size={22} color={Colors.textMuted} style={styles.chevron} />
     </TouchableOpacity>
   );
 }
@@ -129,8 +130,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   chevron: {
-    fontSize: Typography.size.xxl,
-    color: Colors.textMuted,
     marginLeft: -Spacing.xs,
   },
 });

@@ -6,7 +6,7 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MaterialIcon } from '../ui/MaterialIcon';
 import { Colors, Spacing, Typography } from '../../theme';
 
 interface Props {
@@ -41,7 +41,7 @@ export function AppHeader({
       <View style={styles.left}>
         {showBack && (
           <TouchableOpacity onPress={onBack} style={styles.backBtn} hitSlop={8}>
-            <Text style={styles.backIcon}>‹</Text>
+            <MaterialIcon name="arrow-back" size={22} color={Colors.textPrimary} />
           </TouchableOpacity>
         )}
         {leftElement}
@@ -99,11 +99,5 @@ const styles = StyleSheet.create({
   backBtn: {
     marginRight: Spacing.xs,
     padding: Spacing.xs,
-  },
-  backIcon: {
-    fontSize: Typography.size.xxl,
-    color: Colors.textPrimary,
-    lineHeight: Typography.size.xxl,
-    marginTop: -2,
   },
 });
