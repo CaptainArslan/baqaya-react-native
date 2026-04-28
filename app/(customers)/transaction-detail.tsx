@@ -38,7 +38,13 @@ export default function TransactionDetailScreen() {
   const isCredit = tx?.type === "credit";
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const statusLabel = isCredit ? "PAYMENT RECEIVED" : "CREDIT ADDED";
+  const toneColor = isCredit ? Colors.credit : Colors.debit;
+  const toneBgColor = isCredit ? Colors.creditLight : Colors.debitLight;
   const txId = tx ? `#TXN-${tx.id.slice(-6).toUpperCase()}` : "#TXN-000000";
+  const hasAttachment = !!tx?.imageUrl?.trim();
+  const attachmentName = hasAttachment
+    ? tx!.imageUrl!.split("/").pop() || "receipt.jpg"
+    : "";
   const txDateTime = tx
     ? new Date(tx.createdAt).toLocaleString("en-PK", {
         day: "2-digit",
@@ -65,10 +71,14 @@ export default function TransactionDetailScreen() {
         {tx ? (
           <>
             <View style={styles.amountCard}>
-              <View style={styles.leftAccent} />
-              <Text style={styles.amountChip}>{statusLabel}</Text>
+              <View style={[styles.leftAccent, { backgroundColor: toneColor }]} />
+              <Text style={[styles.amountChip, { color: toneColor, backgroundColor: toneBgColor }]}>
+                {statusLabel}
+              </Text>
               <Text style={styles.amountTitle}>TRANSACTION AMOUNT</Text>
-              <Text style={styles.amountValue}>{formatCurrency(tx.amount)}</Text>
+              <Text style={[styles.amountValue, { color: toneColor }]}>
+                {formatCurrency(tx.amount)}
+              </Text>
             </View>
 
             <View style={styles.detailCard}>
@@ -112,13 +122,21 @@ export default function TransactionDetailScreen() {
               <View style={styles.iconLine}>
                 <MaterialIcon name="description" size={20} color={Colors.textSecondary} />
                 <View style={styles.receiptMeta}>
-                  <Text style={styles.receiptTitle}>Bill Receipt Image</Text>
-                  <Text style={styles.receiptSub}>receipt_oct_24.jpg (1.2 MB)</Text>
+                  <Text style={styles.receiptTitle}>
+                    {hasAttachment ? "Bill Receipt Image" : "No Bill Receipt Attached"}
+                  </Text>
+                  <Text style={styles.receiptSub}>
+                    {hasAttachment
+                      ? attachmentName
+                      : "Add attachment from Edit Transaction"}
+                  </Text>
                 </View>
               </View>
-              <TouchableOpacity activeOpacity={0.75}>
-                <MaterialIcon name="download" size={20} color={Colors.primaryText} />
-              </TouchableOpacity>
+              {hasAttachment ? (
+                <TouchableOpacity activeOpacity={0.75}>
+                  <MaterialIcon name="download" size={20} color={Colors.primaryText} />
+                </TouchableOpacity>
+              ) : null}
             </View>
 
             <TouchableOpacity
@@ -218,14 +236,11 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 6,
-    backgroundColor: Colors.debit,
   },
   amountChip: {
     fontSize: Typography.size.xs,
-    color: Colors.debit,
     fontWeight: Typography.weight.semibold,
     letterSpacing: 1,
-    backgroundColor: Colors.debitLight,
     borderRadius: Radius.full,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.xs,
@@ -237,7 +252,6 @@ const styles = StyleSheet.create({
   },
   amountValue: {
     fontSize: Typography.size.xxl,
-    color: Colors.primaryText,
     fontWeight: Typography.weight.bold,
   },
   detailCard: {

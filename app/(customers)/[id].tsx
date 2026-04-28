@@ -491,9 +491,10 @@ const styles = StyleSheet.create({
   },
   txTitle: {
     flex: 1,
-    fontSize: Typography.size.lg,
+    fontSize: Typography.size.base,
+    lineHeight: Typography.size.base * 1.25,
     color: Colors.textPrimary,
-    fontWeight: Typography.weight.semibold,
+    fontWeight: Typography.weight.medium,
   },
   txMetaRow: {
     flexDirection: "row",
@@ -508,16 +509,20 @@ const styles = StyleSheet.create({
   },
   txDate: {
     fontSize: Typography.size.sm,
+    lineHeight: Typography.size.sm * 1.25,
     color: Colors.textMuted,
   },
   txTypeTag: {
     fontSize: Typography.size.xs,
+    lineHeight: Typography.size.xs * 1.2,
     color: Colors.textSecondary,
     fontWeight: Typography.weight.bold,
+    letterSpacing: 0.5,
   },
   txAmount: {
-    fontSize: Typography.size.xxl,
-    fontWeight: Typography.weight.bold,
+    fontSize: Typography.size.base,
+    lineHeight: Typography.size.base * 1.25,
+    fontWeight: Typography.weight.semibold,
   },
   txChevron: {
     marginLeft: -Spacing.xs,
