@@ -4,8 +4,14 @@
  *               Home / Cashbook → Add Entry FAB
  */
 import { Avatar, MaterialIcon } from "@/src/components";
-import { getAllMockCustomers, getMockCustomer } from "@/src/constants/mockData";
+import {
+  addMockTransaction,
+  getAllMockCustomers,
+  getMockCustomer,
+  updateMockCustomer,
+} from "@/src/constants/mockData";
 import { useAppNavigation } from "@/src/hooks";
+import { toast } from "@/src/services";
 import { Colors, Radius, Shadows, Spacing, Typography } from "@/src/theme";
 import { formatCurrency } from "@/src/utils";
 import { useLocalSearchParams } from "expo-router";
@@ -48,7 +54,6 @@ export default function AddEntryScreen() {
   const [billSize] = useState("1.2MB");
   const [paymentMethod, setPaymentMethod] = useState<"cash" | "bank" | "online">("cash");
   const [amountError, setAmountError] = useState("");
-  const [showToast, setShowToast] = useState(false);
 
   const quickAmounts = [100, 500, 1000];
   const todayLabel = new Date().toLocaleDateString("en-GB", {
@@ -74,7 +79,35 @@ export default function AddEntryScreen() {
       setAmountError("Enter a valid amount greater than 0");
       return;
     }
-    setShowToast(true);
+    const txType = isUdhaar ? "debit" : "credit";
+    const nowIso = new Date().toISOString();
+
+    addMockTransaction({
+      id: `tx_${Date.now()}`,
+      customerId: selectedCustomer.id,
+      customerName: selectedCustomer.name,
+      type: txType,
+      amount: parsed,
+      note: note.trim() || undefined,
+      createdAt: nowIso,
+      synced: false, // offline-first: local-first write, sync later
+    });
+
+    const currentBalance = selectedCustomer.balance ?? 0;
+    const nextBalance = isUdhaar
+      ? currentBalance + parsed
+      : Math.max(currentBalance - parsed, 0);
+
+    updateMockCustomer(selectedCustomer.id, {
+      balance: nextBalance,
+      lastActivity: nowIso,
+    });
+
+    toast.success(
+      isUdhaar ? "Entry saved successfully" : "Payment saved successfully",
+      { durationMs: 3000 },
+    );
+    nav.goBack();
   }
 
   const canSave = amount.trim().length > 0 && !!selectedCustomer;
@@ -328,17 +361,6 @@ export default function AddEntryScreen() {
                 </TouchableOpacity>
               </View>
 
-              {showToast && (
-                <View style={styles.toast}>
-                  <View style={styles.toastLeft}>
-                    <MaterialIcon name="check-circle" size={20} color={Colors.textSecondary} />
-                    <Text style={styles.toastText}>Credit added successfully</Text>
-                  </View>
-                  <TouchableOpacity activeOpacity={0.75} onPress={() => setShowToast(false)}>
-                    <Text style={styles.undoText}>UNDO</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
             </>
           ) : (
             <>
@@ -788,35 +810,6 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weight.semibold,
   },
   changeText: {
-    color: Colors.textSecondary,
-    fontSize: Typography.size.base,
-    fontWeight: Typography.weight.semibold,
-  },
-  toast: {
-    marginTop: Spacing.sm,
-    borderRadius: Radius.sm,
-    backgroundColor: Colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.md,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    ...Shadows.sm,
-  },
-  toastLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.xs,
-    flex: 1,
-  },
-  toastText: {
-    color: Colors.textPrimary,
-    fontSize: Typography.size.base,
-    fontWeight: Typography.weight.medium,
-  },
-  undoText: {
     color: Colors.textSecondary,
     fontSize: Typography.size.base,
     fontWeight: Typography.weight.semibold,

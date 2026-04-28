@@ -21,7 +21,7 @@ export function addMockCustomer(customer: Customer): void {
 
 export function updateMockCustomer(
   id: string,
-  patch: Partial<Pick<Customer, "name" | "phone" | "avatarUrl" | "balance">>,
+  patch: Partial<Pick<Customer, "name" | "phone" | "avatarUrl" | "balance" | "lastActivity">>,
 ): Customer | undefined {
   const existing =
     _updatedCustomers.get(id) ??
